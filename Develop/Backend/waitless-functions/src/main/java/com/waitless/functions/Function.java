@@ -31,4 +31,18 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.OK).body("Harsh is very pretty " + name).build();
         }
     }
+
+    @FunctionName("Hello-Java")
+    public String Hello(
+            @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST},authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                        final ExecutionContext context){
+        String query = request.getQueryParameters().get("name");
+        String name = request.getBody().orElse(query);
+        if(name == null)
+            return "Please input a name";
+        else
+            return "Hello" + name;
+    }
+
+
 }

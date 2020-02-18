@@ -97,5 +97,15 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid waiter name and table number").build();
             }
     }
+    @FunctionName("PasswordVerify")
+    public HttpResponseMessage passwordVerify(@HttpTrigger(name = "req", methods = {HttpMethod.GET,HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                                              final ExecutionContext context){
+        String query = request.getQueryParameters().get("name");
+        String password = request.getBody().orElse(query);
+        //TODO: CALL USER AUTHENTICATION FUCNCTION
+        return null; //Temp value
+
+
+    }
 
 }

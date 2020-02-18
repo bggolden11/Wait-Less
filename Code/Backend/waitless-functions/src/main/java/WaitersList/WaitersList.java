@@ -6,6 +6,10 @@ import Objects.Table;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * Will probably be deleted since this data will be stored in sql
+ */
 
 public class WaitersList {
     private static WaitersList single_instance = null;

@@ -15,12 +15,8 @@ public class UserAuthentication {
 
     public boolean authenticate(String username, String password){
         String encryptedPassword = AES.encrypt(password, secretKey);
-
+        return true;
     }
-
-
-
-
 
     public static class AES {
 

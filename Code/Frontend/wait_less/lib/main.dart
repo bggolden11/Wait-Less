@@ -1,8 +1,13 @@
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
 
 main() {
   runApp(MyApp());
 }
+
+final Dio httpClient = new HTTPClient().dio;
 
 class MyApp extends StatelessWidget {
   @override
@@ -59,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildEmailField(),
+            _buildEmployeeIDField(),
             SizedBox(
               height: 10.0,
             ),
@@ -78,21 +83,33 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildEmailField() {
+  /// Controllers for the retrieval of text from username and password
+  final employeeIDController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  Widget _buildEmployeeIDField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Username'),
+      controller: employeeIDController,
+      decoration: InputDecoration(labelText: 'Employee ID'),
     );
   }
 
   Widget _buildPasswordField() {
     return TextFormField(
+      controller: passwordController,
       decoration: InputDecoration(labelText: 'Password'),
     );
   }
 
+  void _loginOnPressed() async{
+    final String employeeID = employeeIDController.text.toString().trim();
+    final String password  = passwordController.text.toString().trim();
+    
+  }
+
   Widget _buildSubmitButton() {
     return RaisedButton(
-      onPressed: () {},
+      onPressed: _loginOnPressed,
       color: Colors.blueAccent[200],
       child: Text(
         'LOGIN',

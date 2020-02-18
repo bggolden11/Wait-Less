@@ -20,3 +20,10 @@ CREATE TABLE [dbo].[Employee](
 	[Employee_Token] [varchar](MAX) NOT NULL,
 )
 GO
+
+INSERT INTO [dbo].[Employee] 
+	( [Employee_FName], [Employee_LName], [Employee_Position_ID], [Employee_Hire_Date],
+      [Employee_Birth_Day], [Employee_Address], [Employee_Phone], [Employee_Token] )
+VALUES ('Test', 'Person', 3, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', 'jAl4N4o8EGTKM0DLJiblQQ==')
+GO
+

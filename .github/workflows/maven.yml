@@ -15,9 +15,4 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run:  cd Code/Backend/waitless-functions/ && mvn -B package --file pom.xml
-    - name: Discord notification
-      env:
-        DISCORD_WEBHOOK: https://discordapp.com/api/webhooks/679396580314316812/B0a1b-4Bz7ijUUgtfIl3rKibwRaNNMgk38W0YL1-uMT-o3A5gmdTZctCcn4HpkmteuyY
-        uses: Ilshidur/action-discord@master
-        with:
-          args: 'A new commit has been pushed'
+      

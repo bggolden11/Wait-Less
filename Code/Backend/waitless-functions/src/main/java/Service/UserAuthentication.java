@@ -1,7 +1,7 @@
 package Service;
 
 
-import DBO.Queries.DBOQueries;
+import DBO.Queries.AuthenticatingUserDBOQuery;
 import Exceptions.UserNotFoundException;
 
 import javax.crypto.Cipher;
@@ -17,7 +17,7 @@ public class UserAuthentication {
 
     public boolean authenticate(String username, String password) throws UserNotFoundException, SQLException {
         String encryptedPassword = AES.encrypt(password, secretKey);
-        return (new DBOQueries()).userAuthenticate(username).password.equals(encryptedPassword);
+        return (new AuthenticatingUserDBOQuery()).userAuthenticate(username).password.equals(encryptedPassword);
     }
 
     public static class AES {

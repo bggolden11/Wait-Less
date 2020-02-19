@@ -1,6 +1,6 @@
-package DBO;
+package DBO.Queries;
 
-import DBOTypes.UserAuthenticationDBO;
+import DBO.DBOTypes.UserAuthenticationDBO;
 import Exceptions.UserNotFoundException;
 
 import java.sql.*;

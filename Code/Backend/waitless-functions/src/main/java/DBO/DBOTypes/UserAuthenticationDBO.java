@@ -1,4 +1,4 @@
-package DBOTypes;
+package DBO.DBOTypes;
 
 public class UserAuthenticationDBO {
     public String username;

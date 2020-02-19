@@ -7,7 +7,7 @@ import Exceptions.UserNotFoundException;
 import Members.Waiter;
 import Requests.AddNewTableRequest;
 import Requests.UserAuthenticationRequest;
-import UserAuthentication.UserAuthentication;
+import Service.UserAuthentication;
 import WaitersList.WaitersList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;

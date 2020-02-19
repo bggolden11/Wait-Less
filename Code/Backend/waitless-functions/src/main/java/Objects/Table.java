@@ -6,5 +6,5 @@ public class Table {
     public Table(int numTable){
         this.numTable = numTable;
     }
-    
+
 }

@@ -37,6 +37,10 @@ public class UserAuthentication {
                 e.printStackTrace();
             }
         }
+//        public static void main(String[] argc){
+//            System.out.println(decrypt("jAl4N4o8EGTKM0DLJiblQQ==","[B@37a71e93"));
+//
+//        }
 
         public static String encrypt(String strToEncrypt, String secret) {
             try {

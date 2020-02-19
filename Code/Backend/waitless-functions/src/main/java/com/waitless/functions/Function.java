@@ -101,8 +101,8 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid waiter name and table number").build();
             }
     }
-    @FunctionName("PasswordVerify")
-    public HttpResponseMessage passwordVerify(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
+    @FunctionName("AuthenticateUser")
+    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                               final ExecutionContext context){
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
@@ -111,7 +111,7 @@ public class Function {
                 if(new UserAuthentication().authenticate(userAuthenticationRequest.username,userAuthenticationRequest.password)){
                     return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
                 }
-                return request.createResponseBuilder(HttpStatus.NON_AUTHORITATIVE_INFORMATION).body("Valid username but incorrect password").build();
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
             }
             catch (UserNotFoundException e){
                 return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();

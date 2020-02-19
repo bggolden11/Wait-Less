@@ -7,10 +7,8 @@ import java.sql.*;
 
 public class AuthenticatingUserDBOQuery implements DBO {
 
-    Connection connection = null;
-
     public UserAuthenticationDBO userAuthenticate(String username) throws SQLException, UserNotFoundException {
-
+        Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);

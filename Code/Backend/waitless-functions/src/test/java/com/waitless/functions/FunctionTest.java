@@ -1,5 +1,7 @@
 package com.waitless.functions;
 
+import Requests.UserAuthenticationRequest;
+import Service.UserAuthentication;
 import com.microsoft.azure.functions.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -51,6 +53,13 @@ public class FunctionTest {
         assertEquals(ret.getStatus(), HttpStatus.OK);
     }
 
+//    @Test
+//    public void testAuthenticUser() throws Exception {
+//        final HttpRequestMessage<Optional<UserAuthenticationRequest>> req = mock(HttpRequestMessage.class);
+//
+//        final Map<String, String> queryParams = new HashMap<>();
+//
+//    }
 
 
 }

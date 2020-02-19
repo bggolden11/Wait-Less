@@ -68,7 +68,7 @@ public class Function {
                 if(getWaiter == null)
                     return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Waiter not found").build();
                 else
-                    return request.createResponseBuilder(HttpStatus.OK).body(mapper.writeValueAsString(getWaiter)).build();
+                        return request.createResponseBuilder(HttpStatus.OK).body(mapper.writeValueAsString(getWaiter)).build();
             }
             catch(Exception e){
                 context.getLogger().info("Throwing exception \n " + e.getStackTrace());
@@ -108,6 +108,7 @@ public class Function {
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
         if(userAuthenticationRequest != null) {
             try{
+                context.getLogger().info(userAuthenticationRequest.toString());
                 if(new UserAuthentication().authenticate(userAuthenticationRequest.username,userAuthenticationRequest.password)){
                     return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
                 }

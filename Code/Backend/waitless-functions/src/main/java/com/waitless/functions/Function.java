@@ -1,9 +1,13 @@
 package com.waitless.functions;
 
+import java.sql.SQLException;
 import java.util.*;
 
+import Exceptions.UserNotFoundException;
 import Members.Waiter;
 import Requests.AddNewTableRequest;
+import Requests.UserAuthenticationRequest;
+import UserAuthentication.UserAuthentication;
 import WaitersList.WaitersList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;
@@ -98,14 +102,28 @@ public class Function {
             }
     }
     @FunctionName("PasswordVerify")
-    public HttpResponseMessage passwordVerify(@HttpTrigger(name = "req", methods = {HttpMethod.GET,HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage passwordVerify(@HttpTrigger(name = "req", methods = {HttpMethod.GET,HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                               final ExecutionContext context){
         String query = request.getQueryParameters().get("name");
-        String password = request.getBody().orElse(query);
-        //TODO: CALL USER AUTHENTICATION FUCNCTION
-        return null; //Temp value
+        UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
+        if(userAuthenticationRequest != null) {
+            try{
+                if(new UserAuthentication().authenticate(userAuthenticationRequest.username,userAuthenticationRequest.password)){
+                    return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
+                }
+                return request.createResponseBuilder(HttpStatus.NON_AUTHORITATIVE_INFORMATION).body("Valid username but incorrect password").build();
+            }
+            catch (UserNotFoundException e){
+                return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+            }
+            catch (SQLException e){
+                return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+            }
+        }
+        else{
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
 
-
+        }
     }
 
 }

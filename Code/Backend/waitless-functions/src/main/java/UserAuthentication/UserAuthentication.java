@@ -1,21 +1,23 @@
 package UserAuthentication;
 
 
+import DBO.DBOQueries;
+import Exceptions.UserNotFoundException;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Base64;
 
 public class UserAuthentication {
     final String secretKey = "[B@37a71e93";
 
-    public boolean authenticate(String username, String password){
+    public boolean authenticate(String username, String password) throws UserNotFoundException, SQLException {
         String encryptedPassword = AES.encrypt(password, secretKey);
-        return true;
+        return (new DBOQueries()).userAuthenticate(username).password.equals(password);
     }
 
     public static class AES {

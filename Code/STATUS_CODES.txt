@@ -1,0 +1,5 @@
+AUTHENTICATE USER
+200 - OK, correct username and password
+401 - UNAUTHORIZED, user found but incorrect password
+404 - NOT_FOUND, user not found
+500 - INTERNAL_SERVER_ERROR, likely issue either SQL or Azure

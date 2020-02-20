@@ -6,9 +6,10 @@ import java.util.*;
 import Exceptions.UserNotFoundException;
 import Members.Waiter;
 import Requests.AddNewTableRequest;
+import Requests.CreateUserRequest;
 import Requests.UserAuthenticationRequest;
 import Service.UserAuthentication;
-import WaitersList.WaitersList;
+import Service.CreateUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
@@ -18,7 +19,7 @@ import com.microsoft.azure.functions.*;
  * Azure Functions with HTTP Trigger.
  */
 public class Function {
-    WaitersList waiterInstance = WaitersList.getInstance();
+    //WaitersList waiterInstance = WaitersList.getInstance();
 
     @FunctionName("HttpTrigger-Java")
     public HttpResponseMessage run(
@@ -37,23 +38,7 @@ public class Function {
         }
     }
 
-
-    @FunctionName("AddWaiter")
-    public HttpResponseMessage addWaiter(
-            @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
-            final ExecutionContext context) {
-        String query = request.getQueryParameters().get("name");
-        String name = request.getBody().orElse(query);
-        if (name == null) {
-            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a name on the waiter name in the request body").build();
-        } else if (waiterInstance != null) {
-                waiterInstance.addWaiter((new Waiter(name)));
-                return request.createResponseBuilder(HttpStatus.OK).body("Waiter added succesfully").build();
-        } else {
-            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("getting the singleton failed").build();
-        }
-    }
-
+    /** needs to be rewritten for sql
     @FunctionName("GetWaiter")
     public HttpResponseMessage getWaiter(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
                                          final ExecutionContext context) {
@@ -101,6 +86,49 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid waiter name and table number").build();
             }
     }
+
+    @FunctionName("AddWaiter")
+    public HttpResponseMessage addWaiter(
+            @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+            final ExecutionContext context) {
+        //String query = request.getQueryParameters().get("name");
+
+        String name = request.getBody().orElse(query);
+        CreateNewUserRequest createUserRequest = request.getBody().orElse(null);
+
+        if (name == null) {
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please pass a name on the waiter name in the request body").build();
+        } else if (waiterInstance != null) {
+                waiterInstance.addWaiter((new Waiter(name)));
+                return request.createResponseBuilder(HttpStatus.OK).body("Waiter added succesfully").build();
+        } else {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("getting the singleton failed").build();
+        }
+    } **/
+
+    @FunctionName("AddWaiter")
+    public HttpResponseMessage AddWaiter(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
+                                              final ExecutionContext context){
+        //String query = request.getQueryParameters().get("name");
+        CreateUserRequest createUserRequest = request.getBody().orElse(null);
+        if(createUserRequest != null) {
+            try{
+                context.getLogger().info(createUserRequest.toString());
+                if(new CreateUser().create(createUserRequest.firstName,createUserRequest.lastName, createUserRequest.isManager, createUserRequest.birthday, createUserRequest.address, createUserRequest.phone, createUserRequest.salary, createUserRequest.passwordtoken)){
+                    return request.createResponseBuilder(HttpStatus.OK).body("Added new waiter").build();
+                }
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
+            }
+            catch (SQLException e){
+                return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+            }
+        }
+        else{
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+
+        }
+    }
+
     @FunctionName("AuthenticateUser")
     public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                               final ExecutionContext context){
@@ -109,7 +137,7 @@ public class Function {
         if(userAuthenticationRequest != null) {
             try{
                 context.getLogger().info(userAuthenticationRequest.toString());
-                if(new UserAuthentication().authenticate(userAuthenticationRequest.username,userAuthenticationRequest.password)){
+                if(new UserAuthentication().authenticate(userAuthenticationRequest.employeeID,userAuthenticationRequest.passwordtoken)){
                     return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
                 }
                 return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();

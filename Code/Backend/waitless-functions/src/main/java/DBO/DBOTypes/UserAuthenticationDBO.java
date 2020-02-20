@@ -1,11 +1,11 @@
 package DBO.DBOTypes;
 
 public class UserAuthenticationDBO {
-    public String username;
-    public String password;
+    public String employeeID;
+    public String passwordtoken;
 
-    public UserAuthenticationDBO(String username, String password){
-        this.username = username;
-        this.password = password;
+    public UserAuthenticationDBO(String employeeID, String passwordtoken){
+        this.employeeID = employeeID;
+        this.passwordtoken = passwordtoken;
     }
 }

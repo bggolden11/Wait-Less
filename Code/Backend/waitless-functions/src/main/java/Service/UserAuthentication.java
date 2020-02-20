@@ -15,9 +15,9 @@ import java.util.Base64;
 public class UserAuthentication {
     final String secretKey = "[B@37a71e93";
 
-    public boolean authenticate(String username, String password) throws UserNotFoundException, SQLException {
+    public boolean authenticate(String employeeID, String password) throws UserNotFoundException, SQLException {
         String encryptedPassword = AES.encrypt(password, secretKey);
-        return (new AuthenticatingUserDBOQuery()).userAuthenticate(username).password.equals(encryptedPassword);
+        return (new AuthenticatingUserDBOQuery()).userAuthenticate(employeeID).passwordtoken.equals(encryptedPassword);
     }
 
     public static class AES {

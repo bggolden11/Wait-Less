@@ -2,9 +2,6 @@ package Members;
 
 import Objects.Table;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Waiter {
     private int id;
     private String name;
@@ -16,7 +13,6 @@ public class Waiter {
     from all table IDs, but with preference to the table IDs that
     they are currently waiting
     **/
-    private Queue<Table> tableQueue = new LinkedList<>();
 
     public Waiter(int id,String name){
         this.id = id;
@@ -28,7 +24,7 @@ public class Waiter {
         this.name = name;
     }
 
-    public int getId(){
+    public int getID(){
         return this.id;
     }
 
@@ -36,20 +32,8 @@ public class Waiter {
         this.name = name;
     }
 
-    public void setTableQueue(Queue<Table> tableQueue) {
-        this.tableQueue = tableQueue;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public Queue<Table> getTables(){
-        return tableQueue;
-    }
-
-    public boolean addTable(Table table){
-        return tableQueue.add(table);
     }
 
 

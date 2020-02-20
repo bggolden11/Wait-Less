@@ -1,7 +1,8 @@
 package Requests;
 
 public class AddNewTableRequest {
-    public String waiterName;
-    public int tableNumber;
+    public String tableName;
+    public int tableID;
+    public int prefferedWaiterID;
 
 }

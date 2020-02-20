@@ -9,23 +9,25 @@ import java.util.Map;
 /**
  *
  * Will probably be deleted since this data will be stored in sql
+ * not used anymore
  */
 
+/*
 public class WaitersList {
     private static WaitersList single_instance = null;
     //We may need to use the synchronized version of this if were gonna have more threads using it ???
-    Map<String,Waiter> allWaiters = new HashMap<>();
+    Map<int,Waiter> allWaiters = new HashMap<>();
 
     public void addWaiter(Waiter waiter){
-        allWaiters.put(waiter.getName(), waiter);
+        allWaiters.put(waiter.getID(), waiter);
     }
 
-    public Waiter getWaiter(String name){
-        return allWaiters.get(name);
+    public Waiter getWaiter(int id){
+        return allWaiters.get(id);
     }
 
-    public boolean addTable(String waiterName, int tableNumber){
-        return getWaiter(waiterName).addTable((new Table(tableNumber)));
+    public boolean addTable(String id, int tableNumber){
+        return getWaiter(id).addTable((new Table(tableNumber, )));
     }
 
     public static WaitersList getInstance()
@@ -37,3 +39,4 @@ public class WaitersList {
     }
 
 }
+*/

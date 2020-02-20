@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class AuthenticatingUserDBOQuery implements DBO {
 
-    public UserAuthenticationDBO userAuthenticate(String username) throws SQLException, UserNotFoundException {
+    public UserAuthenticationDBO userAuthenticate(String employeeID) throws SQLException, UserNotFoundException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
@@ -16,7 +16,7 @@ public class AuthenticatingUserDBOQuery implements DBO {
         // Create and execute a SELECT SQL statement.
         String selectSql = "SELECT * "
                 + "FROM Employee "
-                + "WHERE Employee_ID = " + username + ";\n";
+                + "WHERE Employee_ID = " + employeeID + ";\n";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(selectSql)) {

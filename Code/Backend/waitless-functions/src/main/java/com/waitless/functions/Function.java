@@ -1,9 +1,13 @@
 package com.waitless.functions;
 
+import java.sql.SQLException;
 import java.util.*;
 
+import Exceptions.UserNotFoundException;
 import Members.Waiter;
 import Requests.AddNewTableRequest;
+import Requests.UserAuthenticationRequest;
+import Service.UserAuthentication;
 import WaitersList.WaitersList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;
@@ -64,7 +68,7 @@ public class Function {
                 if(getWaiter == null)
                     return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Waiter not found").build();
                 else
-                    return request.createResponseBuilder(HttpStatus.OK).body(mapper.writeValueAsString(getWaiter)).build();
+                        return request.createResponseBuilder(HttpStatus.OK).body(mapper.writeValueAsString(getWaiter)).build();
             }
             catch(Exception e){
                 context.getLogger().info("Throwing exception \n " + e.getStackTrace());
@@ -96,6 +100,31 @@ public class Function {
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid waiter name and table number").build();
             }
+    }
+    @FunctionName("AuthenticateUser")
+    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
+                                              final ExecutionContext context){
+        String query = request.getQueryParameters().get("name");
+        UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
+        if(userAuthenticationRequest != null) {
+            try{
+                context.getLogger().info(userAuthenticationRequest.toString());
+                if(new UserAuthentication().authenticate(userAuthenticationRequest.username,userAuthenticationRequest.password)){
+                    return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
+                }
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
+            }
+            catch (UserNotFoundException e){
+                return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+            }
+            catch (SQLException e){
+                return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+            }
+        }
+        else{
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+
+        }
     }
 
 }

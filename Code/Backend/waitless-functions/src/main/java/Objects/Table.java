@@ -7,5 +7,4 @@ public class Table {
         this.numTable = numTable;
     }
 
-
 }

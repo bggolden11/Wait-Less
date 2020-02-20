@@ -5,8 +5,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/screens/main_menu.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
+
 
 main() {
   runApp(MyApp());
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Login Screen',
       home: LoginPage(),
+      routes: {MainMenu.route : (context) => MainMenu()},
     );
   }
 }
@@ -117,31 +119,47 @@ class _LoginPageState extends State<LoginPage> {
 
       final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/AuthenticateUser?code=QONIYXuRMDrvPaYBRCOyhfj5Rc7xSEBeNV3tPQ9lOmwJYIhpLm/aGA==",
            data: body);
-      print(response.statusCode);
+
       switch (response.statusCode){
         case 200:
-          /// TODO: Harsh, make the main menu screen and switch to it here
 
           Fluttertoast.showToast(
               msg: "Login Successful",
-              toastLength: Toast.LENGTH_SHORT,
+              toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIos: 1,
               backgroundColor: Colors.black45,
               textColor: Colors.white,
               fontSize: 14.0
           );
-          print("200");
+
+          Navigator.pushReplacementNamed(context, MainMenu.route);
 
           break;
         case 400:
           print("Flutter Error: Didn't pass the right JSON file");
           break;
         case 401:
-          /// TODO: Prompt the user to type in a different password, password was invalid
+          Fluttertoast.showToast(
+              msg: "Invalid Password!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 14.0
+          );
           break;
         case 404:
-          // TODO Prompt the user to type in a different username, username was invalid
+          Fluttertoast.showToast(
+              msg: "Invalid Employee ID!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 14.0
+          );
           break;
         case 500:
           print("Internal server Error");

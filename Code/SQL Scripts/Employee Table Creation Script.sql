@@ -1,5 +1,5 @@
 /* Employee Table Creation Script */
-DROP TABLE [dbo].[Employee]
+DROP TABLE IF EXISTS [dbo].[Employee]
 GO
 
 SET ANSI_NULLS ON
@@ -9,21 +9,34 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [dbo].[Employee](
-	[Employee_ID] [int] NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[Employee_FName] [varchar](50) NOT NULL,
-	[Employee_LName] [varchar](50) NOT NULL,
-	[Employee_Position_ID] [int] NOT NULL,
-	[Employee_Hire_Date] [date] NOT NULL,
-	[Employee_Birth_Day] [date] NOT NULL,
-	[Employee_Address] [varchar](50) NOT NULL,
-	[Employee_Phone] [varchar](50) NOT NULL,
-	[Employee_Token] [varchar](MAX) NOT NULL,
+	[Employee_ID] [int] NOT NULL IDENTITY(2121,1) PRIMARY KEY,
+	[FName] [varchar](50) NOT NULL,
+	[LName] [varchar](50) NOT NULL,
+	[Position] [varchar](50) NOT NULL,
+	[Hire_Date] [date] NOT NULL,
+	[Birth_Date] [date] NOT NULL,
+	[Address] [varchar](50) NOT NULL,
+	[Phone] [varchar](50) NOT NULL,
+	[Token] [varchar](MAX) NOT NULL,
+	[Salary] [decimal](19,2) NOT NULL,
 )
 GO
 
 INSERT INTO [dbo].[Employee] 
-	( [Employee_FName], [Employee_LName], [Employee_Position_ID], [Employee_Hire_Date],
-      [Employee_Birth_Day], [Employee_Address], [Employee_Phone], [Employee_Token] )
-VALUES ('Test', 'Person', 3, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', 'jAl4N4o8EGTKM0DLJiblQQ==')
+	( [FName], [LName], [Position], [Hire_Date],
+      [Birth_Date], [Address], [Phone], [Token], [Salary] )
+VALUES ('Manager', 'Test', 'Manager', '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', 'jAl4N4o8EGTKM0DLJiblQQ==', 14.20)
+GO
+
+INSERT INTO [dbo].[Employee] 
+	( [FName], [LName], [Position], [Hire_Date],
+      [Birth_Date], [Address], [Phone], [Token], [Salary] )
+VALUES ('Host', 'Test', 'Host', '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', 'jAl4N4o8EGTKM0DLJiblQQ==', 8.80)
+GO
+
+INSERT INTO [dbo].[Employee] 
+	( [FName], [LName], [Position], [Hire_Date],
+      [Birth_Date], [Address], [Phone], [Token], [Salary] )
+VALUES ('Waiter', 'Test', 'Waiter', '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', 'jAl4N4o8EGTKM0DLJiblQQ==', 10.0)
 GO
 

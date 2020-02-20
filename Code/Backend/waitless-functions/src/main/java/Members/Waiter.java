@@ -8,6 +8,14 @@ import java.util.Queue;
 public class Waiter {
     private int id;
     private String name;
+    /**
+    this does not need to be stored for every waiter,
+    instead we could have a sql table that contains all
+    pending requests from a corresponding table ID. The waiter
+    will be able to see all current requests that are pending
+    from all table IDs, but with preference to the table IDs that
+    they are currently waiting
+    **/
     private Queue<Table> tableQueue = new LinkedList<>();
 
     public Waiter(int id,String name){

@@ -1,7 +1,13 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/screens/main_menu.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 main() {
   runApp(MyApp());
@@ -15,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Login Screen',
       home: LoginPage(),
+      routes: {MainMenu.route : (context) => MainMenu()},
     );
   }
 }
@@ -39,12 +46,12 @@ class _LoginPageState extends State<LoginPage> {
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
-        new Image(
-          image: new AssetImage("image/logo.jpg"),
-          fit: BoxFit.cover,
-          color: Colors.black87,
-          colorBlendMode: BlendMode.darken,
-        ),
+//        new Image(
+//          image: new AssetImage("image/logo.jpg"),
+//          fit: BoxFit.cover,
+//          color: Colors.white,
+//          colorBlendMode: BlendMode.darken,
+//        ),
         Align(
           alignment: Alignment.topCenter,
           child: AppLogo(),
@@ -104,12 +111,71 @@ class _LoginPageState extends State<LoginPage> {
   void _loginOnPressed() async{
     final String employeeID = employeeIDController.text.toString().trim();
     final String password  = passwordController.text.toString().trim();
-    
+    try {
+      final body = {
+        "username":"$employeeID",
+        "password":"$password"
+      };
+
+      final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/AuthenticateUser?code=QONIYXuRMDrvPaYBRCOyhfj5Rc7xSEBeNV3tPQ9lOmwJYIhpLm/aGA==",
+           data: body);
+
+      switch (response.statusCode){
+        case 200:
+
+          Fluttertoast.showToast(
+              msg: "Login Successful",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 14.0
+          );
+
+          Navigator.pushReplacementNamed(context, MainMenu.route);
+
+          break;
+        case 400:
+          print("Flutter Error: Didn't pass the right JSON file");
+          break;
+        case 401:
+          Fluttertoast.showToast(
+              msg: "Invalid Password!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 14.0
+          );
+          break;
+        case 404:
+          Fluttertoast.showToast(
+              msg: "Invalid Employee ID!",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIos: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 14.0
+          );
+          break;
+        case 500:
+          print("Internal server Error");
+          break;
+
+      }
+
+    } on Exception catch (_){
+      print(_.toString());
+    }
+
   }
 
   Widget _buildSubmitButton() {
     return RaisedButton(
-      onPressed: _loginOnPressed,
+      onPressed: _loginOnPressed ,
       color: Colors.blueAccent[200],
       child: Text(
         'LOGIN',
@@ -149,7 +215,7 @@ class CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    paint.color = Colors.green[800];
+    paint.color = Colors.blue;
     paint.style = PaintingStyle.fill;
 
     var path = Path();

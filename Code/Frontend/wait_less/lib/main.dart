@@ -113,8 +113,8 @@ class _LoginPageState extends State<LoginPage> {
     final String password  = passwordController.text.toString().trim();
     try {
       final body = {
-        "username":"$employeeID",
-        "password":"$password"
+        "employeeID":"$employeeID",
+        "passwordtoken":"$password"
       };
 
       final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/AuthenticateUser?code=QONIYXuRMDrvPaYBRCOyhfj5Rc7xSEBeNV3tPQ9lOmwJYIhpLm/aGA==",

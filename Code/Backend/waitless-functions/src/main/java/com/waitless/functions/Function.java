@@ -107,14 +107,13 @@ public class Function {
     } **/
 
     @FunctionName("AddWaiter")
-    public HttpResponseMessage AddWaiter(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
+    public HttpResponseMessage AddWaiter(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
                                               final ExecutionContext context){
-        //String query = request.getQueryParameters().get("name");
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if(createUserRequest != null) {
             try{
                 context.getLogger().info(createUserRequest.toString());
-                if(new CreateUser().create(createUserRequest.firstName,createUserRequest.lastName, createUserRequest.isManager, createUserRequest.birthday, createUserRequest.address, createUserRequest.phone, createUserRequest.salary, createUserRequest.passwordtoken)){
+                if(new CreateUser().create(createUserRequest.firstName,createUserRequest.lastName, createUserRequest.isManager, createUserRequest.birthday, createUserRequest.address, createUserRequest.phone, createUserRequest.salary, createUserRequest.passwordtoken, createUserRequest.title)){
                     return request.createResponseBuilder(HttpStatus.OK).body("Added new waiter").build();
                 }
                 return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();

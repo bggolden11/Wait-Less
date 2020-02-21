@@ -3,13 +3,13 @@ package Objects;
 public class Table {
     int tableID;
     String tableName;
-    int prefferedWaiterID;
+    int preferedWaiterID;
     String tableMessages;
 
-    public Table(int numTable, String tableName, int prefferedWaiterID, String tableMessages){
+    public Table(int numTable, String tableName, int preferredWaiterID, String tableMessages){
         this.tableID = numTable;
         this.tableName = tableName;
-        this.prefferedWaiterID = prefferedWaiterID;
+        this.preferedWaiterID = preferredWaiterID;
         this.tableMessages = tableMessages;
     }
     

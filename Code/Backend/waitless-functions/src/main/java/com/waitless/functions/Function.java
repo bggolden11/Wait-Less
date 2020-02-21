@@ -130,7 +130,7 @@ public class Function {
     }
 
     @FunctionName("AuthenticateUser")
-    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
+    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                               final ExecutionContext context){
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);

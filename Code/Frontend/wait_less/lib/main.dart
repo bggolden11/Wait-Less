@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
 import 'package:flutter_app/src/screens/main_menu.dart';
+import 'package:flutter_app/src/toast/toast_message.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
@@ -111,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
   void _loginOnPressed() async{
     final String employeeID = employeeIDController.text.toString().trim();
     final String password  = passwordController.text.toString().trim();
+    String message = 'Error';
     try {
       final body = {
         "employeeID":"$employeeID",
@@ -122,55 +124,27 @@ class _LoginPageState extends State<LoginPage> {
 
       switch (response.statusCode){
         case 200:
-
-          Fluttertoast.showToast(
-              msg: "Login Successful",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black45,
-              textColor: Colors.white,
-              fontSize: 14.0
-          );
-
+          message = 'Login Successful!';
           Navigator.pushReplacementNamed(context, MainMenu.route);
-
           break;
         case 400:
           print("Flutter Error: Didn't pass the right JSON file");
           break;
         case 401:
-          Fluttertoast.showToast(
-              msg: "Invalid Password!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black45,
-              textColor: Colors.white,
-              fontSize: 14.0
-          );
+          message = 'Invalid Password!';
           break;
         case 404:
-          Fluttertoast.showToast(
-              msg: "Invalid Employee ID!",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIos: 1,
-              backgroundColor: Colors.black45,
-              textColor: Colors.white,
-              fontSize: 14.0
-          );
           break;
         case 500:
           print("Internal server Error");
           break;
-
       }
 
     } on Exception catch (_){
       print(_.toString());
     }
 
+    ToastMessage.show(message);
   }
 
   Widget _buildSubmitButton() {

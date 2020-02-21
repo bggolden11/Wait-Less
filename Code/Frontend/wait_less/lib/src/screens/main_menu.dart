@@ -8,8 +8,8 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Keep this line
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+//    /// Keep this line
+//    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
 
 
     return Scaffold(

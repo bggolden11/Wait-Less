@@ -8,5 +8,6 @@ public class CreateUserRequest {
     public String firstName, lastName, birthday, address, phone, passwordtoken;
     public double salary;
     public int isManager;
+    public String title;
     //employee id not needed for request? to be returned from query
 }

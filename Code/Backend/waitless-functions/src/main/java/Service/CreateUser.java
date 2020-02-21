@@ -22,7 +22,8 @@ public class CreateUser {
 
     public boolean create(String firstName, String lastName, int isManager, String birthday, String address, String phone, double salary, String passwordtoken) throws SQLException {
         String encryptedPassword = AES.encrypt(passwordtoken, secretKey);
-        return (new CreateUserDBOQuery()).create(firstName, lastName, isManager, birthday, address, phone, salary, encryptedPassword);
+        return true;
+//        return (new CreateUserDBOQuery()).create(firstName, lastName, isManager, birthday, address, phone, salary, encryptedPassword);
     }
 
 }

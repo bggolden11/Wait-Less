@@ -1,4 +1,4 @@
-package Authentication;
+package Encryption;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

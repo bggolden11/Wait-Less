@@ -15,7 +15,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run:  pushd Code/Backend/waitless-functions
-        mvn clean package
-        mvn azure-functions:package
-        popd
+            mvn clean package
+            mvn azure-functions:package
+            popd
       

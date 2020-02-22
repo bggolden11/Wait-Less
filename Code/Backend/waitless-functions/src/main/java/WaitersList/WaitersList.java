@@ -1,11 +1,5 @@
 package WaitersList;
 
-import Members.Waiter;
-import Objects.Table;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * Will probably be deleted since this data will be stored in sql

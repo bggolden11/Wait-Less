@@ -4,13 +4,10 @@ import java.sql.SQLException;
 import java.util.*;
 
 import Exceptions.UserNotFoundException;
-import Members.Waiter;
-import Requests.AddNewTableRequest;
 import Requests.CreateUserRequest;
 import Requests.UserAuthenticationRequest;
 import Service.UserAuthentication;
 import Service.CreateUser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
 

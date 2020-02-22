@@ -1,6 +1,4 @@
-package Members;
-
-import Objects.Table;
+package Models;
 
 public class Waiter {
     private int id;

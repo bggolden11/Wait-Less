@@ -1,4 +1,4 @@
-name: Java CI
+name: mvn test CI
 
 on: [push]
 

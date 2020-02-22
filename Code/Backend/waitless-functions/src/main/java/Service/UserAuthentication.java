@@ -1,7 +1,7 @@
 package Service;
 
 
-import Authentication.AES;
+import Encryption.AES;
 import DBO.Queries.AuthenticatingUserDBOQuery;
 import Exceptions.UserNotFoundException;
 

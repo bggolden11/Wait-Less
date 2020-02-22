@@ -1,7 +1,7 @@
 package Service;
 
 
-import Authentication.AES;
+import Encryption.AES;
 import DBO.Queries.CreateUserDBOQuery;
 
 import java.sql.SQLException;

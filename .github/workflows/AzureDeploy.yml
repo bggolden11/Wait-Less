@@ -1,4 +1,4 @@
-name: azure build CI
+name: azure deploy CI
 
 on: 
   push:

@@ -4,13 +4,10 @@ import java.sql.SQLException;
 import java.util.*;
 
 import Exceptions.UserNotFoundException;
-import Members.Waiter;
-import Requests.AddNewTableRequest;
 import Requests.CreateUserRequest;
 import Requests.UserAuthenticationRequest;
 import Service.UserAuthentication;
 import Service.CreateUser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
 
@@ -21,7 +18,7 @@ import com.microsoft.azure.functions.*;
 public class Function {
     //WaitersList waiterInstance = WaitersList.getInstance();
 
-    @FunctionName("HttpTrigger-Java")
+    @FunctionName("HttpTrigger-Java-Testing")
     public HttpResponseMessage run(
             @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {

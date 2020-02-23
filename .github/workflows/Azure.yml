@@ -11,7 +11,7 @@ jobs:
     - name: 'Login via Azure CLI'
       uses: Azure/actions/login@master
       with:
-        creds: ${{ secrets.SCM_CREDENTIALS }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1

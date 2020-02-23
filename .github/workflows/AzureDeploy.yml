@@ -1,10 +1,8 @@
 name: azure deploy CI
 
 on: 
-  push:
-    branches:
-      - master
-
+  push
+  
 jobs:
   build:
 
@@ -31,4 +29,5 @@ jobs:
       id: fa
       with:
         app-name: waitless-functions-20200207161542196
+        package: Code/Backend/waitless-functions
       

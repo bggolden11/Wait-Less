@@ -107,21 +107,13 @@ public class Function {
     public HttpResponseMessage AddWaiter(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
                                               final ExecutionContext context){
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
-        if(createUserRequest != null) {
-            try{
-                context.getLogger().info(createUserRequest.toString());
-                if(new CreateUser().create(createUserRequest.firstName,createUserRequest.lastName, createUserRequest.isManager, createUserRequest.birthday, createUserRequest.address, createUserRequest.phone, createUserRequest.salary, createUserRequest.passwordtoken, createUserRequest.title)){
-                    return request.createResponseBuilder(HttpStatus.OK).body("Added new waiter").build();
-                }
-                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
-            }
-            catch (SQLException e){
-                return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
-            }
-        }
+        if(createUserRequest != null)
+            return (new CreateUser()).create(request,createUserRequest.firstName,createUserRequest.lastName,
+                                             createUserRequest.isManager, createUserRequest.birthday, createUserRequest.address,
+                                             createUserRequest.phone, createUserRequest.salary, createUserRequest.passwordtoken,
+                                             createUserRequest.title);
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
-
         }
     }
 
@@ -131,23 +123,10 @@ public class Function {
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
         if(userAuthenticationRequest != null) {
-            try{
-                context.getLogger().info(userAuthenticationRequest.toString());
-                if(new UserAuthentication().authenticate(userAuthenticationRequest.employeeID,userAuthenticationRequest.passwordtoken)){
-                    return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
-                }
-                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
-            }
-            catch (UserNotFoundException e){
-                return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
-            }
-            catch (SQLException e){
-                return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
-            }
+            return (new UserAuthentication()).authenticate(request,userAuthenticationRequest.employeeID,userAuthenticationRequest.passwordtoken);
         }
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
-
         }
     }
 

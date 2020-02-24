@@ -12,11 +12,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class CreateUser {
-    final String secretKey = "[B@37a71e93";
-
-    public String firstName, lastName, birthday, address, phone, password;
-    public int isManager;
-    public double salary;
 
     public HttpResponseMessage create(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, int isManager, String birthday, String address, String phone, double salary, String passwordtoken, String title) {
         String encryptedPassword = (new AES()).encrypt(passwordtoken);
@@ -24,7 +19,7 @@ public class CreateUser {
             if (new CreateUserDBOQuery().create(firstName, lastName, isManager, birthday, address, phone, salary, encryptedPassword, title)) {
                 return request.createResponseBuilder(HttpStatus.OK).body("Added new waiter").build();
             } else {
-                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("New waiter was not created").build();
             }
         }
         catch (SQLException e){

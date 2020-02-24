@@ -2,6 +2,9 @@ name: azure build CI
 
 on: [push]
 
+# CI to ensure code can actually be packaged and deployed to Azure 
+# (Does not actually deploy code)
+
 jobs:
   build:
 

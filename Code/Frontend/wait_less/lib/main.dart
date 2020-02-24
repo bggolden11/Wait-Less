@@ -47,12 +47,12 @@ class _LoginPageState extends State<LoginPage> {
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
-//        new Image(
-//          image: new AssetImage("image/logo.jpg"),
-//          fit: BoxFit.cover,
-//          color: Colors.white,
-//          colorBlendMode: BlendMode.darken,
-//        ),
+        new Image(
+          image: new AssetImage("image/1.jpg"),
+          fit: BoxFit.cover,
+          color: Colors.white,
+          colorBlendMode: BlendMode.darken,
+        ),
         Align(
           alignment: Alignment.topCenter,
           child: AppLogo(),

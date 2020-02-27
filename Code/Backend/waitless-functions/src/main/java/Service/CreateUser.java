@@ -3,7 +3,6 @@ package Service;
 
 import Encryption.AES;
 import DBO.Queries.CreateUserDBOQuery;
-import Exceptions.UserNotFoundException;
 import Requests.CreateUserRequest;
 import Response.CreateUserResponse;
 import com.microsoft.azure.functions.HttpRequestMessage;

@@ -16,7 +16,7 @@ import java.util.Random;
 public class CreateUser {
 
     public HttpResponseMessage create(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, String birthday, String address, String phone, String title) {
-        String initialPassword = String.format("%06d",(new Random()).nextInt(9999));
+        String initialPassword = String.format("%06d",(new Random()).nextInt(999999));
         String encryptedPassword = (new AES()).encrypt(initialPassword);
         try {
                 String employeeID = new CreateUserDBOQuery().create(firstName, lastName, title.equals("Manager") ? 1 : 0, birthday, address, phone, 10.0, encryptedPassword, title);

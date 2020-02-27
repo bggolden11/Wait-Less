@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
 import 'package:flutter_app/src/screens/main_menu.dart';
+import 'package:flutter_app/src/screens/registration_screen.dart';
 import 'package:flutter_app/src/toast/toast_message.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Login Screen',
       home: LoginPage(),
-      routes: {MainMenu.route : (context) => MainMenu()},
+      routes: {MainMenu.route : (context) => MainMenu(), RegistrationScreen.route : (context) => RegistrationScreen()}
     );
   }
 }
@@ -147,6 +148,48 @@ class _LoginPageState extends State<LoginPage> {
     ToastMessage.show(message);
   }
 
+  void _registerOnPressed() async{
+    Navigator.pushReplacementNamed(context, RegistrationScreen.route);
+  }
+
+  void _registerCloudOnPressed() async{
+    final String employeeID = employeeIDController.text.toString().trim();
+    final String password  = passwordController.text.toString().trim();
+    String message = 'Error';
+    try {
+      final body = {
+        "employeeID":"$employeeID",
+        "passwordtoken":"$password"
+      };
+
+      final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/AuthenticateUser?code=QONIYXuRMDrvPaYBRCOyhfj5Rc7xSEBeNV3tPQ9lOmwJYIhpLm/aGA==",
+           data: body);
+
+      switch (response.statusCode){
+        case 200:
+          message = 'Login Successful!';
+          Navigator.pushReplacementNamed(context, MainMenu.route);
+          break;
+        case 400:
+          print("Flutter Error: Didn't pass the right JSON file");
+          break;
+        case 401:
+          message = 'Invalid Password!';
+          break;
+        case 404:
+          break;
+        case 500:
+          print("Internal server Error");
+          break;
+      }
+
+    } on Exception catch (_){
+      print(_.toString());
+    }
+
+    ToastMessage.show(message);
+  }
+
   Widget _buildSubmitButton() {
     return RaisedButton(
       onPressed: _loginOnPressed ,
@@ -159,10 +202,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildRegisterText() {
-    return Text(
-      'REGISTER',
-      textAlign: TextAlign.center,
-      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+    return RaisedButton(
+      onPressed: _registerOnPressed ,
+      child: Text(
+        'REGISTER',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+      ),
     );
   }
 }

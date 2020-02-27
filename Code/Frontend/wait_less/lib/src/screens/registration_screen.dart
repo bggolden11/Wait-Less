@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RegistrationScreen extends StatefulWidget {
+
+  static final String route = '/regMenu';
+
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }

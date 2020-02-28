@@ -131,6 +131,7 @@ class _LoginPageState extends State<LoginPage> {
               buttonText: 'Register',
               onPress: _registerOnPressed,
             ),
+            SizedBox(height: 100),
           ],
         ),
       ),
@@ -142,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
   final passwordController = TextEditingController();
 
   void _registerOnPressed() async{
-    Navigator.pushReplacementNamed(context, RegistrationScreen.route);
+    Navigator.pushNamed(context, RegistrationScreen.route);
   }
 
 

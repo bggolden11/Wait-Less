@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
 
 
     return MaterialApp(
-      title: 'Login Screen',
       home: LoginPage(),
       routes: {MainMenu.route : (context) => MainMenu(),
                RegistrationScreen.route : (context) => RegistrationScreen(),

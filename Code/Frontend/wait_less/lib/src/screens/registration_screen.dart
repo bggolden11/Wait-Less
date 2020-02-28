@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/employee_login_credentials.dart';
 import 'package:flutter_app/src/screens/login_screen.dart';
+import 'package:flutter_app/src/screens/successful_registration_screen.dart';
 import 'package:flutter_app/src/widgets/SignUpCard.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       switch (response.statusCode){
         case 200:
           message = 'Sign Up Successful!';
-          Navigator.pushReplacementNamed(context, LoginPage.route);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SuccessfulRegistrationScreen(employeeCredentials: employeeLogin)));
           break;
         case 400:
           print("Flutter Error: Didn't pass the right JSON file");

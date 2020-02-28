@@ -157,10 +157,11 @@ class AppLogo extends StatelessWidget {
       height: 100.0,
       decoration:
       BoxDecoration(shape: BoxShape.circle, color: Colors.grey[800]),
-      child: Icon(
-        Icons.home,
-        color: Colors.white,
-        size: 40.0,
+      child:
+      Image.asset(
+        "assets/logo.png",
+        width: ScreenUtil().setWidth(110),
+        height: ScreenUtil().setHeight(110),
       ),
     );
   }

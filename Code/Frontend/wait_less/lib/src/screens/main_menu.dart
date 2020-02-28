@@ -13,10 +13,10 @@ class MainMenu extends StatelessWidget {
 
     return Scaffold(
       body: Text(
-          'Harsh, complete the main menu... don\'t delete the static route field and don\'t change the name of this class plzzzz'
+          'WIP'
       ),
       appBar: AppBar(
-        title: Text('Change me plz'),
+        title: Text('Main Menu'),
       ),
     );
   }

@@ -1,6 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models/employee_login_credentials.dart';
+import 'package:flutter_app/src/screens/login_screen.dart';
 import 'package:flutter_app/src/widgets/successful_card.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SuccessfulRegistrationScreen extends StatelessWidget{
 
   static final String route = '/successfulCard';
+  final EmployeeCredentials employeeCredentials;
+
+  SuccessfulRegistrationScreen({@required this.employeeCredentials});
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,17 +60,16 @@ class SuccessfulRegistrationScreen extends StatelessWidget{
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil().setHeight(180),
+                    height: ScreenUtil().setHeight(500),
                   ),
-                  SuccessfulCard(),
+                  SuccessfulCard(employeeCredentials: employeeCredentials,),
                   SizedBox(height: ScreenUtil().setHeight(40)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-
                       BuildButton(
-                        buttonText: 'Sign Up',
-
+                        buttonText: 'OK',
+                        onPress: () => Navigator.pushReplacementNamed(context, LoginPage.route),
                       )
                     ],
                   ),

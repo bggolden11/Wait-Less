@@ -1,0 +1,16 @@
+# curl --location --request POST 'http://localhost:7071/api/AuthenticateUser'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#"employeeID":"2121",
+#"passwordtoken":"1234"
+#}'
+POST http://localhost:7071/api/AuthenticateUser
+Content-Type: application/json
+
+{
+"employeeID":"2121",
+"passwordtoken":"1234"
+}
+
+###
+

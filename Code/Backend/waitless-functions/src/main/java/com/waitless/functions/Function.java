@@ -103,21 +103,20 @@ public class Function {
         }
     } **/
 
-    @FunctionName("AddWaiter")
-    public HttpResponseMessage AddWaiter(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
+    @FunctionName("Add-User")
+    public HttpResponseMessage AddUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
                                               final ExecutionContext context){
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if(createUserRequest != null)
             return (new CreateUser()).create(request,createUserRequest.firstName,createUserRequest.lastName,
-                                             createUserRequest.isManager, createUserRequest.birthday, createUserRequest.address,
-                                             createUserRequest.phone, createUserRequest.salary, createUserRequest.passwordtoken,
-                                             createUserRequest.title);
+                                             createUserRequest.birthday, createUserRequest.address,
+                                             createUserRequest.phone, createUserRequest.title);
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
     }
 
-    @FunctionName("AuthenticateUser")
+    @FunctionName("Authenticate-User")
     public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                               final ExecutionContext context){
         String query = request.getQueryParameters().get("name");

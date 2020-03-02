@@ -98,8 +98,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 750, height: 1900, allowFontScaling: true);
-
+    ScreenUtil.init(context, width: 750, height: 1300, allowFontScaling: true);
     return new Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: true,

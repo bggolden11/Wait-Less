@@ -4,7 +4,7 @@
 #"employeeID":"2121",
 #"passwordtoken":"1234"
 #}'
-POST http://localhost:7071/api/AuthenticateUser
+POST http://localhost:7071/api/Authenticate-User
 Content-Type: application/json
 
 {

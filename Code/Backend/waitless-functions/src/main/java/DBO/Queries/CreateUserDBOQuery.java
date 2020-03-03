@@ -1,11 +1,5 @@
 package DBO.Queries;
 
-import DBO.DBOTypes.UserAuthenticationDBO;
-import Exceptions.UserNotFoundException;
-
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-
 import java.sql.*;
 
 public class CreateUserDBOQuery implements DBO {
@@ -17,7 +11,7 @@ public class CreateUserDBOQuery implements DBO {
         System.out.println("Successful connection - Schema: " + schema);
 
         String selectSql = "INSERT INTO Employee"
-                + "(FName, LName, isManager, Hire_Date, Birth_Date, Address, Phone, Token, Salary, Title)"
+                + "(F_Name, L_Name, Is_Manager, Hire_Date, Birth_Date, Address, Phone, Token, Salary, Title)"
                 + "OUTPUT Inserted.Employee_ID "
                 + "VALUES ('" + firstName + "', '" + lastName + "', '" + isManager + "', " + "GETDATE()" + ", " + "GETDATE()" + ", '" + address + "', '" + phone + "', '" + passwordtoken + "', '" + salary + "', '" + title + "');\n";
 

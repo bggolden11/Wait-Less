@@ -13,6 +13,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Random;
 
+/*
+ TODO: The request should really be returning a CREATED (201).
+ */
+
 public class CreateUser {
 
     public HttpResponseMessage create(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, String birthday, String address, String phone, String title) {

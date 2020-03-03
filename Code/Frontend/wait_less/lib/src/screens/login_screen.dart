@@ -71,26 +71,13 @@ class _LoginPageState extends State<LoginPage> {
       final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/Authenticate-User?code=PKBKwmotyqfjS35XeHYqzfDLAkIkeh0zT1UrQKbbqK3lgPanNwTgbg==",
           data: body);
 
-      switch (response.statusCode){
-        case 200:
-          message = 'Login Successful!';
-          Navigator.pushReplacementNamed(context, MainMenu.route);
-          break;
-        case 400:
-          print("Flutter Error: Didn't pass the right JSON file");
-          break;
-        case 401:
-          message = 'Invalid Password!';
-          break;
-        case 404:
-          break;
-        case 500:
-          print("Internal server Error");
-          break;
+      if(response.statusCode == 200) {
+        message = 'Login Successful!';
+        Navigator.pushReplacementNamed(context, MainMenu.route);
       }
 
-    } on Exception catch (_){
-      print(_.toString());
+    } on DioError catch (e){
+      message = e.response.toString();
     }
 
     ToastMessage.show(message);

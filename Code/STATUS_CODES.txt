@@ -3,3 +3,9 @@ AUTHENTICATE USER
 401 - UNAUTHORIZED, user found but incorrect password
 404 - NOT_FOUND, user not found
 500 - INTERNAL_SERVER_ERROR, likely issue either SQL or Azure
+
+GET USER
+200 - OK (it got the user)
+404 - NOT_FOUND couldn’t find the employeeId
+500 - Internal server error SQL shit
+400 - Bad request

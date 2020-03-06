@@ -1,4 +1,9 @@
 package Requests;
 
-public class GetEmployee {
+/**
+ * employeeId : String
+ */
+
+public class GetEmployeeRequest {
+    public String employeeId;
 }

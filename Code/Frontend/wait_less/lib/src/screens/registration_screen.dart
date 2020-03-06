@@ -43,29 +43,17 @@ class _RegistrationScreen extends State<RegistrationScreen> {
 
       final EmployeeCredentials employeeLogin = EmployeeCredentials.fromJSON(json.decode(response.data.toString()));
 
-
-      switch (response.statusCode){
-        case 200:
-          message = 'Sign Up Successful!';
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SuccessfulRegistrationScreen(employeeCredentials: employeeLogin)));
-          break;
-        case 400:
-          print("Flutter Error: Didn't pass the right JSON file");
-          break;
-        case 401:
-          message = 'Invalid Password!';
-          break;
-        case 404:
-          break;
-        case 500:
-          print("Internal server Error");
-          break;
+      if(response.statusCode == 200) {
+        message = 'Sign Up Successful!';
+        Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (context) =>
+                SuccessfulRegistrationScreen(
+                    employeeCredentials: employeeLogin)));
       }
 
-    } on Exception catch (_){
-      print(_.toString());
+    } on DioError catch (e){
+      message = e.response.toString();
     }
-
     ToastMessage.show(message);
 
   }

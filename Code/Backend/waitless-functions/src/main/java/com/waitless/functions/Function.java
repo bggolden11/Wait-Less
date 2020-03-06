@@ -5,6 +5,7 @@ import java.util.*;
 
 import Exceptions.UserNotFoundException;
 import Requests.CreateUserRequest;
+import Requests.GetEmployeeRequest;
 import Requests.UserAuthenticationRequest;
 import Service.GetEmployee;
 import Service.UserAuthentication;
@@ -131,12 +132,12 @@ public class Function {
     }
 
     @FunctionName("Get-Employee")
-    public HttpResponseMessage getEmployee(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getEmployee(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetEmployeeRequest>> request,
                                                 final ExecutionContext context){
         String query = request.getQueryParameters().get("name");
-        String name = request.getBody().orElse(query);
-        if(name != null) {
-            return (new GetEmployee().getUser(request,name));
+        GetEmployeeRequest getEmployeeRequest = request.getBody().orElse(null);
+        if(getEmployeeRequest != null) {
+            return (new GetEmployee().getUser(request,getEmployeeRequest.employeeId));
         }
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid employeeId").build();

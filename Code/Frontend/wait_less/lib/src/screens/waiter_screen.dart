@@ -44,6 +44,8 @@ class _WaiterPage extends State<WaiterPage>{
               )
             ),
             ),
+
+            new Divider(),
             new ListTile(
               title: new Text("Home"),
               trailing: new Icon(Icons.home),

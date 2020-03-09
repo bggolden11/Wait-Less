@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/screens/login_screen.dart';
 import 'package:flutter_app/src/screens/main_menu.dart';
 import 'package:flutter_app/src/screens/registration_screen.dart';
+import 'package:flutter_app/src/screens/waiter_screen.dart';
 import 'package:flutter_app/src/screens/successful_registration_screen.dart';
 
 
@@ -16,10 +17,11 @@ class MyApp extends StatelessWidget {
 
 
     return MaterialApp(
-      home: LoginPage(),
+      home: WaiterPage(),
       routes: {MainMenu.route : (context) => MainMenu(),
                RegistrationScreen.route : (context) => RegistrationScreen(),
                LoginPage.route : (context) => LoginPage(),
+
                SuccessfulRegistrationScreen.route : (context) => SuccessfulRegistrationScreen()}
     );
   }

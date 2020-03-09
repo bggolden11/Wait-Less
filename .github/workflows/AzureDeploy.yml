@@ -33,6 +33,6 @@ jobs:
       uses: Azure/functions-action@v1
       id: fa
       with:
-        app-name: waitless-functions-20200207161542196
-        package: ./Code/Backend/waitless-functions//target/azure-functions/waitless-functions-20200207161542196
+        app-name: waitless-functions-2
+        package: ./Code/Backend/waitless-functions//target/azure-functions/waitless-functions-2
       

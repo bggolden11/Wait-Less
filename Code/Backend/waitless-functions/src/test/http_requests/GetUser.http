@@ -1,10 +1,15 @@
 # curl --location --request POST 'http://localhost:7071/api/Get-Employee'
-#--header 'Content-Type: text/plain'
-#--data-raw '2124'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#	employeeId: "2124"
+#}'
 POST http://localhost:7071/api/Get-Employee
-Content-Type: text/plain
+Content-Type: application/json
 
-2124
+{
+  employeeId: "2124"
+}
 
 ###
+
 

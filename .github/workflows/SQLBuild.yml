@@ -1,4 +1,5 @@
-# .github/workflows/sql-deploy.yml
+name: SQL build
+
 on: [push]
   
 jobs:

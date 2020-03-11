@@ -18,8 +18,8 @@ class HTTPClient {
   HTTPClient._internal() {
     /// Set the default values for the Client
     //dio.options.baseUrl = 'https://waitless-functions-20200207161542196.azurewebsites.net';
-    dio.options.connectTimeout = 10000; //5s
-    dio.options.receiveTimeout = 10000;
+    dio.options.connectTimeout = 20000; //20s
+    dio.options.receiveTimeout = 20000;
   }
 
 

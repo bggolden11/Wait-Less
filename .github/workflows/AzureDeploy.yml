@@ -1,6 +1,9 @@
 name: azure deploy CI
 
-on: [push]
+on: 
+  push:
+    branches: 
+      - master
 
 # Packages and deploys backend code to Azure
 # Only runs when there is a push to the master branch

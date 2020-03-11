@@ -16,28 +16,3 @@ jobs:
           server-name: waitlessserver.database.windows.net
           connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
           sql-file: ./Code/SQL Scripts/Build.sql
-      - name: Echoing Stuff
-        run: echo The current directory is %CD%
-          dir
-
-# jobs:
-#   build:
-#     runs-on: windows-latest
-#     steps:
-#     - uses: actions/checkout@v1
-#     - uses: azure/actions/login@v1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#     - name: Azure SQL Deploy
-#       uses: Azure/sql-action@v1
-#       with:
-#         # Name of the Azure SQL Server name, like Fabrikam.database.windows.net.
-#         server-name: 
-#         # The connection string, including authentication information, for the Azure SQL Server database.
-#         connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-#         # Path to DACPAC file. *.dacpac or a folder to deploy
-#         dacpac-package: # optional
-#         # Path to SQL script file. *.sql or a folder to deploy
-#         sql-file: # optional
-#         # In case DACPAC option is selected, additional SqlPackage.exe arguments that will be applied. When SQL query option is selected, additional sqlcmd.exe arguments will be applied.
-#         arguments: # optional

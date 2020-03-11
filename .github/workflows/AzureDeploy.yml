@@ -1,9 +1,7 @@
 name: azure deploy CI
 
 on: 
-  push:
-    branches:
-    - master
+  push
 
 # Packages and deploys backend code to Azure
 # Only runs when there is a push to the master branch
@@ -14,11 +12,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: 'Login via Azure CLI'
-      uses: Azure/actions/login@master
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -35,4 +28,5 @@ jobs:
       with:
         app-name: waitless-functions-2
         package: ./Code/Backend/waitless-functions//target/azure-functions/waitless-functions-2
-      
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+

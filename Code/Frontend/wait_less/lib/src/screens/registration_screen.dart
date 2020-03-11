@@ -38,7 +38,7 @@ class _RegistrationScreen extends State<RegistrationScreen> {
     String message = 'Error';
     final body = signUpCard.getBody();
     try{
-      final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/Add-User?code=Jl3tAkKyOz19Lk22aBLNwUSOJcTP0wG0BHaTZrmz6Mwsu5/GwkUVUw==",
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Add-User?code=qbKCJmMn8zHVga9kZ/p9Uwh03U9RKOrKGmfUdWL8sMsMOuVZJ12DKQ==",
           data: body);
 
       final EmployeeCredentials employeeLogin = EmployeeCredentials.fromJSON(json.decode(response.data.toString()));

@@ -36,3 +36,16 @@ jobs:
         package: ./Code/Backend/waitless-functions//target/azure-functions/waitless-functions-2
         publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
+  flutter_test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout Github action
+      uses: actions/checkout@v1
+    - uses: takuyaohashi/setup-flutter@v1
+      with:
+        flutter-version: 'latest'
+        channel: 'stable'
+    - run: |
+           cd Code/Frontend/wait_less/
+           flutter test

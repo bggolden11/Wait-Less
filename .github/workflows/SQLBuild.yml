@@ -1,0 +1,18 @@
+# .github/workflows/sql-deploy.yml
+on: [push]
+  
+jobs:
+  mssqlbuild:
+    runs-on: [windows-latest]
+    if: github.actor == 'osalas3'
+    steps:
+      - uses: actions/checkout@v1
+      - uses: azure/actions/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS_OMAR }}  
+      - name: Azure SQL Deploy
+        uses: Azure/sql-action@v1
+        with:
+          server-name: waitlessserver.database.windows.net
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          sql-file: ./Code/SQL Scripts/Build.sql

@@ -6,6 +6,7 @@ void main() {
 
 
   test('HTTP Registration API call should return status code 500, Internal SQL Server error', () async {
+    int statusCode = 0;
     try{
       final body = {
         "firstName" : "Test",
@@ -15,12 +16,13 @@ void main() {
         "phone" : "123-123-1234"
       };
       final Dio httpClient = new HTTPClient().dio;
-      final Response response = await httpClient.post("https://waitless-functions-20200207161542196.azurewebsites.net/api/Add-User?code=Jl3tAkKyOz19Lk22aBLNwUSOJcTP0wG0BHaTZrmz6Mwsu5/GwkUVUw==",
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Add-User?code=qbKCJmMn8zHVga9kZ/p9Uwh03U9RKOrKGmfUdWL8sMsMOuVZJ12DKQ==",
           data: body);
+      statusCode = response.statusCode;
     } on DioError catch (e){
-
-      expect(e.response.statusCode, 500);
+      statusCode = e.response.statusCode;
     }
+    expect(500, statusCode);
   });
 
 }

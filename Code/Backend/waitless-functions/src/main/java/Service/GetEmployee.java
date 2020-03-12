@@ -1,7 +1,7 @@
 package Service;
+
 import DBO.Queries.GetEmployeeDBOQuery;
 import Exceptions.UserNotFoundException;
-import Models.Employee;
 import Requests.GetEmployeeRequest;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;

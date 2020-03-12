@@ -7,6 +7,14 @@ class WaiterPage extends StatefulWidget { // class for Waiter Page
 }
 
 class _WaiterPage extends State<WaiterPage>{
+  // make a list of all the task which can be updated with a call to the backend
+  // for now I am implementing it with 8 of these tasks and populating the list with the same images but you can later add the
+  // other functionality here
+  // also this is a nice tutorial for the same, I couldn't understand it that well so I tried to implement as much as possible
+  // All the images are from vecteezy, <a href="https://www.vecteezy.com/free-vector/food">Food Vectors by Vecteezy</a>
+  final List<String> taskList = [
+    'assets/task1.jpg','assets/task2.jpg','assets/task3.jpg','assets/task4.jpg','assets/task1.jpg','assets/task2.jpg','assets/task3.jpg','assets/task4.jpg',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +85,7 @@ class _WaiterPage extends State<WaiterPage>{
       ),
       body: SafeArea( // this is the main body and has bunch of containers
         //fit: StackFit.expand,
-        child: SingleChildScrollView(
+        child: Container(
             child: Container(
               padding: EdgeInsets.all(20),
               child: Column(
@@ -88,15 +96,14 @@ class _WaiterPage extends State<WaiterPage>{
 
                       new Align(alignment: Alignment.centerLeft, child: new Text(
                         'Your Tasks', // for the area where the current tasks would be developed
-                        style:TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black87, fontFamily: "Poppins-Medium"),
+                        style:TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.black87, fontFamily: "Poppins-Medium"),
                       )),
                     ],
                   ),
                   Padding( // provide padding to create some space between the title and the buttons
-                    padding: EdgeInsets.only(top: 20.0),
+                    padding: EdgeInsets.only(top: 10.0),
 
                   ),
-
                   Container( // this button is for completed tasks
                     width: double.infinity,
                     height: 180,
@@ -123,7 +130,7 @@ class _WaiterPage extends State<WaiterPage>{
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
 //                          Text(
-//                            'Your Tasks', // for the area where the current tasks would be developed
+//                            'Completed Tasks', // for the area where the current tasks would be developed
 //                            style:TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Poppins-Medium"),
 //
 //                          ),
@@ -141,12 +148,55 @@ class _WaiterPage extends State<WaiterPage>{
                           ],
                         )
                     ),
+                  ),
+                  SizedBox(height: 20,), // just for padding
+                  Column(
+                    children: <Widget>[
+
+                      new Align(alignment: Alignment.centerLeft, child: new Text(
+                        'Current Tasks', // for the area where the current tasks would be developed
+                        style:TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.black87, fontFamily: "Poppins-Medium"),
+                      )),
+                    ],
+                  ),
+                  Expanded( // for the grid view, currently it goes through the list called task list and makes those many tasks, once we can populate the tasks you
+                            // can change the image at line 166 to a fixed one and it will work
+                      child: GridView.count( // using GridView layout by flutter and you don't need to use scroll becuase it does it for us
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        children: taskList.map((item) => Card( // making a card for each using the card layout
+                          color: Colors.transparent,
+                          elevation: 0,
+                          child: Container(
+                            decoration: BoxDecoration( // dimension of the box and the image
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage(item),
+                                    fit: BoxFit.cover
+                                )
+                            ),
+                            child: Transform.translate( // this is just for an optional icon we can use it to enhance capablities by showing it's pending, current or almost done
+                                                        // it's a future job
+                              offset: Offset(50, -50),
+                              child: Container(
+                                margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white70
+                                ),
+                                child: Icon(Icons.assignment, size: 30,), // you can change the icon if you want
+                              ),
+                            ),
+                          ),
+                        )).toList(),
+                      )
                   )
                 ],
               ),
 
 
-            )
+            ),
 
 
 

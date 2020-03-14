@@ -1,5 +1,5 @@
 package Requests;
 
 public class CreateTaskRequest {
-    public String employeeId, status, message;
+    public String employeeId, message;
 }

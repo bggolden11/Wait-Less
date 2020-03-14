@@ -17,17 +17,16 @@ public class CreateTask {
      *
      * @param request request for create task request
      * @param employeeId employeeId of the user to add the task to
-     * @param status Status of the task
      * @param message Message of the task
      * @return 201 if task successfully created
      *         404 if employeeID not found
      *         500 SQL error
      */
 
-    public HttpResponseMessage create(HttpRequestMessage<Optional<CreateTaskRequest>> request, String employeeId, String status, String message){
+    public HttpResponseMessage create(HttpRequestMessage<Optional<CreateTaskRequest>> request, String employeeId, String message){
         try{
             (new GetEmployeeDBOQuery()).getEmployee(employeeId);
-            return request.createResponseBuilder(HttpStatus.CREATED).body(new CreateTaskDBOQuery().createTask(employeeId,status, message)).build();
+            return request.createResponseBuilder(HttpStatus.CREATED).body(new CreateTaskDBOQuery().createTask(employeeId, message)).build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
         } catch (SQLException e) {

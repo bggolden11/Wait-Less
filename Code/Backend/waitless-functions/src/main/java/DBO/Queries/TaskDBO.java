@@ -2,7 +2,7 @@ package DBO.Queries;
 
 import java.sql.*;
 
-public class CreateTaskDBOQuery implements DBO{
+public class TaskDBO implements DBO{
 
     /**
      *
@@ -12,7 +12,7 @@ public class CreateTaskDBOQuery implements DBO{
      * @throws SQLException Error with the Sql database
      */
 
-    public  String createTask(String employeeId, String message) throws SQLException {
+    public String createTask(String employeeId, String message) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
@@ -31,6 +31,30 @@ public class CreateTaskDBOQuery implements DBO{
             } else {
                 return resultSet.getString(1);
             }
+        }
+        finally {
+            connection.close();
+        }
+    }
+
+//    public static void main(String[] test){
+//        editUserAssociatedToTask("1003","2124");
+//    }
+
+    public void updateUserToTask(String taskId, String employeeToAssignId) throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "UPDATE Task "
+                + "SET Employee_ID = " + employeeToAssignId + " "
+                + "WHERE Task_ID = " + taskId + ";\n";
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(selectSql);
+        }
+        finally {
+            connection.close();
         }
 
     }

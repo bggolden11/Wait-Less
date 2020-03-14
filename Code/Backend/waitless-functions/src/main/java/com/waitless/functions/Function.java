@@ -1,14 +1,9 @@
 package com.waitless.functions;
 
-import java.sql.SQLException;
 import java.util.*;
 
-import Exceptions.UserNotFoundException;
-import Requests.CreateTaskRequest;
-import Requests.CreateUserRequest;
-import Requests.GetEmployeeRequest;
-import Requests.UserAuthenticationRequest;
-import Service.CreateTask;
+import Requests.*;
+import Service.TaskService;
 import Service.GetEmployee;
 import Service.UserAuthentication;
 import Service.CreateUser;
@@ -83,7 +78,18 @@ public class Function {
                                           final ExecutionContext context){
         CreateTaskRequest createTaskRequest = request.getBody().orElse(null);
         if(createTaskRequest != null)
-            return (new CreateTask()).create(request,createTaskRequest.employeeId,createTaskRequest.message);
+            return (new TaskService()).create(request,createTaskRequest.employeeId,createTaskRequest.message);
+        else{
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+        }
+    }
+
+    @FunctionName("Update-User-To-Task")
+    public HttpResponseMessage updateUserToTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
+                                          final ExecutionContext context){
+        UpdateUserToTaskRequest updateUserToTaskRequest = request.getBody().orElse(null);
+        if(updateUserToTaskRequest != null)
+            return (new TaskService()).updateUserToTask(request,updateUserToTaskRequest.TaskId,updateUserToTaskRequest.employeeToAssignId);
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }

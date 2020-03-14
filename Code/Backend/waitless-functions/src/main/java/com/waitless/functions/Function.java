@@ -4,9 +4,7 @@ import java.util.*;
 
 import Requests.*;
 import Service.TaskService;
-import Service.GetEmployee;
-import Service.UserAuthentication;
-import Service.CreateUser;
+import Service.UserService;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
 
@@ -15,7 +13,8 @@ import com.microsoft.azure.functions.*;
  * Azure Functions with HTTP Trigger.
  */
 public class Function {
-    //WaitersList waiterInstance = WaitersList.getInstance();
+    UserService userService = new UserService();
+    TaskService taskService = new TaskService();
 
     @FunctionName("HttpTrigger-Java-Testing")
     public HttpResponseMessage run(
@@ -39,7 +38,7 @@ public class Function {
                                               final ExecutionContext context){
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if(createUserRequest != null)
-            return (new CreateUser()).create(request,createUserRequest.firstName,createUserRequest.lastName,
+            return userService.createUser(request,createUserRequest.firstName,createUserRequest.lastName,
                                              createUserRequest.birthday, createUserRequest.address,
                                              createUserRequest.phone, createUserRequest.title);
         else{
@@ -53,7 +52,7 @@ public class Function {
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
         if(userAuthenticationRequest != null) {
-            return (new UserAuthentication()).authenticate(request,userAuthenticationRequest.employeeID,userAuthenticationRequest.passwordtoken);
+            return userService.authenticate(request,userAuthenticationRequest.employeeID,userAuthenticationRequest.passwordtoken);
         }
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
@@ -66,7 +65,7 @@ public class Function {
         String query = request.getQueryParameters().get("name");
         GetEmployeeRequest getEmployeeRequest = request.getBody().orElse(null);
         if(getEmployeeRequest != null) {
-            return (new GetEmployee().getUser(request,getEmployeeRequest.employeeId));
+            return userService.getUser(request,getEmployeeRequest.employeeId);
         }
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid employeeId").build();
@@ -78,18 +77,18 @@ public class Function {
                                           final ExecutionContext context){
         CreateTaskRequest createTaskRequest = request.getBody().orElse(null);
         if(createTaskRequest != null)
-            return (new TaskService()).create(request,createTaskRequest.employeeId,createTaskRequest.message);
+            return taskService.createTask(request,createTaskRequest.employeeId,createTaskRequest.message);
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
     }
 
-    @FunctionName("Update-User-To-Task")
-    public HttpResponseMessage updateUserToTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
+    @FunctionName("Update-Task-User")
+    public HttpResponseMessage updateTaskUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
                                           final ExecutionContext context){
         UpdateUserToTaskRequest updateUserToTaskRequest = request.getBody().orElse(null);
         if(updateUserToTaskRequest != null)
-            return (new TaskService()).updateUserToTask(request,updateUserToTaskRequest.TaskId,updateUserToTaskRequest.employeeToAssignId);
+            return taskService.updateTaskUser(request,updateUserToTaskRequest.TaskId,updateUserToTaskRequest.employeeToAssignId);
         else{
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }

@@ -1,7 +1,7 @@
 package Service;
 
 import DBO.Queries.TaskDBO;
-import DBO.Queries.GetEmployeeDBOQuery;
+import DBO.Queries.UserDBO;
 import Exceptions.UserNotFoundException;
 import Requests.CreateTaskRequest;
 import Requests.UpdateUserToTaskRequest;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class TaskService {
-    GetEmployeeDBOQuery getEmployeeDBO = new GetEmployeeDBOQuery();
+    UserDBO getUserDBO = new UserDBO();
     TaskDBO taskDbo = new TaskDBO();
 
     /**
@@ -21,13 +21,13 @@ public class TaskService {
      * @param request request for create task request
      * @param employeeId employeeId of the user to add the task to
      * @param message Message of the task
-     * @return 201 if task successfully created
+     * @return 201 if task successfully created with newly created task id
      *         404 if employeeID not found
      *         500 SQL error
      */
-    public HttpResponseMessage create(HttpRequestMessage<Optional<CreateTaskRequest>> request, String employeeId, String message){
+    public HttpResponseMessage createTask(HttpRequestMessage<Optional<CreateTaskRequest>> request, String employeeId, String message){
         try{
-            getEmployeeDBO.getEmployee(employeeId);
+            getUserDBO.getEmployee(employeeId);
             return request.createResponseBuilder(HttpStatus.CREATED).body( taskDbo.createTask(employeeId, message)).build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
@@ -36,10 +36,19 @@ public class TaskService {
         }
     }
 
-    public HttpResponseMessage updateUserToTask(HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request, String taskId, String employeeToAssignId){
+    /**
+     *
+     * @param request http request to send and receive
+     * @param taskId task ID of the task to be edited
+     * @param employeeToAssignId employee to assign task to
+     * @return 200 if successfully edited
+     *         404 if new userId was not found
+     *         500 if internal server error
+     */
+    public HttpResponseMessage updateTaskUser(HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request, String taskId, String employeeToAssignId){
         try{
-            getEmployeeDBO.getEmployee(employeeToAssignId);
-            taskDbo.updateUserToTask(taskId, employeeToAssignId);
+            getUserDBO.getEmployee(employeeToAssignId);
+            taskDbo.updateTaskUser(taskId, employeeToAssignId);
             return request.createResponseBuilder(HttpStatus.OK).build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();

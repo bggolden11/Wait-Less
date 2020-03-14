@@ -11,7 +11,6 @@ public class TaskDBO implements DBO{
      * @return The TaskId of the create task
      * @throws SQLException Error with the Sql database
      */
-
     public String createTask(String employeeId, String message) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
@@ -37,11 +36,13 @@ public class TaskDBO implements DBO{
         }
     }
 
-//    public static void main(String[] test){
-//        editUserAssociatedToTask("1003","2124");
-//    }
-
-    public void updateUserToTask(String taskId, String employeeToAssignId) throws SQLException {
+    /**
+     *
+     * @param taskId The task ID to update
+     * @param employeeToAssignId the employee Id to change the task to
+     * @throws SQLException Error connecting to SQL database
+     */
+    public void updateTaskUser(String taskId, String employeeToAssignId) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();

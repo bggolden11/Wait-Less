@@ -1,0 +1,16 @@
+# curl --location --request POST 'http://localhost:7071/api/Create-Task'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#	employeeId: "2121",
+#	message: "PLEASE WORK PLEASE I BEG OF YOU PART DOUS"
+#}'
+POST http://localhost:7071/api/Create-Task
+Content-Type: application/json
+
+{
+	employeeId: "2121",
+	message: "PLEASE WORK PLEASE I BEG OF YOU PART DOUS"
+}
+
+###
+

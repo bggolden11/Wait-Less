@@ -17,5 +17,4 @@ package Requests;
  */
 public class CreateUserRequest {
     public String firstName, lastName, birthday, address, phone, title;
-    //employee id not needed for request? to be returned from query
 }

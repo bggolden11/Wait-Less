@@ -35,62 +35,66 @@ public class Function {
 
     @FunctionName("Add-User")
     public HttpResponseMessage AddUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
-                                              final ExecutionContext context){
+                                       final ExecutionContext context) {
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
-        if(createUserRequest != null)
-            return userService.createUser(request,createUserRequest.firstName,createUserRequest.lastName,
-                                             createUserRequest.birthday, createUserRequest.address,
-                                             createUserRequest.phone, createUserRequest.title);
-        else{
+        if (createUserRequest != null)
+            return userService.createUser(request, createUserRequest.firstName, createUserRequest.lastName,
+                    createUserRequest.birthday, createUserRequest.address,
+                    createUserRequest.phone, createUserRequest.title);
+        else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
     }
 
     @FunctionName("Authenticate-User")
     public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
-                                              final ExecutionContext context){
+                                                final ExecutionContext context) {
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
-        if(userAuthenticationRequest != null) {
-            return userService.authenticate(request,userAuthenticationRequest.employeeID,userAuthenticationRequest.passwordtoken);
-        }
-        else{
+        if (userAuthenticationRequest != null) {
+            return userService.authenticate(request, userAuthenticationRequest.employeeID, userAuthenticationRequest.passwordtoken);
+        } else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
     }
 
     @FunctionName("Get-Employee")
     public HttpResponseMessage getEmployee(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetEmployeeRequest>> request,
-                                                final ExecutionContext context){
+                                           final ExecutionContext context) {
         String query = request.getQueryParameters().get("name");
         GetEmployeeRequest getEmployeeRequest = request.getBody().orElse(null);
-        if(getEmployeeRequest != null) {
-            return userService.getUser(request,getEmployeeRequest.employeeId);
-        }
-        else{
+        if (getEmployeeRequest != null) {
+            return userService.getUser(request, getEmployeeRequest.employeeId);
+        } else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid employeeId").build();
         }
     }
 
     @FunctionName("Create-Task")
     public HttpResponseMessage createTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateTaskRequest>> request,
-                                          final ExecutionContext context){
+                                          final ExecutionContext context) {
         CreateTaskRequest createTaskRequest = request.getBody().orElse(null);
-        if(createTaskRequest != null)
-            return taskService.createTask(request,createTaskRequest.employeeId,createTaskRequest.message);
-        else{
+        if (createTaskRequest != null)
+            return taskService.createTask(request, createTaskRequest.employeeId, createTaskRequest.message);
+        else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
     }
 
     @FunctionName("Update-Task-User")
     public HttpResponseMessage updateTaskUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
-                                          final ExecutionContext context){
+                                              final ExecutionContext context) {
         UpdateUserToTaskRequest updateUserToTaskRequest = request.getBody().orElse(null);
-        if(updateUserToTaskRequest != null)
-            return taskService.updateTaskUser(request,updateUserToTaskRequest.TaskId,updateUserToTaskRequest.employeeToAssignId);
-        else{
+        if (updateUserToTaskRequest != null)
+            return taskService.updateTaskUser(request, updateUserToTaskRequest.TaskId, updateUserToTaskRequest.employeeToAssignId);
+        else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
+    }
+
+    @FunctionName("Get_Logged-In-Users")
+    public HttpResponseMessage getLoggedInUsers(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                                              final ExecutionContext context){
+        return userService.getLoggedInUser(request);
     }
 }

@@ -16,13 +16,14 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Random;
 
-/*
- TODO: The request should really be returning a CREATED (201).
- */
+
 
 public class UserService {
     UserDBO userDBO = new UserDBO();
 
+    /*
+ TODO: This request should really be returning a CREATED (201).
+    */
     /**
      *
      * @param request http request to send and receive
@@ -77,14 +78,30 @@ public class UserService {
      *
      * @param request HTTP request gotten from function api call
      * @param employeeId The employee id of the requested employee
-     * @return Returns a json of all the information of an employee except the password
+     * @return 200 returns the employee information corresponding to that ID
+     *         404 if that employee id was not found
+     *         500 if internal server error
      */
     public HttpResponseMessage getUser(HttpRequestMessage<Optional<GetEmployeeRequest>> request, String employeeId) {
         try {
-            return request.createResponseBuilder(HttpStatus.OK).body(new UserDBO().getEmployee(employeeId)).build();
+            return request.createResponseBuilder(HttpStatus.OK).body(userDBO.getEmployee(employeeId)).build();
         } catch (UserNotFoundException ex) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
         } catch (SQLException ex) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+        }
+    }
+
+    /**
+     *
+     * @param request TTP request gotten from function api call
+     * @return 200 list of logged in employees
+     *         500 if internal server error
+     */
+    public HttpResponseMessage getLoggedInUser(HttpRequestMessage<Optional<String>> request){
+        try{
+            return request.createResponseBuilder(HttpStatus.OK).body(userDBO.getLoggedInEmployees()).build();
+        } catch (SQLException e) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }
     }

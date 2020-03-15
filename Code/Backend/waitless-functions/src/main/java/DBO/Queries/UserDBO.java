@@ -3,9 +3,13 @@ package DBO.Queries;
 import DBO.DBOTypes.UserAuthenticationDBO;
 import Exceptions.UserNotFoundException;
 import Models.Employee;
+import Models.GetLoggedInEmployee;
+
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDBO implements DBO {
 
@@ -33,7 +37,7 @@ public class UserDBO implements DBO {
             if (!resultSet.next()) {
                 throw new UserNotFoundException();
             } else {
-                return new UserAuthenticationDBO(resultSet.getString(1), resultSet.getString(9));
+                return new UserAuthenticationDBO(resultSet.getString(1), resultSet.getString(10));
             }
 
         } finally {
@@ -105,10 +109,40 @@ public class UserDBO implements DBO {
                 throw new UserNotFoundException();
             } else {
                 return new Employee(resultSet.getString(2),resultSet.getString(3),
-                        resultSet.getInt(4) == 1, resultSet.getString(5),
-                        resultSet.getString(6),resultSet.getString(7),resultSet.getString(8),
-                        resultSet.getDouble(10),resultSet.getString(11) );
+                        resultSet.getInt(4) == 1, resultSet.getString(6),
+                        resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),
+                        resultSet.getDouble(11),resultSet.getString(12));
             }
+
+        } finally {
+            connection.close();
+        }
+    }
+
+    /**
+     *
+     * @return List of all logged in users
+     * @throws SQLException Error connecting to DB
+     */
+    public List<GetLoggedInEmployee> getLoggedInEmployees() throws SQLException {
+        List<GetLoggedInEmployee> listOfLoggedInEmployees = new ArrayList<>();
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Employee "
+                + "WHERE Is_Logged_In = " + 1 + ";\n";
+
+        try (Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+            while(resultSet.next()){
+                listOfLoggedInEmployees.add(new GetLoggedInEmployee(resultSet.getString(1),
+                                                                    resultSet.getString(2),
+                                                                    resultSet.getString(3)));
+            }
+            return listOfLoggedInEmployees;
 
         } finally {
             connection.close();

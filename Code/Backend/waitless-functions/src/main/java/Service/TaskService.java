@@ -4,6 +4,7 @@ import DBO.Queries.TaskDBO;
 import DBO.Queries.UserDBO;
 import Exceptions.UserNotFoundException;
 import Requests.CreateTaskRequest;
+import Requests.GetTasksBasedOnUserRequest;
 import Requests.UpdateUserToTaskRequest;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
@@ -56,4 +57,19 @@ public class TaskService {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }
     }
+
+    /**
+     *
+     * @param request http request to send and receive
+     * @param employeeId employee Id you would like to get tasks for
+     * @return lists of tasks corresponding to that employee Id
+     */
+    public HttpResponseMessage getTasksBasedOnEmployeeID(HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request, String employeeId){
+        try{
+            return request.createResponseBuilder(HttpStatus.OK).body(taskDbo.getTaskBasedOnEmployeeID(employeeId)).build();
+        } catch (SQLException e) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import Encryption.AES;
 import Exceptions.UserNotFoundException;
 import Requests.CreateUserRequest;
 import Requests.GetEmployeeRequest;
+import Requests.LogEmployeeOutRequest;
 import Requests.UserAuthenticationRequest;
 import Response.CreateUserResponse;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -62,6 +63,7 @@ public class UserService {
         String encryptedPassword = (new AES()).encrypt(password);
         try{
             if(userDBO.userAuthenticate(employeeID).passwordtoken.equals(encryptedPassword)){
+                userDBO.logUserIn(employeeID);
                 return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
             }
             return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
@@ -87,6 +89,22 @@ public class UserService {
             return request.createResponseBuilder(HttpStatus.OK).body(userDBO.getEmployee(employeeId)).build();
         } catch (UserNotFoundException ex) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+        } catch (SQLException ex) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+        }
+    }
+
+    /**
+     *
+     * @param request HTTP request gotten from function api call
+     * @param employeeId Employee Id you would like to log out
+     * @return 200 log out was successful
+ *             500 error connecting to SQL database
+     */
+    public HttpResponseMessage logUserOut(HttpRequestMessage<Optional<LogEmployeeOutRequest>> request, String employeeId) {
+        try {
+            userDBO.logUserOut(employeeId);
+            return request.createResponseBuilder(HttpStatus.OK).build();
         } catch (SQLException ex) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }

@@ -2,6 +2,7 @@ package com.waitless.functions;
 
 import java.util.*;
 
+import Models.GetLoggedInEmployee;
 import Requests.*;
 import Service.TaskService;
 import Service.UserService;
@@ -92,9 +93,30 @@ public class Function {
         }
     }
 
-    @FunctionName("Get_Logged-In-Users")
+    @FunctionName("Get-Logged-In-Users")
     public HttpResponseMessage getLoggedInUsers(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
                                               final ExecutionContext context){
         return userService.getLoggedInUser(request);
     }
+
+    @FunctionName("Log-User-Out")
+    public HttpResponseMessage logUserOut(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<LogEmployeeOutRequest>> request,
+                                                final ExecutionContext context) {
+        LogEmployeeOutRequest logEmployeeOutRequest = request.getBody().orElse(null);
+        if(logEmployeeOutRequest != null)
+            return userService.logUserOut(request,logEmployeeOutRequest.employeeId);
+        else
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+    }
+
+    @FunctionName("Get-Tasks-Based-On-User")
+    public HttpResponseMessage getTasksBasedOnUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
+                                          final ExecutionContext context) {
+        GetTasksBasedOnUserRequest getTasksBasedOnUserRequest = request.getBody().orElse(null);
+        if(getTasksBasedOnUserRequest != null)
+            return taskService.getTasksBasedOnEmployeeID(request,getTasksBasedOnUserRequest.employeeId);
+        else
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+    }
 }
+

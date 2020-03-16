@@ -1,6 +1,11 @@
 package DBO.Queries;
 
+import Models.GetLoggedInEmployee;
+import Models.Task;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskDBO implements DBO{
 
@@ -57,6 +62,39 @@ public class TaskDBO implements DBO{
         finally {
             connection.close();
         }
+    }
 
+    /**
+     *
+     * @param employeeID employee Id you would like to get the tasks for
+     * @return lists of tasks corresponding to that employee Id
+     * @throws SQLException error connecting to SQL DB
+     */
+    public List<Task> getTaskBasedOnEmployeeID(String employeeID) throws SQLException {
+        List<Task> tasks = new ArrayList<>();
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task "
+                + "WHERE Employee_ID = " + employeeID + ";\n";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(selectSql)) {
+
+            while(resultSet.next()){
+                tasks.add(new Task(resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getTime(5),
+                        resultSet.getTime(6)));
+            }
+            return tasks;
+
+        } finally {
+            connection.close();
+        }
     }
 }

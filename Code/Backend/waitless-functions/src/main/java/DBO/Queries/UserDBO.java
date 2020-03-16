@@ -47,6 +47,52 @@ public class UserDBO implements DBO {
 
     /**
      *
+     * @param employeeId employee ID of user you would like to log in
+     * @throws SQLException error connecting to DB
+     */
+    public void logUserIn(String employeeId) throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+
+        String selectSql = "UPDATE Employee "
+                + "SET Is_Logged_In = " + 1 + " "
+                + "WHERE Employee_ID = " + employeeId + ";\n";
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(selectSql);
+        }
+        finally {
+            connection.close();
+        }
+    }
+
+    /**
+     *
+     * @param employeeId employee ID of user you would like to log out
+     * @throws SQLException error connecting to DB
+     */
+    public void logUserOut(String employeeId) throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+
+        String selectSql = "UPDATE Employee "
+                + "SET Is_Logged_In = " + 0 + " "
+                + "WHERE Employee_ID = " + employeeId + ";\n";
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(selectSql);
+        }
+        finally {
+            connection.close();
+        }
+    }
+
+    /**
+     *
      * @param firstName first name of new user
      * @param lastName last name of new user
      * @param isManager boolean if user is manager
@@ -125,7 +171,7 @@ public class UserDBO implements DBO {
      * @throws SQLException Error connecting to DB
      */
     public List<GetLoggedInEmployee> getLoggedInEmployees() throws SQLException {
-        List<GetLoggedInEmployee> listOfLoggedInEmployees = new ArrayList<>();
+        List<GetLoggedInEmployee> employees = new ArrayList<>();
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
@@ -138,11 +184,11 @@ public class UserDBO implements DBO {
         ResultSet resultSet = statement.executeQuery(selectSql)) {
 
             while(resultSet.next()){
-                listOfLoggedInEmployees.add(new GetLoggedInEmployee(resultSet.getString(1),
+                employees.add(new GetLoggedInEmployee(resultSet.getString(1),
                                                                     resultSet.getString(2),
                                                                     resultSet.getString(3)));
             }
-            return listOfLoggedInEmployees;
+            return employees;
 
         } finally {
             connection.close();

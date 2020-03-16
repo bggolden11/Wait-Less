@@ -1,0 +1,14 @@
+# curl --location --request POST 'http://localhost:7071/api/Get-Tasks-Based-On-User'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#	employeeId:"2124"
+#}'
+POST http://localhost:7071/api/Get-Tasks-Based-On-User
+Content-Type: application/json
+
+{
+  employeeId: "2124"
+}
+
+###
+

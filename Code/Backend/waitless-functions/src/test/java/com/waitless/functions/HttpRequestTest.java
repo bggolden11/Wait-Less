@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 
 
+/**
+ * ! These tests are to be run on dev side only. Used for verifying functions work on local host.
+ */
 @Ignore
 public class HttpRequestTest{
 

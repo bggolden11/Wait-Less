@@ -9,7 +9,7 @@ POST http://localhost:7071/api/Update-Task-User
 Content-Type: application/json
 
 {
-	TaskId: "1234",
+	taskId: "1234",
 	employeeToAssignId: "2124"
 }
 

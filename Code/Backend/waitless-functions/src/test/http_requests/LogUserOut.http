@@ -3,6 +3,7 @@
 #--data-raw '{
 #	employeeId:"2121"
 #}'
+# https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==
 POST http://localhost:7071/api/Log-User-Out
 Content-Type: application/json
 

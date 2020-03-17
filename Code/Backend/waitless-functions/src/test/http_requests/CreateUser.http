@@ -8,6 +8,7 @@
 #    "phone": "111-111-111",
 #    "title": "Boss"
 #}'
+# https://waitless-functions-2.azurewebsites.net/api/Add-User?code=qbKCJmMn8zHVga9kZ/p9Uwh03U9RKOrKGmfUdWL8sMsMOuVZJ12DKQ==
 POST http://localhost:7071/api/Add-User
 Content-Type: application/json
 

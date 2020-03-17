@@ -4,11 +4,12 @@
 #	TaskId: "1234",
 #	employeeToAssignId: "2124"
 #}'
+# https://waitless-functions-2.azurewebsites.net/api/Update-Task-User?code=tz6IzOzltKMXwHzljWBglCdjL3Zw7GeZ3VO2xjrpTxckXlz3XMrt8A==
 POST http://localhost:7071/api/Update-Task-User
 Content-Type: application/json
 
 {
-	TaskId: "1234",
+	taskId: "1234",
 	employeeToAssignId: "2124"
 }
 

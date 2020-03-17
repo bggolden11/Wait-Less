@@ -4,6 +4,7 @@
 #"employeeID":"2121",
 #"passwordtoken":"1234"
 #}'
+# https://waitless-functions-2.azurewebsites.net/api/Authenticate-User?code=akKyCeyPLfZgmFZWFyrqhW43N3eZqq6I82aC2N8Tp4Drt9fEYrrVwA==
 POST http://localhost:7071/api/Authenticate-User
 Content-Type: application/json
 

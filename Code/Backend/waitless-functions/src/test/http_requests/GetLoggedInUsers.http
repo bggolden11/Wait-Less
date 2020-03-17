@@ -1,0 +1,5 @@
+# curl --location --request GET 'http://localhost:7071/api/Get_Logged-In-Users'
+GET http://localhost:7071/api/Get-Logged-In-Users
+
+###
+

@@ -1,0 +1,14 @@
+# curl --location --request POST 'http://localhost:7071/api/Log-User-Out'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#	employeeId:"2121"
+#}'
+POST http://localhost:7071/api/Log-User-Out
+Content-Type: application/json
+
+{
+  employeeId: "2121"
+}
+
+###
+

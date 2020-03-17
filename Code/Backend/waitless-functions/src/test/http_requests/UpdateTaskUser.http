@@ -1,0 +1,16 @@
+# curl --location --request POST 'http://localhost:7071/api/Update-Task-User'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#	TaskId: "1234",
+#	employeeToAssignId: "2124"
+#}'
+POST http://localhost:7071/api/Update-Task-User
+Content-Type: application/json
+
+{
+	TaskId: "1234",
+	employeeToAssignId: "2124"
+}
+
+###
+

@@ -1,7 +1,5 @@
 package com.waitless.functions;
 
-import Requests.UserAuthenticationRequest;
-import Service.UserAuthentication;
 import com.microsoft.azure.functions.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

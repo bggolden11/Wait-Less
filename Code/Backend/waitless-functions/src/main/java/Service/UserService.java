@@ -66,7 +66,8 @@ public class UserService {
                 userDBO.logUserIn(employeeID);
                 return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
             }
-            return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
+            else
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
         }
         catch (UserNotFoundException e){
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();

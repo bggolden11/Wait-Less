@@ -39,7 +39,7 @@ public class Function {
                                        final ExecutionContext context) {
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if (createUserRequest != null)
-            return userService.createUser(request, createUserRequest.firstName, createUserRequest.lastName, createUserRequest.title);
+            return userService.createUser(request, createUserRequest.firstName, createUserRequest.lastName, createUserRequest.isManager, createUserRequest.title);
         else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }

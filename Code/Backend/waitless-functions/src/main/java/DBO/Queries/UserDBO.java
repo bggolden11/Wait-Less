@@ -104,7 +104,7 @@ public class UserDBO implements DBO {
      * @return new created employeeID of user
      * @throws SQLException Error with database
      */
-    public String createUser(String passwordtoken, String firstName, String lastName, int isManager, String title) throws SQLException {
+    public String createUser(String passwordtoken, String firstName, String lastName, String isManager, String title) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();

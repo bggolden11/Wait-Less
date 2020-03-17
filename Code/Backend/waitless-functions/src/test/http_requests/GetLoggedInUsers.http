@@ -1,4 +1,5 @@
 # curl --location --request GET 'http://localhost:7071/api/Get_Logged-In-Users'
+# https://waitless-functions-2.azurewebsites.net/api/Get-Logged-In-Users?code=4kq5Ed1tKRCVM1C3V27gLDhIJMU3vUdzyq3to69zKurMdW4pzTxmmQ==
 GET http://localhost:7071/api/Get-Logged-In-Users
 
 ###

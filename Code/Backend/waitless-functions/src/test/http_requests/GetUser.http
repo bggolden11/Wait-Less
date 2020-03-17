@@ -3,6 +3,7 @@
 #--data-raw '{
 #	employeeId: "2124"
 #}'
+# https://waitless-functions-2.azurewebsites.net/api/Get-Employee?code=Jh5OOXXRJuUt4fSaV1t3392tWgsvVbYNRbfvayefUg0vKquDKei4aw==
 POST http://localhost:7071/api/Get-Employee
 Content-Type: application/json
 

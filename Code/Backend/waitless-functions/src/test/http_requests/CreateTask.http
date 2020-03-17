@@ -4,6 +4,7 @@
 #	employeeId: "2121",
 #	message: "PLEASE WORK PLEASE I BEG OF YOU PART DOUS"
 #}'
+# https://waitless-functions-2.azurewebsites.net/api/Create-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==
 POST http://localhost:7071/api/Create-Task
 Content-Type: application/json
 

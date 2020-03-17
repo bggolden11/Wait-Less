@@ -37,11 +37,11 @@ public class UserService {
      * @return 200 if user successfully added with new employee Id
      *         500 if internal server error
      */
-    public HttpResponseMessage createUser(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, String birthday, String address, String phone, String title) {
+    public HttpResponseMessage createUser(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, String title) {
         String initialPassword = String.format("%06d",(new Random()).nextInt(999999));
         String encryptedPassword = (new AES()).encrypt(initialPassword);
         try {
-                String employeeID = userDBO.createUser(firstName, lastName, title.equals("Manager") ? 1 : 0, birthday, address, phone, 10.0, encryptedPassword, title);
+                String employeeID = userDBO.createUser(encryptedPassword, firstName, lastName, title.equals("Manager") ? 1 : 0, title);
                 return request.createResponseBuilder(HttpStatus.OK).body(new CreateUserResponse(employeeID,initialPassword)).build();
         }
         catch (SQLException e){

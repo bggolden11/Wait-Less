@@ -3,6 +3,9 @@
 #--data-raw '{
 #    "firstName": "Chris P the third.",
 #    "lastName": "Bacon the second",
+#    "birthday": "2001-12-12",
+#    "address": "123 drive",
+#    "phone": "111-111-111",
 #    "title": "Boss"
 #}'
 # https://waitless-functions-2.azurewebsites.net/api/Add-User?code=qbKCJmMn8zHVga9kZ/p9Uwh03U9RKOrKGmfUdWL8sMsMOuVZJ12DKQ==
@@ -12,8 +15,10 @@ Content-Type: application/json
 {
     "firstName": "Chris P the third.",
     "lastName": "Bacon the second",
-    "isManager": "1",
-    "title": "Manager"
+    "birthday": "2001-12-12",
+    "address": "123 drive",
+    "phone": "111-111-111",
+    "title": "Boss"
 }
 
 ###

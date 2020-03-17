@@ -41,6 +41,31 @@ public class TaskDBO implements DBO{
         }
     }
 
+        /**
+     *
+     * @param taskID task ID to be completed
+     * @param employeeId employee ID of the user you would like to assign the task to
+     * @return The TaskId of the finished task
+     * @throws SQLException Error with the Sql database
+     */
+    public void finishTask(String taskID, String employeeID) throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "UPDATE Task "
+                + "SET Finish_Time = GETDATE(), Status = 'Done', Employee_ID = '" + employeeID + "'"
+                + "WHERE Task_ID = " + taskID + ";\n";
+
+        try (Statement statement = connection.createStatement())
+        {
+            statement.executeUpdate(selectSql);
+        }  
+        finally {
+            connection.close();
+        }
+    }
+
     /**
      *
      * @param taskId The task ID to update

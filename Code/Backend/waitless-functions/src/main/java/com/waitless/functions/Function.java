@@ -82,6 +82,17 @@ public class Function {
         }
     }
 
+    @FunctionName("Finish-Task")
+    public HttpResponseMessage finishTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<FinishTaskRequest>> request,
+                                          final ExecutionContext context) {
+        FinishTaskRequest finishTaskRequest = request.getBody().orElse(null);
+        if (finishTaskRequest != null)
+            return taskService.finishTask(request, finishTaskRequest.taskID, finishTaskRequest.employeeID);
+        else {
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+        }
+    }
+
     @FunctionName("Update-Task-User")
     public HttpResponseMessage updateTaskUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
                                               final ExecutionContext context) {

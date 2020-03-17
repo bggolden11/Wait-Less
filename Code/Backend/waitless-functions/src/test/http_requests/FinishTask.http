@@ -1,0 +1,17 @@
+# curl --location --request POST 'http://localhost:7071/api/Finish-Task'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#	taskID: "0302",
+#	employeeID: "2121"
+#}'
+# https://waitless-functions-2.azurewebsites.net/api/Finish-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==
+POST http://localhost:7071/api/Finish-Task
+Content-Type: application/json
+
+{
+	taskID: "0302",
+	employeeID: "2121"
+}
+
+###
+

@@ -87,7 +87,7 @@ public class Function {
                                               final ExecutionContext context) {
         UpdateUserToTaskRequest updateUserToTaskRequest = request.getBody().orElse(null);
         if (updateUserToTaskRequest != null)
-            return taskService.updateTaskUser(request, updateUserToTaskRequest.TaskId, updateUserToTaskRequest.employeeToAssignId);
+            return taskService.updateTaskUser(request, updateUserToTaskRequest.taskId, updateUserToTaskRequest.employeeToAssignId);
         else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }

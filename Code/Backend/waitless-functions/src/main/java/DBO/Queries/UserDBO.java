@@ -3,7 +3,6 @@ package DBO.Queries;
 import DBO.DBOTypes.UserAuthenticationDBO;
 import Exceptions.UserNotFoundException;
 import Models.Employee;
-import Models.GetLoggedInEmployee;
 
 import java.sql.*;
 import java.sql.Connection;
@@ -154,10 +153,9 @@ public class UserDBO implements DBO {
             if (!resultSet.next()) {
                 throw new UserNotFoundException();
             } else {
-                return new Employee(resultSet.getString(2),resultSet.getString(3),
-                        resultSet.getInt(4) == 1, resultSet.getString(6),
-                        resultSet.getString(7),resultSet.getString(8),resultSet.getString(9),
-                        resultSet.getDouble(11),resultSet.getString(12));
+                return new Employee(resultSet.getString(1), 
+                    resultSet.getString(2), resultSet.getString(3), 
+                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(6));
             }
 
         } finally {
@@ -170,8 +168,8 @@ public class UserDBO implements DBO {
      * @return List of all logged in users
      * @throws SQLException Error connecting to DB
      */
-    public List<GetLoggedInEmployee> getLoggedInEmployees() throws SQLException {
-        List<GetLoggedInEmployee> employees = new ArrayList<>();
+    public List<Employee> getLoggedInEmployees() throws SQLException {
+        List<Employee> employees = new ArrayList<>();
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
@@ -184,9 +182,9 @@ public class UserDBO implements DBO {
         ResultSet resultSet = statement.executeQuery(selectSql)) {
 
             while(resultSet.next()){
-                employees.add(new GetLoggedInEmployee(resultSet.getString(1),
-                                                                    resultSet.getString(2),
-                                                                    resultSet.getString(3)));
+                employees.add(new Employee(resultSet.getString(1), 
+                    resultSet.getString(2), resultSet.getString(3), 
+                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(6)));
             }
             return employees;
 

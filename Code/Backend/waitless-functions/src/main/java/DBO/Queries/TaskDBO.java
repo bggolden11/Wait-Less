@@ -1,6 +1,6 @@
 package DBO.Queries;
 
-import Models.GetLoggedInEmployee;
+import Models.Employee;
 import Models.Task;
 
 import java.sql.*;

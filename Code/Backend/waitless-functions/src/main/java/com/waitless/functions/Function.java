@@ -2,7 +2,7 @@ package com.waitless.functions;
 
 import java.util.*;
 
-import Models.GetLoggedInEmployee;
+import Models.Employee;
 import Requests.*;
 import Service.TaskService;
 import Service.UserService;

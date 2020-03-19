@@ -4,6 +4,7 @@ import DBO.Queries.TaskDBO;
 import DBO.Queries.UserDBO;
 import Exceptions.UserNotFoundException;
 import Requests.CreateTaskRequest;
+import Requests.FinishTaskRequest;
 import Requests.GetTasksBasedOnUserRequest;
 import Requests.UpdateUserToTaskRequest;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -30,6 +31,26 @@ public class TaskService {
         try{
             getUserDBO.getEmployee(employeeId);
             return request.createResponseBuilder(HttpStatus.CREATED).body( taskDbo.createTask(employeeId, message)).build();
+        } catch (UserNotFoundException e) {
+            return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+        } catch (SQLException e) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+        }
+    }
+
+        /**
+     *
+     * @param request request for finish task request
+     * @param employeeID employeeId of the user to finish the task under
+     * @return 201 if task successfully finished
+     *         404 if employeeID not found
+     *         500 SQL error
+     */
+    public HttpResponseMessage finishTask(HttpRequestMessage<Optional<FinishTaskRequest>> request, String taskID, String employeeID){
+        try{
+            getUserDBO.getEmployee(employeeID);
+            taskDbo.finishTask(taskID, employeeID);
+            return request.createResponseBuilder(HttpStatus.OK).build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
         } catch (SQLException e) {

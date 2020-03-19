@@ -67,7 +67,7 @@ public class UserService {
                 return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
             }
             else
-                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body(encryptedPassword).build();
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid user but incorrect password").build();
         }
         catch (UserNotFoundException e){
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();

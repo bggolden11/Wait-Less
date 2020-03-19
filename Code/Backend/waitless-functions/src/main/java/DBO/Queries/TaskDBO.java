@@ -48,13 +48,13 @@ public class TaskDBO implements DBO{
      * @return The TaskId of the finished task
      * @throws SQLException Error with the Sql database
      */
-    public void finishTask(String taskID, String employeeID) throws SQLException {
+    public void finishTask(String taskID) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "UPDATE Task "
-                + "SET Finish_Time = GETDATE(), Status = 'Done', Employee_ID = '" + employeeID + "'"
+                + "SET Finish_Time = GETDATE(), Status = 'Complete' "
                 + "WHERE Task_ID = " + taskID + ";\n";
 
         try (Statement statement = connection.createStatement())
@@ -92,19 +92,49 @@ public class TaskDBO implements DBO{
     /**
      *
      * @param employeeID employee Id you would like to get the tasks for
-     * @return lists of tasks corresponding to that employee Id
+     * @return lists of uncompleted tasks corresponding to that employee Id
      * @throws SQLException error connecting to SQL DB
      */
-    public List<Task> getTaskBasedOnEmployeeID(String employeeID) throws SQLException {
-        List<Task> tasks = new ArrayList<>();
+    public List<Task> getUncompletedTaskBasedOnEmployeeID(String employeeID) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Employee_ID = " + employeeID + ";\n";
+                + "WHERE Employee_ID = " + employeeID + "AND Finish_Time IS NULL"+ ";\n";
 
+        return getTasks(connection, selectSql);
+    }
+
+    /**
+     *
+     * @param employeeID employee Id you would like to get the tasks for
+     * @return lists of completed tasks corresponding to that employee Id
+     * @throws SQLException error connecting to SQL DB
+     */
+    public List<Task> getCompletedTaskBasedOnEmployeeID(String employeeID) throws SQLException {
+
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task "
+                + "WHERE Employee_ID = " + employeeID + "AND Finish_Time IS NOT NULL"+ ";\n";
+
+        return getTasks(connection, selectSql);
+    }
+
+    /**
+     * HELPER FUNCTION TO EXTRACT TASKS
+     * @param connection SQL connection
+     * @param selectSql Select Statement to run based on operation
+     * @return Tasks gotten from SQL statement
+     * @throws SQLException ERROR connecting TO DB
+     */
+    private List<Task> getTasks(Connection connection, String selectSql) throws SQLException {
+        List<Task> tasks = new ArrayList<>();
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(selectSql)) {
 
@@ -122,4 +152,6 @@ public class TaskDBO implements DBO{
             connection.close();
         }
     }
+
+
 }

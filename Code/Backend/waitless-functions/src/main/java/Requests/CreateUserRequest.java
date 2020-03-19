@@ -16,5 +16,5 @@ package Requests;
 }
  */
 public class CreateUserRequest {
-    public String firstName, lastName, birthday, address, phone, title;
+    public String firstName, lastName, birthday, address, phone, title, encryptedPassword;
 }

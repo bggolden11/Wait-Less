@@ -2,7 +2,7 @@ package com.waitless.functions;
 
 import java.util.*;
 
-import Models.GetLoggedInEmployee;
+import Models.Employee;
 import Requests.*;
 import Service.TaskService;
 import Service.UserService;
@@ -77,6 +77,17 @@ public class Function {
         CreateTaskRequest createTaskRequest = request.getBody().orElse(null);
         if (createTaskRequest != null)
             return taskService.createTask(request, createTaskRequest.employeeId, createTaskRequest.message);
+        else {
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+        }
+    }
+
+    @FunctionName("Finish-Task")
+    public HttpResponseMessage finishTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<FinishTaskRequest>> request,
+                                          final ExecutionContext context) {
+        FinishTaskRequest finishTaskRequest = request.getBody().orElse(null);
+        if (finishTaskRequest != null)
+            return taskService.finishTask(request, finishTaskRequest.taskID, finishTaskRequest.employeeID);
         else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }

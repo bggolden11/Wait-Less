@@ -1,5 +1,6 @@
 package DBO.Queries;
 
+import Exceptions.TaskNotFoundException;
 import Models.Employee;
 import Models.Task;
 
@@ -12,24 +13,34 @@ public class TaskDBO implements DBO{
     /**
      *
      * @param employeeId employee ID of the user you would like to assign the task to
-     * @param message What the current task is
+     * @param description What the current task is
      * @return The TaskId of the create task
      * @throws SQLException Error with the Sql database
      */
-    public String createTask(String employeeId, String title, String description, String table) throws SQLException {
+
+    public static void main(String[] x) throws SQLException {
+        createTask("2121","TEST's","test's","A1");
+    }
+    public static String createTask(String employeeId, String title, String description, String table) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
-        String selectSql = "INSERT INTO Task"
+        String insertSql = "INSERT INTO Task"
                 + "(Employee_ID, Status, Title, Description, Dining_Table_ID)"
                 + "OUTPUT Inserted.Task_ID "
-                + "VALUES ('" + employeeId + "', '" + "Active" + "', '" + title + "', '" + description + "', '" + table + "');\n";
+                + "VALUES (?, 'Active', ?, ?, ?) ";
 
-        try (Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(selectSql)){
+        try {
+            PreparedStatement preparedStmt = connection.prepareStatement(insertSql);
+            preparedStmt.setString(1, employeeId);
+            preparedStmt.setString(2,title);
+            preparedStmt.setString(3,description);
+            preparedStmt.setString(4,table);
 
-            // Print results from select statement
+            ResultSet resultSet = preparedStmt.executeQuery();
+
+                // Print results from select statement
             if (!resultSet.next()) {
                 throw new SQLException();
             } else {
@@ -44,7 +55,6 @@ public class TaskDBO implements DBO{
         /**
      *
      * @param taskID task ID to be completed
-     * @param employeeId employee ID of the user you would like to assign the task to
      * @return The TaskId of the finished task
      * @throws SQLException Error with the Sql database
      */
@@ -87,6 +97,42 @@ public class TaskDBO implements DBO{
         finally {
             connection.close();
         }
+    }
+
+    /**
+     *
+     * @param taskId Id of th task you would like to retrive
+     * @return the task requested for
+     * @throws SQLException error connecting to SQL DB
+     * @throws TaskNotFoundException Could not find requested task
+     */
+    public Task getTask(String taskId) throws SQLException, TaskNotFoundException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task "
+                + "WHERE Task_ID = " + taskId + ";\n";
+
+       try{
+           Statement statement = connection.createStatement();
+           ResultSet resultSet = statement.executeQuery(selectSql);
+
+           if (!resultSet.next()) {
+               throw new TaskNotFoundException();
+           } else {
+               return new Task(resultSet.getString(1),
+                       resultSet.getString(2),
+                       resultSet.getString(3),
+                       resultSet.getString(4),
+                       resultSet.getString(5),
+                       resultSet.getString(10));
+           }
+       }
+       finally {
+           connection.close();
+       }
     }
 
     /**
@@ -144,9 +190,7 @@ public class TaskDBO implements DBO{
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
-                        resultSet.getString(10),
-                        resultSet.getTime(7),
-                        resultSet.getTime(8)));
+                        resultSet.getString(10)));
             }
             return tasks;
 

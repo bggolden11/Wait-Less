@@ -27,14 +27,14 @@ public class TaskService {
      *         404 if employeeID not found
      *         500 SQL error
      */
-    public HttpResponseMessage createTask(HttpRequestMessage<Optional<CreateTaskRequest>> request, String employeeId, String message){
+    public HttpResponseMessage createTask(HttpRequestMessage<Optional<CreateTaskRequest>> request, String employeeId, String title, String description, String table){
         try{
             getUserDBO.getEmployee(employeeId);
-            return request.createResponseBuilder(HttpStatus.CREATED).body( taskDbo.createTask(employeeId, message)).build();
+            return request.createResponseBuilder(HttpStatus.CREATED).body( taskDbo.createTask(employeeId, title, description, table)).build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
         } catch (SQLException e) {
-            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body(e.fillInStackTrace() + e.getMessage()).build();
         }
     }
 

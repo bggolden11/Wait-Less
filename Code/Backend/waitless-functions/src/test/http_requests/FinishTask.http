@@ -9,8 +9,7 @@ POST http://localhost:7071/api/Finish-Task
 Content-Type: application/json
 
 {
-	taskID: "0302",
-	employeeID: "2121"
+	taskID: "1001"
 }
 
 ###

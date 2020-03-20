@@ -38,7 +38,7 @@ public class HttpRequestTest{
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Authenticate-User");
         StringEntity entity = new StringEntity("{\n" +
                 "\"employeeID\":\"2121\",\n" +
-                "\"passwordtoken\":\"1234\"\n" +
+                "\"passwordtoken\":\"5z0ZYrqhDOm5nkK5oIEudg==\"\n" +
                 "}");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
@@ -76,7 +76,8 @@ public class HttpRequestTest{
                 "    \"birthday\": \"2001-12-12\",\n" +
                 "    \"address\": \"123 drive\",\n" +
                 "    \"phone\": \"111-111-111\",\n" +
-                "    \"title\": \"Boss\"\n" +
+                "    \"title\": \"Boss\",\n" +
+            "        \"encryptedPassword\": \"TestPassword\"\n" +
                 "}");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
@@ -88,9 +89,23 @@ public class HttpRequestTest{
     }
 
     @Test
-    public void getTasksBasedOnEmployeeId() throws IOException {
+    public void getActiveTasks() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Tasks-Based-On-User");
+        HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Active-Tasks-Based-On-User");
+        StringEntity entity = new StringEntity("{ employeeId: \"2124\"}\n");
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+
+        CloseableHttpResponse response = client.execute(httpPost);
+        assert(response.getStatusLine().getStatusCode() == 200);
+        client.close();
+    }
+
+    @Test
+    public void getInactiveTasks() throws IOException {
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Inactive-Tasks-Based-On-User");
         StringEntity entity = new StringEntity("{ employeeId: \"2124\"}\n");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
@@ -145,4 +160,21 @@ public class HttpRequestTest{
         assert(response.getStatusLine().getStatusCode() == 200);
         client.close();
     }
+
+    @Test
+    public void FinishTask() throws IOException {
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost("http://localhost:7071/api/Finish-Task");
+        StringEntity entity = new StringEntity("{\n" +
+                "\ttaskID: \"0302\"\n" +
+                "}");
+        httpPost.setEntity(entity);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+
+        CloseableHttpResponse response = client.execute(httpPost);
+        assert(response.getStatusLine().getStatusCode() == 200);
+        client.close();
+    }
+
 }

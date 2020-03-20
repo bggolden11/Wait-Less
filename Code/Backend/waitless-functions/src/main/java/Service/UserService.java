@@ -1,9 +1,11 @@
 package Service;
 
 
+import DBO.DBOTypes.UserAuthenticationDBO;
 import DBO.Queries.UserDBO;
 import Encryption.AES;
 import Exceptions.UserNotFoundException;
+import Models.UserAuthenticateResponse;
 import Requests.CreateUserRequest;
 import Requests.GetEmployeeRequest;
 import Requests.LogEmployeeOutRequest;
@@ -15,12 +17,12 @@ import com.microsoft.azure.functions.HttpStatus;
 
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.Random;
 
 
 
 public class UserService {
     UserDBO userDBO = new UserDBO();
+    AES aes = new AES();
 
     /*
  TODO: This request should really be returning a CREATED (201).
@@ -34,15 +36,14 @@ public class UserService {
      * @param address address of new user
      * @param phone phone number of new user
      * @param title title of new user
+     * @param encryptedPassword encrypted password for the user to be set
      * @return 200 if user successfully added with new employee Id
      *         500 if internal server error
      */
-    public HttpResponseMessage createUser(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, String birthday, String address, String phone, String title) {
-        String initialPassword = String.format("%06d",(new Random()).nextInt(999999));
-        String encryptedPassword = (new AES()).encrypt(initialPassword);
+    public HttpResponseMessage createUser(HttpRequestMessage<Optional<CreateUserRequest>> request, String firstName, String lastName, String birthday, String address, String phone, String title, String encryptedPassword) {
         try {
                 String employeeID = userDBO.createUser(firstName, lastName, title.equals("Manager") ? 1 : 0, birthday, address, phone, 10.0, encryptedPassword, title);
-                return request.createResponseBuilder(HttpStatus.OK).body(new CreateUserResponse(employeeID,initialPassword)).build();
+                return request.createResponseBuilder(HttpStatus.OK).body(new CreateUserResponse(employeeID)).build();
         }
         catch (SQLException e){
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
@@ -60,14 +61,14 @@ public class UserService {
      *         500 if internal server error
      */
     public HttpResponseMessage authenticate(HttpRequestMessage<Optional<UserAuthenticationRequest>> request, String employeeID, String password) {
-        String encryptedPassword = (new AES()).encrypt(password);
         try{
-            if(userDBO.userAuthenticate(employeeID).passwordtoken.equals(encryptedPassword)){
+            UserAuthenticationDBO userAuthenticationRequest = userDBO.userAuthenticate(employeeID);
+            if(userAuthenticationRequest.passwordtoken.equals(password)){
                 userDBO.logUserIn(employeeID);
-                return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
+                return request.createResponseBuilder(HttpStatus.OK).body(new UserAuthenticateResponse(userAuthenticationRequest.isManager)).build();
             }
             else
-                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid username but incorrect password").build();
+                return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid user but incorrect password").build();
         }
         catch (UserNotFoundException e){
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();

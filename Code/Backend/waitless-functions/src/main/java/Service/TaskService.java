@@ -46,13 +46,10 @@ public class TaskService {
      *         404 if employeeID not found
      *         500 SQL error
      */
-    public HttpResponseMessage finishTask(HttpRequestMessage<Optional<FinishTaskRequest>> request, String taskID, String employeeID){
+    public HttpResponseMessage finishTask(HttpRequestMessage<Optional<FinishTaskRequest>> request, String taskID){
         try{
-            getUserDBO.getEmployee(employeeID);
-            taskDbo.finishTask(taskID, employeeID);
+            taskDbo.finishTask(taskID);
             return request.createResponseBuilder(HttpStatus.OK).build();
-        } catch (UserNotFoundException e) {
-            return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
         } catch (SQLException e) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }
@@ -83,11 +80,25 @@ public class TaskService {
      *
      * @param request http request to send and receive
      * @param employeeId employee Id you would like to get tasks for
-     * @return lists of tasks corresponding to that employee Id
+     * @return lists of completed tasks corresponding to that employee Id
      */
-    public HttpResponseMessage getTasksBasedOnEmployeeID(HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request, String employeeId){
+    public HttpResponseMessage getCompletedTasksBasedOnEmployeeID(HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request, String employeeId){
         try{
-            return request.createResponseBuilder(HttpStatus.OK).body(taskDbo.getTaskBasedOnEmployeeID(employeeId)).build();
+            return request.createResponseBuilder(HttpStatus.OK).body(taskDbo.getCompletedTaskBasedOnEmployeeID(employeeId)).build();
+        } catch (SQLException e) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+        }
+    }
+
+    /**
+     *
+     * @param request http request to send and receive
+     * @param employeeId employee Id you would like to get tasks for
+     * @return lists of uncompleted tasks corresponding to that employee Id
+     */
+    public HttpResponseMessage getUncompletedTasksBasedOnEmployeeID(HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request, String employeeId){
+        try{
+            return request.createResponseBuilder(HttpStatus.OK).body(taskDbo.getUncompletedTaskBasedOnEmployeeID(employeeId)).build();
         } catch (SQLException e) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }

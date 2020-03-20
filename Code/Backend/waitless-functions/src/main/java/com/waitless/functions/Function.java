@@ -41,7 +41,7 @@ public class Function {
         if (createUserRequest != null)
             return userService.createUser(request, createUserRequest.firstName, createUserRequest.lastName,
                     createUserRequest.birthday, createUserRequest.address,
-                    createUserRequest.phone, createUserRequest.title);
+                    createUserRequest.phone, createUserRequest.title, createUserRequest.encryptedPassword);
         else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
@@ -87,7 +87,7 @@ public class Function {
                                           final ExecutionContext context) {
         FinishTaskRequest finishTaskRequest = request.getBody().orElse(null);
         if (finishTaskRequest != null)
-            return taskService.finishTask(request, finishTaskRequest.taskID, finishTaskRequest.employeeID);
+            return taskService.finishTask(request, finishTaskRequest.taskID);
         else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }
@@ -120,12 +120,22 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
     }
 
-    @FunctionName("Get-Tasks-Based-On-User")
-    public HttpResponseMessage getTasksBasedOnUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
-                                          final ExecutionContext context) {
+    @FunctionName("Get-Active-Tasks-Based-On-User")
+    public HttpResponseMessage getUncompletedTasksBasedOnEmployeeID(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
+                                                final ExecutionContext context) {
         GetTasksBasedOnUserRequest getTasksBasedOnUserRequest = request.getBody().orElse(null);
         if(getTasksBasedOnUserRequest != null)
-            return taskService.getTasksBasedOnEmployeeID(request,getTasksBasedOnUserRequest.employeeId);
+            return taskService.getUncompletedTasksBasedOnEmployeeID(request,getTasksBasedOnUserRequest.employeeId);
+        else
+            return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+    }
+
+    @FunctionName("Get-Inactive-Tasks-Based-On-User")
+    public HttpResponseMessage getCompletedTasksBasedOnEmployeeID(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
+                                                              final ExecutionContext context) {
+        GetTasksBasedOnUserRequest getTasksBasedOnUserRequest = request.getBody().orElse(null);
+        if(getTasksBasedOnUserRequest != null)
+            return taskService.getCompletedTasksBasedOnEmployeeID(request,getTasksBasedOnUserRequest.employeeId);
         else
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
     }

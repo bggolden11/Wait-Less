@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'registration_screen.dart';
 //import 'package:waitless/registration_screen.dart';
-import 'Widgets/FormCard.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _LoginScreen extends State<LoginScreen> {
   Widget horizontalLine() => Padding(
     padding: EdgeInsets.symmetric(horizontal: 16.0),
     child: Container(
-      width: ScreenUtil.getInstance().setWidth(120),
+      width: ScreenUtil().setWidth(120),
       height: 1.0,
       color: Colors.black26.withOpacity(.2),
     ),
@@ -45,9 +46,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance =
-        ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
+    ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: true);
     return new Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: true,
@@ -76,22 +75,22 @@ class _LoginScreen extends State<LoginScreen> {
                     children: <Widget>[
                       Image.asset(
                         "assets/logo.png",
-                        width: ScreenUtil.getInstance().setWidth(110),
-                        height: ScreenUtil.getInstance().setHeight(110),
+                        width: ScreenUtil().setWidth(110),
+                        height: ScreenUtil().setHeight(110),
                       ),
                       Text(" Wait Less",
                           style: TextStyle(
                               fontFamily: "Poppins-Bold",
-                              fontSize: ScreenUtil.getInstance().setSp(46),
+                              fontSize: ScreenUtil().setSp(46),
                               letterSpacing: .6,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(180),
+                    height: ScreenUtil().setHeight(180),
                   ),
                   FormCard(),
-                  SizedBox(height: ScreenUtil.getInstance().setHeight(40)),
+                  SizedBox(height: ScreenUtil().setHeight(40)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -115,8 +114,8 @@ class _LoginScreen extends State<LoginScreen> {
                       InkWell(
 
                         child: Container(
-                          width: ScreenUtil.getInstance().setWidth(330),
-                          height: ScreenUtil.getInstance().setHeight(100),
+                          width: ScreenUtil().setWidth(330),
+                          height: ScreenUtil().setHeight(100),
                           decoration: BoxDecoration(
                               gradient: LinearGradient(colors: [
                                 Color(0xFF17ead9),
@@ -148,7 +147,7 @@ class _LoginScreen extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(40),
+                    height: ScreenUtil().setHeight(40),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -161,11 +160,11 @@ class _LoginScreen extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(40),
+                    height: ScreenUtil().setHeight(40),
                   ),
 
                   SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(30),
+                    height: ScreenUtil().setHeight(30),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

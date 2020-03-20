@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/encrypter/encrypter.dart';
 import 'package:flutter_app/src/screens/main_menu.dart';
 import 'package:flutter_app/src/screens/registration_screen.dart';
 import 'package:flutter_app/src/toast/toast_message.dart';
@@ -64,9 +65,8 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final body = {
         "employeeID":"$employeeID",
-        "passwordtoken":"$password"
+        "passwordtoken":"${EncrypterUtil.encrypt(password)}"
       };
-
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Authenticate-User?code=akKyCeyPLfZgmFZWFyrqhW43N3eZqq6I82aC2N8Tp4Drt9fEYrrVwA==",
           data: body);

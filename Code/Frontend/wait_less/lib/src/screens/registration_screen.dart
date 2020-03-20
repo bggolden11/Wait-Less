@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/employee_login_credentials.dart';
+import 'package:flutter_app/src/models/employee_register_credentials.dart';
 import 'package:flutter_app/src/screens/login_screen.dart';
 import 'package:flutter_app/src/screens/successful_registration_screen.dart';
 import 'package:flutter_app/src/widgets/SignUpCard.dart';
@@ -41,14 +41,14 @@ class _RegistrationScreen extends State<RegistrationScreen> {
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Add-User?code=qbKCJmMn8zHVga9kZ/p9Uwh03U9RKOrKGmfUdWL8sMsMOuVZJ12DKQ==",
           data: body);
 
-      final EmployeeCredentials employeeLogin = EmployeeCredentials.fromJSON(json.decode(response.data.toString()));
+      final EmployeeRegisterCredentials employeeRegister = EmployeeRegisterCredentials.registerFromJSON(json.decode(response.data.toString()));
 
       if(response.statusCode == 200) {
         message = 'Sign Up Successful!';
         Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) =>
                 SuccessfulRegistrationScreen(
-                    employeeCredentials: employeeLogin)));
+                    employeeCredentials: employeeRegister)));
       }
 
     } on DioError catch (e){

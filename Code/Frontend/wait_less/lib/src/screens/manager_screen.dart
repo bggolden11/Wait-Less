@@ -1,5 +1,11 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import '../models/employee_login_credentials.dart';
+import '../toast/toast_message.dart';
+import 'login_screen.dart';
 import 'manager/tableList_screen.dart';
 import 'manager/waiterList_screen.dart';
 import 'manager/emptyTableList_screen.dart';
@@ -7,6 +13,11 @@ import 'manager/summary_screen.dart';
 import 'manager/createTask_screen.dart';
 
 class ManagerPage extends StatefulWidget { // class for Manager Page
+
+  final EmployeeLoginCredentials employeeCredentials;
+
+  ManagerPage({ this.employeeCredentials});
+
   @override
   _ManagerPage createState() => _ManagerPage();
 }
@@ -18,6 +29,35 @@ class _ManagerPage extends State<ManagerPage>{
   final List<Widget> pagesManager =[TablesList(),EmptyTablesList(), SummaryList(),WaiterList()];
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('Logging Out');
+    _logout();
+  }
+
+  void _logout() async{
+    String message = 'Error';
+    try {
+      final body = {
+//        "employeeId":"${widget.employeeCredentials.employeeId}",
+      };
+
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",
+          data: body);
+
+      if(response.statusCode == 200)
+        message = 'Logout Successful!';
+
+    } on DioError catch (e){
+      message = e.response.toString();
+    }
+
+    ToastMessage.show(message);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

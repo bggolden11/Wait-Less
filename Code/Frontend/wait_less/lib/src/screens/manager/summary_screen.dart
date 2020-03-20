@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-// class to store the details for each task
+// class to store the details for each task.dart
 class Task{
   Task({this.name, this.table, this.description});
   final String name;

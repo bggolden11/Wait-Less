@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/employee_login_credentials.dart';
+import 'package:flutter_app/src/models/employee_register_credentials.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 
 class SuccessfulCard extends StatelessWidget {
 
-  final EmployeeCredentials employeeCredentials;
+  final employeeCredentials;
 
   SuccessfulCard({@required this.employeeCredentials});
 

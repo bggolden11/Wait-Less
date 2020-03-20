@@ -1,46 +1,87 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/list_task_model.dart';
+import 'package:flutter_app/src/models/task_model.dart';
 import 'package:flutter_app/src/screens/waiter/sendTask_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-// class to store the details for each task
-class Task{
-  Task({this.name, this.table, this.description});
-  final String name;
-  final String table;
-  final String description;
+import '../../models/employee_login_credentials.dart';
+import '../login_screen.dart';
 
-}
+// class to store the details for each task.dart
+//class Task{
+//  Task({this.name, this.table, this.description});
+//  final String name;
+//  final String table;
+//  final String description;
+//
+//}
 List<Task> listCurrentTasks = [
-  Task(description: 'Can you please wipe the table' , name: 'Wipe Table', table: 'A1'),
-  Task(description: 'Can you please wipe the floor' , name: 'Wipe Floor', table: 'B3'),
-  Task(description: 'Can you please serve the table' , name: 'Serve Table', table: 'F3'),
-  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
-  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
-  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
-  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
+//  Task(description: 'Can you please wipe the table' , name: 'Wipe Table', table: 'A1'),
+//  Task(description: 'Can you please wipe the floor' , name: 'Wipe Floor', table: 'B3'),
+//  Task(description: 'Can you please serve the table' , name: 'Serve Table', table: 'F3'),
+//  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
+//  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
+//  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
+//  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
 
 ]; // for test will contain all the tasks
 class CurrentList extends ListTile{ // implementing the layout using list tile
   CurrentList(Task task, BuildContext context) // for each
       : super( // super class
-      title: Text(task.name), // get name
+      title: Text(task.title), // get name
       subtitle: Text(task.description),
-      leading: CircleAvatar(backgroundColor: Colors.redAccent[200], child: Text(task.table, style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
+      leading: CircleAvatar(backgroundColor: Colors.redAccent[200], child: Text(task.tableNumber, style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(Icons.assignment),
       onTap: (){showDialog(context: context, builder: (context) => CustomDialog( // calling the custome dialog I created
-        title: task.name,
+        title: task.title,
         description: task.description,
       ));}
   );
 }
 
-Widget _buildCurrentList() {
-  return ListView.builder(itemCount: listCurrentTasks.length, // will run for each item in the list
-      itemBuilder: (BuildContext content, int index){
-        Task task = listCurrentTasks[index];
-        return CurrentList(task, content);
+Future getTasks() async {
+  try {
+    final body = {
+      "employeeId":"${EmployeeLoginCredentials.employeeId}"
+    };
 
-      });
+    final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-Active-Tasks-Based-On-User?code=61hVnYrUocwE8RdgHiwZgqzMjN9/gO4DdiBsS2a2uU1JxvhAxQOOHQ==",
+        data: body);
+
+    listCurrentTasks = TaskList.taskListFromJSON('{ "result" : ${response.data.toString()} }').taskList;
+
+    listCurrentTasks.forEach((e) => print('TID: ${e.taskID}\nEID: ${e.employeeID}'));
+    return listCurrentTasks;
+  } on DioError catch (e){
+    print(e.response.toString());
+    print(e.response.statusCode);
+  }
+  return null;
+}
+
+Widget _buildCurrentList() {
+
+  return FutureBuilder(
+    future: getTasks(),
+    builder: (context, snapshot) {
+      return snapshot.hasData ?
+      listCurrentTasks.length == 0 ? new Container(child: Text('No Tasks!'))  // No tasks
+          : new ListView.builder( // Has Tasks
+        itemCount: listCurrentTasks.length,
+        itemBuilder: (BuildContext content, int index){
+          Task task = listCurrentTasks[index];
+          return CurrentList(task, content);
+        },
+      )
+          : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks
+
+    },
+
+  );
 }
 
 
@@ -190,11 +231,19 @@ class CustomDialog extends StatelessWidget{
   }
 }
 class CurrentTasks extends StatefulWidget { // class for current tasks
+
   @override
   _CurrentTasks createState() => _CurrentTasks();
 }
 
 class _CurrentTasks extends State<CurrentTasks>{
+
+  @override
+  void initState() {
+    super.initState();
+//    print('ID: ${EmployeeLoginCredentials.employeeId}\tisManager: ${EmployeeLoginCredentials.isManager}');
+  }
+
 
 
   @override

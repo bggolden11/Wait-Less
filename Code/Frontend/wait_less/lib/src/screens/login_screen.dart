@@ -1,13 +1,21 @@
-
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/encrypter/encrypter.dart';
 import 'package:flutter_app/src/screens/main_menu.dart';
 import 'package:flutter_app/src/screens/registration_screen.dart';
 import 'package:flutter_app/src/toast/toast_message.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
+import 'manager_screen.dart';
+import 'waiter_screen.dart';
 
 
 
@@ -64,16 +72,24 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final body = {
         "employeeID":"$employeeID",
-        "passwordtoken":"$password"
+        "passwordtoken":"${EncrypterUtil.encrypt(password)}"
       };
-
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Authenticate-User?code=akKyCeyPLfZgmFZWFyrqhW43N3eZqq6I82aC2N8Tp4Drt9fEYrrVwA==",
           data: body);
 
       if(response.statusCode == 200) {
+        EmployeeLoginCredentials.loginFromJSON(json.decode(response.data.toString()), employeeID);
         message = 'Login Successful!';
-        Navigator.pushReplacementNamed(context, MainMenu.route);
+
+        if(EmployeeLoginCredentials.isManager)
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  ManagerPage()));
+        else
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  WaiterPage()));
       }
 
     } on DioError catch (e){

@@ -7,6 +7,8 @@ import 'package:flutter_app/src/screens/waiter_screen.dart';
 import 'package:flutter_app/src/screens/manager_screen.dart';
 import 'package:flutter_app/src/screens/successful_registration_screen.dart';
 
+import 'src/screens/login_screen.dart';
+
 
 main() {
   runApp(MyApp());
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
 
-      home: ManagerPage(),
+      home: LoginPage(),
       routes: {MainMenu.route : (context) => MainMenu(),
                RegistrationScreen.route : (context) => RegistrationScreen(),
                LoginPage.route : (context) => LoginPage(),
@@ -28,5 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

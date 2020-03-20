@@ -19,7 +19,8 @@ public class Task {
         this.title = title;
         this.description = description;
         this.tableNumber = tableNumber;
-        this.startTime = startTime;
-        this.finishTime = finishTime;
+       this.startTime= startTime;
+       this.finishTime = finishTime;
+
     }
 }

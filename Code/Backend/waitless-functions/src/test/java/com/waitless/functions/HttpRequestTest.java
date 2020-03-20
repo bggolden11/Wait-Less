@@ -38,7 +38,7 @@ public class HttpRequestTest{
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Authenticate-User");
         StringEntity entity = new StringEntity("{\n" +
                 "\"employeeID\":\"2121\",\n" +
-                "\"passwordtoken\":\"VpK8d7Fkb8XWT6mcNAiWMQ==\"\n" +
+                "\"passwordtoken\":\"5z0ZYrqhDOm5nkK5oIEudg==\"\n" +
                 "}");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");

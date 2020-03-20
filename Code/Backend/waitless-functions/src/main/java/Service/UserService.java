@@ -61,11 +61,9 @@ public class UserService {
      *         500 if internal server error
      */
     public HttpResponseMessage authenticate(HttpRequestMessage<Optional<UserAuthenticationRequest>> request, String employeeID, String password) {
-        String encryptedPassword = (new AES()).encrypt(password);
-        System.out.println(encryptedPassword);
         try{
             UserAuthenticationDBO userAuthenticationRequest = userDBO.userAuthenticate(employeeID);
-            if(userAuthenticationRequest.passwordtoken.equals(encryptedPassword)){
+            if(userAuthenticationRequest.passwordtoken.equals(password)){
                 userDBO.logUserIn(employeeID);
                 return request.createResponseBuilder(HttpStatus.OK).body(new UserAuthenticateResponse(userAuthenticationRequest.isManager)).build();
             }

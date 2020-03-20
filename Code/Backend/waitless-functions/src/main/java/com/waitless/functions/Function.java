@@ -76,7 +76,7 @@ public class Function {
                                           final ExecutionContext context) {
         CreateTaskRequest createTaskRequest = request.getBody().orElse(null);
         if (createTaskRequest != null)
-            return taskService.createTask(request, createTaskRequest.employeeId, createTaskRequest.message);
+            return taskService.createTask(request, createTaskRequest.employeeId, createTaskRequest.title, createTaskRequest.description, createTaskRequest.table);
         else {
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
         }

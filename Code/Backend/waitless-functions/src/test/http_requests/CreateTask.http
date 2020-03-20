@@ -9,8 +9,10 @@ POST http://localhost:7071/api/Create-Task
 Content-Type: application/json
 
 {
-	employeeId: "2121",
-	message: "PLEASE WORK PLEASE I BEG OF YOU PART DOUS"
+  employeeId: "2121",
+  title: "Please work",
+  description:"PLEAH",
+  table:"A1"
 }
 
 ###

@@ -9,17 +9,14 @@ public class Task {
     public String title;
     public String description;
     public String tableNumber;
-    public Time startTime;
-    public Time finishTime;
 
-    public Task(String taskID, String employeeID, String status, String title, String description, String tableNumber, Time startTime, Time finishTime) {
+
+    public Task(String taskID, String employeeID, String status, String title, String description, String tableNumber) {
         this.taskID = taskID;
         this.employeeID = employeeID;
         this.status = status;
         this.title = title;
         this.description = description;
         this.tableNumber = tableNumber;
-        this.startTime = startTime;
-        this.finishTime = finishTime;
     }
 }

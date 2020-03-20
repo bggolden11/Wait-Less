@@ -1,11 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import '../toast/toast_message.dart';
+import 'login_screen.dart';
 import 'waiter/completed_screen.dart';
 import 'waiter/current_screen.dart';
 import 'waiter/createTask_screen.dart';
 
 class WaiterPage extends StatefulWidget { // class for Manager Page
+
+  final employeeCredentials;
+
+  WaiterPage({ this.employeeCredentials});
+
   @override
   _WaiterPage createState() => _WaiterPage();
 }
@@ -13,6 +21,35 @@ class WaiterPage extends StatefulWidget { // class for Manager Page
 class _WaiterPage extends State<WaiterPage>{
   // list of pages 
   final List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('Logging Out');
+    _logout();
+  }
+
+  void _logout() async{
+    String message = 'Error';
+    try {
+      final body = {
+        "employeeId":"${widget.employeeCredentials.employeeId}",
+      };
+
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",
+          data: body);
+
+      if(response.statusCode == 200)
+        message = 'Logout Successful!';
+
+    } on DioError catch (e){
+      message = e.response.toString();
+    }
+
+    ToastMessage.show(message);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

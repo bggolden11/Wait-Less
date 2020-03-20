@@ -1,4 +1,4 @@
-
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +9,11 @@ import 'package:flutter_app/src/screens/registration_screen.dart';
 import 'package:flutter_app/src/toast/toast_message.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
+import 'manager_screen.dart';
+import 'waiter_screen.dart';
 
 
 
@@ -71,9 +76,21 @@ class _LoginPageState extends State<LoginPage> {
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Authenticate-User?code=akKyCeyPLfZgmFZWFyrqhW43N3eZqq6I82aC2N8Tp4Drt9fEYrrVwA==",
           data: body);
 
+
       if(response.statusCode == 200) {
+        final employeeLogin = EmployeeLoginCredentials.loginfromJSON(json.decode(response.data.toString()), employeeId: employeeID);
         message = 'Login Successful!';
-        Navigator.pushReplacementNamed(context, MainMenu.route);
+
+        if(employeeLogin.isManager)
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  ManagerPage(
+                      employeeCredentials: employeeLogin)));
+        else
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  WaiterPage(
+                      employeeCredentials: employeeLogin)));
       }
 
     } on DioError catch (e){

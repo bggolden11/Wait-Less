@@ -1,13 +1,14 @@
 
-class EmployeeCredentials {
+class EmployeeLoginCredentials {
   final String employeeId;
-  final String temporaryPassword;
+//  final String Fname;
+//  final String Lname;
+  final bool isManager;
 
-  EmployeeCredentials({this.employeeId, this.temporaryPassword});
+  EmployeeLoginCredentials({this.isManager, this.employeeId});
 
-  EmployeeCredentials.fromJSON(Map<String, dynamic> parsedJSON)
-      : employeeId = parsedJSON['employeeId'],
-        temporaryPassword = parsedJSON['temporaryPassword'];
+  EmployeeLoginCredentials.loginfromJSON(Map<String, dynamic> parsedJSON, {this.employeeId})
+      : isManager = parsedJSON['isManager'];
 
 
 }

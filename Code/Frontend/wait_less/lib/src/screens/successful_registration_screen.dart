@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/employee_login_credentials.dart';
+import 'package:flutter_app/src/models/employee_register_credentials.dart';
 import 'package:flutter_app/src/screens/login_screen.dart';
 import 'package:flutter_app/src/widgets/successful_card.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SuccessfulRegistrationScreen extends StatelessWidget{
 
   static final String route = '/successfulCard';
-  final EmployeeCredentials employeeCredentials;
+  final EmployeeRegisterCredentials employeeCredentials;
 
   SuccessfulRegistrationScreen({@required this.employeeCredentials});
 

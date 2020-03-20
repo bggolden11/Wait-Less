@@ -36,7 +36,7 @@ public class UserDBO implements DBO {
             if (!resultSet.next()) {
                 throw new UserNotFoundException();
             } else {
-                return new UserAuthenticationDBO(resultSet.getString(1), resultSet.getString(10));
+                return new UserAuthenticationDBO(resultSet.getString(1), resultSet.getString(10),resultSet.getBoolean(4));
             }
 
         } finally {

@@ -1,9 +1,11 @@
 package Service;
 
 
+import DBO.DBOTypes.UserAuthenticationDBO;
 import DBO.Queries.UserDBO;
 import Encryption.AES;
 import Exceptions.UserNotFoundException;
+import Models.UserAuthenticateResponse;
 import Requests.CreateUserRequest;
 import Requests.GetEmployeeRequest;
 import Requests.LogEmployeeOutRequest;
@@ -62,9 +64,10 @@ public class UserService {
         String encryptedPassword = (new AES()).encrypt(password);
         System.out.println(encryptedPassword);
         try{
-            if(userDBO.userAuthenticate(employeeID).passwordtoken.equals(encryptedPassword)){
+            UserAuthenticationDBO userAuthenticationRequest = userDBO.userAuthenticate(employeeID);
+            if(userAuthenticationRequest.passwordtoken.equals(encryptedPassword)){
                 userDBO.logUserIn(employeeID);
-                return request.createResponseBuilder(HttpStatus.OK).body("Valid username and password").build();
+                return request.createResponseBuilder(HttpStatus.OK).body(new UserAuthenticateResponse(userAuthenticationRequest.isManager)).build();
             }
             else
                 return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid user but incorrect password").build();

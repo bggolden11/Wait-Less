@@ -16,15 +16,15 @@ public class TaskDBO implements DBO{
      * @return The TaskId of the create task
      * @throws SQLException Error with the Sql database
      */
-    public String createTask(String employeeId, String message) throws SQLException {
+    public String createTask(String employeeId, String title, String description, String table) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "INSERT INTO Task"
-                + "(Employee_ID, Status, Message, Start_Time)"
+                + "(Employee_ID, Status, Title, Description, Dining_Table_ID)"
                 + "OUTPUT Inserted.Task_ID "
-                + "VALUES ('" + employeeId + "', '" + "Active" + "', '" + message + "', " + "GETDATE());\n";
+                + "VALUES ('" + employeeId + "', '" + "Active" + "', '" + title + "', '" + description + "', '" + table + "');\n";
 
         try (Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(selectSql)){
@@ -143,8 +143,10 @@ public class TaskDBO implements DBO{
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
-                        resultSet.getTime(5),
-                        resultSet.getTime(6)));
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getTime(7),
+                        resultSet.getTime(8)));
             }
             return tasks;
 

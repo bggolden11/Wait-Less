@@ -55,7 +55,9 @@ public class HttpRequestTest{
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Create-Task");
         StringEntity entity = new StringEntity("{\n" +
                 "\temployeeId: \"2121\",\n" +
-                "\tmessage: \"PLEASE WORK PLEASE I BEG OF YOU PART DOUS\"\n" +
+                "\ttitle: \"Please work\",\n" +
+                "\tdescription:\"PLEAH\",\n" +
+                "\ttable:\"A1\"\n" +
                 "}");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");

@@ -65,7 +65,7 @@ public class UserService {
             UserAuthenticationDBO userAuthenticationRequest = userDBO.userAuthenticate(employeeID);
             if(userAuthenticationRequest.passwordtoken.equals(password)){
                 userDBO.logUserIn(employeeID);
-                return request.createResponseBuilder(HttpStatus.OK).body(new UserAuthenticateResponse(userAuthenticationRequest.isManager)).build();
+                return request.createResponseBuilder(HttpStatus.OK).body(new UserAuthenticateResponse(userAuthenticationRequest.firstName,userAuthenticationRequest.lastName,userAuthenticationRequest.isManager)).build();
             }
             else
                 return request.createResponseBuilder(HttpStatus.UNAUTHORIZED).body("Valid user but incorrect password").build();

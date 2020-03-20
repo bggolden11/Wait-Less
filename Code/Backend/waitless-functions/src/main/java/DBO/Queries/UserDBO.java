@@ -156,7 +156,7 @@ public class UserDBO implements DBO {
             } else {
                 return new Employee(resultSet.getString(1), 
                     resultSet.getString(2), resultSet.getString(3), 
-                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(6));
+                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(12));
             }
 
         } finally {
@@ -185,7 +185,7 @@ public class UserDBO implements DBO {
             while(resultSet.next()){
                 employees.add(new Employee(resultSet.getString(1), 
                     resultSet.getString(2), resultSet.getString(3), 
-                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(6)));
+                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(12)));
             }
             return employees;
 

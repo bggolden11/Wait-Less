@@ -17,11 +17,7 @@ public class TaskDBO implements DBO{
      * @return The TaskId of the create task
      * @throws SQLException Error with the Sql database
      */
-
-    public static void main(String[] x) throws SQLException {
-        createTask("2121","TEST's","test's","A1");
-    }
-    public static String createTask(String employeeId, String title, String description, String table) throws SQLException {
+    public String createTask(String employeeId, String title, String description, String table) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();

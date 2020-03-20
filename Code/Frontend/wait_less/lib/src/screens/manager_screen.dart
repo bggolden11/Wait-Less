@@ -42,7 +42,7 @@ class _ManagerPage extends State<ManagerPage>{
     String message = 'Error';
     try {
       final body = {
-        "employeeId":"${widget.employeeCredentials.employeeId}",
+//        "employeeId":"${widget.employeeCredentials.employeeId}",
       };
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",

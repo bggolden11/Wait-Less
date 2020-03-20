@@ -2,17 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import '../HTTPClient/http_client.dart';
+import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'waiter/completed_screen.dart';
 import 'waiter/current_screen.dart';
 import 'waiter/createTask_screen.dart';
 
+
 class WaiterPage extends StatefulWidget { // class for Manager Page
-
-  final employeeCredentials;
-
-  WaiterPage({ this.employeeCredentials});
 
   @override
   _WaiterPage createState() => _WaiterPage();
@@ -33,7 +32,7 @@ class _WaiterPage extends State<WaiterPage>{
     String message = 'Error';
     try {
       final body = {
-        "employeeId":"${widget.employeeCredentials.employeeId}",
+        "employeeId":"${EmployeeLoginCredentials.employeeId}",
       };
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",

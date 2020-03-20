@@ -1,6 +1,13 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/src/screens/waiter/sendTask_screen.dart';
+
+import '../../models/employee_login_credentials.dart';
+import '../../models/employee_login_credentials.dart';
+import '../login_screen.dart';
 
 // class to store the details for each task
 class Task{
@@ -14,10 +21,10 @@ List<Task> listCurrentTasks = [
   Task(description: 'Can you please wipe the table' , name: 'Wipe Table', table: 'A1'),
   Task(description: 'Can you please wipe the floor' , name: 'Wipe Floor', table: 'B3'),
   Task(description: 'Can you please serve the table' , name: 'Serve Table', table: 'F3'),
-  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
-  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
-  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
-  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
+//  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
+//  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
+//  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
+//  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
 
 ]; // for test will contain all the tasks
 class CurrentList extends ListTile{ // implementing the layout using list tile
@@ -35,6 +42,7 @@ class CurrentList extends ListTile{ // implementing the layout using list tile
 }
 
 Widget _buildCurrentList() {
+
   return ListView.builder(itemCount: listCurrentTasks.length, // will run for each item in the list
       itemBuilder: (BuildContext content, int index){
         Task task = listCurrentTasks[index];
@@ -190,12 +198,37 @@ class CustomDialog extends StatelessWidget{
   }
 }
 class CurrentTasks extends StatefulWidget { // class for current tasks
+
   @override
   _CurrentTasks createState() => _CurrentTasks();
 }
 
 class _CurrentTasks extends State<CurrentTasks>{
 
+  @override
+  void initState() {
+    super.initState();
+    print('ID: ${EmployeeLoginCredentials.employeeId}\tisManager: ${EmployeeLoginCredentials.isManager}');
+    getTasks();
+  }
+
+  void getTasks() async {
+    try {
+      final body = {
+        "employeeID":"${EmployeeLoginCredentials.employeeId}"
+      };
+
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-Active-Tasks-Based-On-User?code=61hVnYrUocwE8RdgHiwZgqzMjN9/gO4DdiBsS2a2uU1JxvhAxQOOHQ==",
+          data: body);
+
+      print(response.data.toString());
+
+    } on DioError catch (e){
+      print(e.response.toString());
+      print(e.response.statusCode);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {

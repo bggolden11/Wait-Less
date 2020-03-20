@@ -22,7 +22,6 @@ import java.util.Optional;
 
 public class UserService {
     UserDBO userDBO = new UserDBO();
-    AES aes = new AES();
 
     /*
  TODO: This request should really be returning a CREATED (201).
@@ -105,9 +104,14 @@ public class UserService {
      */
     public HttpResponseMessage logUserOut(HttpRequestMessage<Optional<LogEmployeeOutRequest>> request, String employeeId) {
         try {
+            userDBO.getEmployee(employeeId);
             userDBO.logUserOut(employeeId);
             return request.createResponseBuilder(HttpStatus.OK).build();
-        } catch (SQLException ex) {
+        }
+        catch (UserNotFoundException ex){
+            return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+        }
+        catch (SQLException ex) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }
     }

@@ -22,6 +22,7 @@ import java.util.Optional;
 
 public class UserService {
     UserDBO userDBO = new UserDBO();
+    AES aes = new AES();
 
     /*
  TODO: This request should really be returning a CREATED (201).

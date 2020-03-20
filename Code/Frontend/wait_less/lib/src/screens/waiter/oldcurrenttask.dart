@@ -18,7 +18,7 @@ class CurrentTasks extends StatefulWidget { // class for Waiter Page
 }
 
 class _CurrentTasks extends State<CurrentTasks>{
-  // make a list of all the task which can be updated with a call to the backend
+  // make a list of all the task.dart which can be updated with a call to the backend
   // for now I am implementing it with 8 of these tasks and populating the list with the same images but you can later add the
   // other functionality here
   // also this is a nice tutorial for the same, I couldn't understand it that well so I tried to implement as much as possible

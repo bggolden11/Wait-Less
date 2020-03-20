@@ -15,8 +15,9 @@ void main() {
       final Dio httpClient = new HTTPClient().dio;
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Authenticate-User?code=akKyCeyPLfZgmFZWFyrqhW43N3eZqq6I82aC2N8Tp4Drt9fEYrrVwA==",
           data: {"employeeID" : "2121", "passwordtoken" : "${EncrypterUtil.encrypt('1234')}"});
-      final employeeLogin = EmployeeLoginCredentials.loginfromJSON(json.decode(response.data.toString()));
-      if(!employeeLogin.isManager)
+      EmployeeLoginCredentials.loginFromJSON(json.decode(response.data.toString()), "2121");
+      
+      if(!EmployeeLoginCredentials.isManager)
         statusCode = 408;
       statusCode = response.statusCode;
     } on DioError catch (e){

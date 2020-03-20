@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../HTTPClient/http_client.dart';
 import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'waiter/completed_screen.dart';
@@ -79,7 +81,7 @@ class _WaiterPage extends State<WaiterPage>{
       drawer: new Drawer( // this is for the navBar or the sideBar, don't edit unless you want to edit something on the menu
         child: new ListView(
           children: <Widget>[ // Drawer class for the navbar and edit User Header if needed to change anything on the User Header Section (Image)
-            new UserAccountsDrawerHeader(accountName: new Text("Harsh Gupta", style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, fontFamily: "Poppins-Medium")), accountEmail: new Text("1024023", style: TextStyle(color: Colors.black, fontSize: 15.0, fontFamily: "Poppins-Medium",)), decoration: BoxDecoration(
+            new UserAccountsDrawerHeader(accountName: new Text("${EmployeeLoginCredentials.fName} ${EmployeeLoginCredentials.lName}", style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, fontFamily: "Poppins-Medium")), accountEmail: new Text("1024023", style: TextStyle(color: Colors.black, fontSize: 15.0, fontFamily: "Poppins-Medium",)), decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/task4.jpg"),
 

@@ -1,14 +1,9 @@
 
 class EmployeeLoginCredentials {
   static String employeeId;
-////  final String Fname;
-////  final String Lname;
+  static String fName;
+  static String lName;
   static bool isManager;
-//
-//  EmployeeLoginCredentials({this.isManager, this.employeeId});
-//
-//  EmployeeLoginCredentials.loginfromJSON(Map<String, dynamic> parsedJSON, {this.employeeId})
-//      : isManager = parsedJSON['isManager'];
 
   /// Singleton for the Employee Login class
   static final EmployeeLoginCredentials _singleton = new EmployeeLoginCredentials._internal();
@@ -17,7 +12,9 @@ class EmployeeLoginCredentials {
   }
 
   static void loginFromJSON(Map<String, dynamic> parsedJSON, String nEmployeeId) {
-    isManager = parsedJSON['isManager'];
+    fName = parsedJSON['firstName'] ?? '';
+    lName = parsedJSON['lastName'] ?? '';
+    isManager = parsedJSON['isManager'] ?? false;
     employeeId = nEmployeeId;
   }
 

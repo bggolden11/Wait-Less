@@ -11,24 +11,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../models/employee_login_credentials.dart';
 import '../login_screen.dart';
 
-// class to store the details for each task.dart
-//class Task{
-//  Task({this.name, this.table, this.description});
-//  final String name;
-//  final String table;
-//  final String description;
-//
-//}
-List<Task> listCurrentTasks = [
-//  Task(description: 'Can you please wipe the table' , name: 'Wipe Table', table: 'A1'),
-//  Task(description: 'Can you please wipe the floor' , name: 'Wipe Floor', table: 'B3'),
-//  Task(description: 'Can you please serve the table' , name: 'Serve Table', table: 'F3'),
-//  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
-//  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
-//  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
-//  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
+List<Task> listCurrentTasks = []; // for test will contain all the tasks
 
-]; // for test will contain all the tasks
 class CurrentList extends ListTile{ // implementing the layout using list tile
   CurrentList(Task task, BuildContext context) // for each
       : super( // super class

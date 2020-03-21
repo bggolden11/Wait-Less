@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/widgets/create_task.dart';
 import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
 import 'login_screen.dart';
@@ -10,7 +11,7 @@ import 'manager/tableList_screen.dart';
 import 'manager/waiterList_screen.dart';
 import 'manager/emptyTableList_screen.dart';
 import 'manager/summary_screen.dart';
-import 'manager/createTask_screen.dart';
+import 'waiter/sendTask_screen.dart' as sendTaskClass;
 
 class ManagerPage extends StatefulWidget { // class for Manager Page
 
@@ -26,7 +27,7 @@ class _ManagerPage extends State<ManagerPage>{
   // list of all the screens
   int currentPage = 0; // index of the pages in the list
   // list of pages
-  final List<Widget> pagesManager =[TablesList(),EmptyTablesList(), SummaryList(),WaiterList()];
+  final List<Widget> pagesManager =[TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
 
@@ -129,7 +130,18 @@ class _ManagerPage extends State<ManagerPage>{
           onPressed: (){showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(),
+                  child: CreateTask(onAddPressed: (){
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return Dialog(
+                              child: sendTaskClass.SendTask(),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(12)))
+                          );
+                        }
+                    );
+                  }),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12))
                   ),

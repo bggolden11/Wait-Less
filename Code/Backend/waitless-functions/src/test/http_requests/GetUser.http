@@ -12,5 +12,15 @@ Content-Type: application/json
 }
 
 ###
+#{
+#  "employeeID": "2124",
+#  "firstName": "Host",
+#  "lastName": "Test",
+#  "title": "SysAdmin",
+#  "isLoggedIn": false,
+#  "isManager": false,
+#  "birthday": "Dec 12, 2001",
+#  "tables": "A2"
+#}
 
 

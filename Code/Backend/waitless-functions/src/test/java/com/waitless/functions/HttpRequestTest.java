@@ -179,4 +179,14 @@ public class HttpRequestTest{
         client.close();
     }
 
+    @Test
+    public void getAllDiningRoomTables() throws IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Dining-Tables");
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
+
+    }
+
 }

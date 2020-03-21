@@ -7,22 +7,26 @@ import 'package:flutter_app/src/models/list_waiter_model.dart';
 import 'package:flutter_app/src/models/waiter_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../HTTPClient/http_client.dart';
 import '../screens/login_screen.dart';
 
+
+final Dio httpClient = new HTTPClient().dio;
 
 List<Waiter> listWaiters = [];
 
 class Waiter_list extends ListTile{ // implementing the layout using list tile
-  Waiter_list(Waiter waiter, BuildContext context, IconData trailingIcon, AssetImage waiterImage, VoidCallback onWaiterTap) // for each
+  Waiter_list(Waiter waiter, BuildContext context, IconData trailingIcon, AssetImage waiterImage, Function(Waiter w) onWaiterPress) // for each
       : super( // super class
       title: Text(waiter.toString()), // get name
       //leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(waiter.name[0], style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(trailingIcon),
       leading: CircleAvatar( backgroundColor: Colors.transparent,
         backgroundImage: waiterImage,),
-      onTap: onWaiterTap
+      onTap: () => onWaiterPress(waiter)
   );
 }
+
 
 Future getWaiters() async {
   try {
@@ -39,7 +43,7 @@ Future getWaiters() async {
   return null;
 }
 
-Widget BuildWaiterList({VoidCallback onWaiterTap, IconData trailingIcon, AssetImage waiterImage}) {
+Widget BuildWaiterList({Function(Waiter w) onWaiterPress, IconData trailingIcon, AssetImage waiterImage}) {
   return FutureBuilder(
     future: getWaiters(),
     builder: (context, snapshot) {
@@ -50,11 +54,7 @@ Widget BuildWaiterList({VoidCallback onWaiterTap, IconData trailingIcon, AssetIm
         itemBuilder: (BuildContext cxt, int index){
           Waiter waiter = listWaiters[index];
           return Waiter_list(waiter, cxt, trailingIcon, waiterImage,
-              onWaiterTap ?? (){
-                showDialog(context: context, builder: (context) => CustomDialog(
-                  title: waiter.toString(),
-                  description: "Currently working on tables A4, A8", /// TODO Change description
-                ));});
+              onWaiterPress);
         },
       )
           : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks

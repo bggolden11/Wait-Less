@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart';
 import 'package:flutter_app/src/widgets/create_task.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../HTTPClient/http_client.dart';
 import '../models/employee_login_credentials.dart';
 import '../models/employee_login_credentials.dart';
 import '../models/employee_login_credentials.dart';
+import '../toast/toast_message.dart';
 import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'waiter/completed_screen.dart';
@@ -21,7 +23,7 @@ class WaiterPage extends StatefulWidget { // class for Manager Page
 
 class _WaiterPage extends State<WaiterPage>{
   // list of pages 
-  final List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
+  List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
 
   @override
   void dispose() {
@@ -136,7 +138,9 @@ class _WaiterPage extends State<WaiterPage>{
               showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(onAddPressed: () => print('Hello'),),
+                  child: CreateTask(onAddPressed: (Task t) {
+                    createTask(t);
+                  }),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12))
                   ),
@@ -149,4 +153,29 @@ class _WaiterPage extends State<WaiterPage>{
 
     );
   }
+
+
+  void createTask(Task t) async {
+    String message = 'Failed to create Task!';
+    try {
+      final body = {
+        'employeeId' : "${t.employeeID}",
+        "title" : "${t.title}",
+        "description" : "${t.description}",
+        "table": "${t.tableNumber}"};
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Create-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==",
+          data: body);
+      if(response.statusCode == 201) {
+        message = 'Created Task!';
+        Navigator.pop(context);
+        setState(() {
+          pagesTasks =[CurrentTasks(), CompletedTasks()];
+        });
+      }
+    } on DioError catch (e){
+      message = e.message;
+    }
+    ToastMessage.show(message);
+  }
+
 }

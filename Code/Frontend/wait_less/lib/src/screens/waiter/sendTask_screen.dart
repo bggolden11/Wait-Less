@@ -1,13 +1,44 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart';
+import 'package:flutter_app/src/models/waiter_model.dart';
 import 'package:flutter_app/src/widgets/waiter_list.dart';
 
+import '../../toast/toast_message.dart';
+
 class SendTask extends StatefulWidget {
+
+  final Task task;
+
+  SendTask({ this.task });
+
   @override
   _SendTask createState() => _SendTask();
 }
 
 class _SendTask extends State<SendTask> {
+
+  void createAndSendTask(Task t) async {
+    String message = 'Failed to create Task!';
+    try {
+      final body = {
+        'employeeId' : "${t.employeeID}",
+        "title" : "${t.title}",
+        "description" : "${t.description}",
+        "table": "${t.tableNumber}"};
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Create-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==",
+          data: body);
+      if(response.statusCode == 201) {
+        message = 'Send Task!';
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } on DioError catch (e){
+      message = e.message;
+    }
+    ToastMessage.show(message);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +65,15 @@ class _SendTask extends State<SendTask> {
                 width: 500,
 
                 child: BuildWaiterList(
-                    onWaiterTap: () {},
+                    onWaiterPress: (Waiter w) {
+                      Task sendingTask = new Task(
+                        employeeID: w.employeeID,
+                        title: widget.task.title,
+                        description: widget.task.description,
+                        tableNumber: widget.task.tableNumber
+                      );
+                      createAndSendTask(sendingTask);
+                    },
                     trailingIcon: Icons.send,
                     waiterImage: AssetImage("assets/user.png")
                 ),

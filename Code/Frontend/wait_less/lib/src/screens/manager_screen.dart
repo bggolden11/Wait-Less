@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart' as taskModel;
 import 'package:flutter_app/src/widgets/create_task.dart';
 import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
@@ -127,15 +128,15 @@ class _ManagerPage extends State<ManagerPage>{
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.amber,
           child: Icon(Icons.add),
-          onPressed: (){showDialog(context: context,
+          onPressed: (){ showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(onAddPressed: (){
+                  child: CreateTask(onAddPressed: (taskModel.Task t) {
                     showDialog(
                         context: context,
                         builder: (BuildContext buildContext) {
                           return Dialog(
-                              child: sendTaskClass.SendTask(),
+                              child: sendTaskClass.SendTask(task: t,),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(12)))
                           );

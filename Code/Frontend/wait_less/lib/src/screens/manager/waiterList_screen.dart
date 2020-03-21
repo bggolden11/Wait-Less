@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/waiter_model.dart';
 import 'package:flutter_app/src/widgets/waiter_list.dart';
 
 // class to store the details for each waiter
@@ -156,6 +157,12 @@ class _WaiterList extends State<WaiterList>{
                   // can add more
 
                   child: BuildWaiterList(
+                    onWaiterPress: (Waiter w) {
+                      showDialog(context: context, builder: (context) => CustomDialog(
+                        title: w.toString(),
+                        description: "Currently working on tables A4, A8", /// TODO Change description
+                      ));
+                    },
                     trailingIcon: Icons.details,
                     waiterImage: AssetImage("assets/waiter.png")
                   ),

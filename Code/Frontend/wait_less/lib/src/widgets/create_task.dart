@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart';
+
+import '../models/employee_login_credentials.dart';
 
 // this screen is for the floating button to create tasks and you can add whatever you want here
 
 class CreateTask extends StatefulWidget {
 
-  final VoidCallback onAddPressed;
+  Function(Task t) onAddPressed;
 
   CreateTask({this.onAddPressed});
 
@@ -14,6 +17,10 @@ class CreateTask extends StatefulWidget {
 }
 
 class _CreateTask extends State<CreateTask> {
+
+  final titleController = TextEditingController();
+  final descController = TextEditingController();
+  final tableController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +41,7 @@ class _CreateTask extends State<CreateTask> {
               height: 12,
             ),
             TextField( // each is a text field for different inputs
+              controller: titleController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -46,6 +54,7 @@ class _CreateTask extends State<CreateTask> {
               height: 10,
             ),
             TextField(
+              controller: descController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -58,6 +67,7 @@ class _CreateTask extends State<CreateTask> {
               height: 10,
             ),
             TextField(
+              controller: tableController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -73,7 +83,15 @@ class _CreateTask extends State<CreateTask> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: this.widget.onAddPressed,
+                  onPressed: () {
+                    Task t = new Task(
+                      title: titleController.text.toString().trim(),
+                      description: descController.text.toString().trim(),
+                      tableNumber: tableController.text.toString().trim(),
+                      employeeID: EmployeeLoginCredentials.employeeId,
+                    );
+                    this.widget.onAddPressed(t);
+                  },
 
                   shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(18.0),

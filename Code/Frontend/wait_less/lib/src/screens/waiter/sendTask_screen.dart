@@ -1,47 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/widgets/waiter_list.dart';
 
-// class to store the details for each waiter
-class Waiter{
-  Waiter({this.name});
-  final String name;
-
-
-}
-List<Waiter> listWaiters = [
-  Waiter(name: 'Iron Man'),
-  Waiter(name: 'Ant-Man'),
-  Waiter(name: 'Spider-Man'),
-  Waiter(name: 'Captain America'),
-  Waiter(name: 'Thanos'),
-  Waiter(name: 'Deadpool'),
-  Waiter(name: 'Black Panther'),
-  Waiter(name: 'Groot'),
-  Waiter(name: 'Nick Fury'),
-  Waiter(name: 'War Machine'),
-
-
-]; // for test will contain all the waiters
-class WaiterList extends ListTile{ // implementing the layout using list tile
-  WaiterList(Waiter waiter, BuildContext context) // for each
-      : super( // super class
-      title: Text(waiter.name), // get name
-      //leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(waiter.name[0], style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
-      trailing: new Icon(Icons.send),
-      leading: CircleAvatar( backgroundColor: Colors.transparent,
-        backgroundImage: AssetImage("assets/user.png"),),
-      onTap: (){} // if you want to add any action that happens when you click a waiter you can add it here
-  );
-}
-
-Widget _buildWaiterList() {
-  return ListView.builder(itemCount: listWaiters.length,
-      itemBuilder: (BuildContext content, int index){
-        Waiter waiter = listWaiters[index];
-        return WaiterList(waiter, content);
-
-      });
-}
 class SendTask extends StatefulWidget {
   @override
   _SendTask createState() => _SendTask();
@@ -73,7 +33,11 @@ class _SendTask extends State<SendTask> {
                 height: 400,
                 width: 500,
 
-                child: _buildWaiterList(),
+                child: BuildWaiterList(
+                    onWaiterTap: () {},
+                    trailingIcon: Icons.send,
+                    waiterImage: AssetImage("assets/user.png")
+                ),
               ),
             ),
             SizedBox(

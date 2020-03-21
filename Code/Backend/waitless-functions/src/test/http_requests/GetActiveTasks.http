@@ -12,4 +12,23 @@ Content-Type: application/json
 }
 
 ###
+## SAMPLE OUTPUT BELOW
+#[
+#  {
+#    "taskID": "1009",
+#    "employeeID": "2127",
+#    "status": "Active",
+#    "title": "Take out the trash",
+#    "description": "We need the trash to be taken out",
+#    "tableNumber": "OT"
+#  },
+#  {
+#    "taskID": "1013",
+#    "employeeID": "2127",
+#    "status": "Active",
+#    "title": "test seting",
+#    "description": "this is a test sending task",
+#    "tableNumber": "A1"
+#  }
+#]
 

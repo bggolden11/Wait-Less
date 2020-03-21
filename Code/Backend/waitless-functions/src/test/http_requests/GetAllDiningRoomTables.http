@@ -1,0 +1,117 @@
+# curl --location --request GET 'http://localhost:7071/api/Get-All-Dining-Tables'
+GET http://localhost:7071/api/Get-All-Dining-Tables
+
+###
+### SAMPLE OUTPUT BELOW
+#[
+#  {
+#    "diningTableId": "A1",
+#    "employeeId": 2121,
+#    "seats": 4,
+#    "isActive": true,
+#    "isOccupied": true,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "Michael Goldenberg",
+#    "hasBirthday": false,
+#    "specialRequest": "My special request"
+#  },
+#  {
+#    "diningTableId": "A2",
+#    "employeeId": 2124,
+#    "seats": 2,
+#    "isActive": false,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "",
+#    "hasBirthday": true,
+#    "specialRequest": "Not a window"
+#  },
+#  {
+#    "diningTableId": "A3",
+#    "employeeId": 2127,
+#    "seats": 8,
+#    "isActive": true,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "Harsh Gupta",
+#    "hasBirthday": true,
+#    "specialRequest": "Round Table"
+#  },
+#  {
+#    "diningTableId": "B1",
+#    "employeeId": 2130,
+#    "seats": 4,
+#    "isActive": true,
+#    "isOccupied": true,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "Natalie Portman",
+#    "hasBirthday": false,
+#    "specialRequest": ""
+#  },
+#  {
+#    "diningTableId": "B2",
+#    "employeeId": 2133,
+#    "seats": 2,
+#    "isActive": false,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "",
+#    "hasBirthday": true,
+#    "specialRequest": "Not a window"
+#  },
+#  {
+#    "diningTableId": "C1",
+#    "employeeId": 2136,
+#    "seats": 10,
+#    "isActive": false,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "Huge Mungos",
+#    "hasBirthday": true,
+#    "specialRequest": "Round Table"
+#  },
+#  {
+#    "diningTableId": "D1",
+#    "employeeId": 2139,
+#    "seats": 2,
+#    "isActive": true,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "",
+#    "hasBirthday": false,
+#    "specialRequest": "My special request"
+#  },
+#  {
+#    "diningTableId": "E1",
+#    "employeeId": 2142,
+#    "seats": 1,
+#    "isActive": false,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "Pala Guma",
+#    "hasBirthday": true,
+#    "specialRequest": "Not a window"
+#  },
+#  {
+#    "diningTableId": "E2",
+#    "employeeId": 2145,
+#    "seats": 3,
+#    "isActive": true,
+#    "isOccupied": true,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "Ice W",
+#    "hasBirthday": true,
+#    "specialRequest": "Round Table"
+#  },
+#  {
+#    "diningTableId": "OT",
+#    "employeeId": 2121,
+#    "seats": 0,
+#    "isActive": false,
+#    "isOccupied": false,
+#    "seatingTime": "05:57:36 AM",
+#    "reservationName": "",
+#    "hasBirthday": false,
+#    "specialRequest": ""
+#  }
+#]

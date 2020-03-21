@@ -2,8 +2,8 @@ package com.waitless.functions;
 
 import java.util.*;
 
-import Models.Employee;
 import Requests.*;
+import Service.DiningTablesService;
 import Service.TaskService;
 import Service.UserService;
 import com.microsoft.azure.functions.annotation.*;
@@ -16,6 +16,7 @@ import com.microsoft.azure.functions.*;
 public class Function {
     UserService userService = new UserService();
     TaskService taskService = new TaskService();
+    DiningTablesService diningTablesService = new DiningTablesService();
 
     @FunctionName("HttpTrigger-Java-Testing")
     public HttpResponseMessage run(
@@ -138,6 +139,12 @@ public class Function {
             return taskService.getCompletedTasksBasedOnEmployeeID(request,getTasksBasedOnUserRequest.employeeId);
         else
             return request.createResponseBuilder(HttpStatus.BAD_REQUEST).body("Please input a valid username and password").build();
+    }
+
+    @FunctionName("Get-All-Dining-Tables")
+    public HttpResponseMessage getAllDiningTables(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                                                  final ExecutionContext context){
+        return diningTablesService.getAllDiningTables(request);
     }
 }
 

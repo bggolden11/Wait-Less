@@ -5,6 +5,7 @@ import 'package:flutter_app/src/models/task_model.dart';
 import 'package:flutter_app/src/models/waiter_model.dart';
 import 'package:flutter_app/src/widgets/waiter_list.dart';
 
+import '../../models/employee_login_credentials.dart';
 import '../../toast/toast_message.dart';
 
 class SendTask extends StatefulWidget {
@@ -30,7 +31,7 @@ class _SendTask extends State<SendTask> {
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Create-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==",
           data: body);
       if(response.statusCode == 201) {
-        message = 'Send Task!';
+        message = 'Sent Task!';
         Navigator.pop(context);
         Navigator.pop(context);
       }
@@ -39,6 +40,27 @@ class _SendTask extends State<SendTask> {
     }
     ToastMessage.show(message);
   }
+
+  void sendTask(Task t) async {
+    String message = 'Failed to send Task!';
+    try {
+      final body = {
+        'taskId' : "${t.taskID}",
+        'employeeId' : "${t.employeeID}"
+      };
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Update-Task-User?code=tz6IzOzltKMXwHzljWBglCdjL3Zw7GeZ3VO2xjrpTxckXlz3XMrt8A==",
+          data: body);
+      if(response.statusCode == 200) {
+        message = 'Sent Task!';
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } on DioError catch (e){
+      message = e.message;
+    }
+    ToastMessage.show(message);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +94,10 @@ class _SendTask extends State<SendTask> {
                         description: widget.task.description,
                         tableNumber: widget.task.tableNumber
                       );
-                      createAndSendTask(sendingTask);
+                      if(EmployeeLoginCredentials.isManager)
+                        createAndSendTask(sendingTask);
+                      else
+                        sendTask(sendingTask);
                     },
                     trailingIcon: Icons.send,
                     waiterImage: AssetImage("assets/user.png")

@@ -13,7 +13,7 @@ class Waiter {
   Waiter.waiterFromJSON(Map<String, dynamic> parsedJSON)
       : employeeID = parsedJSON['employeeId'] ?? parsedJSON['employeeID'] ?? '',
         fName = parsedJSON['firstName'] ?? '',
-        lName = parsedJSON['firstName'] ?? '',
+        lName = parsedJSON['lastName'] ?? '',
         title = parsedJSON['title'] ?? '',
         isLoggedIn = parsedJSON['isLoggedIn'] ?? false,
         isManager = parsedJSON['isManager'] ?? false;

@@ -143,9 +143,12 @@ public class UserDBO implements DBO {
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
-        String selectSql = "SELECT * "
-                + "FROM Employee "
-                + "WHERE Employee_ID = " + employeeID + ";\n";
+        String selectSql = "SELECT E.Employee_ID, E.F_Name, E.L_Name, E.Is_Manager, E.Is_Logged_in, E.Title, E.Birth_Date, STRING_AGG(CONVERT(nvarchar(max),ISNULL(T.Dining_Table_ID,'N/A')), ', ')as tables\n" +
+                "FROM  [Employee] E\n" +
+                "INNER JOIN [DiningTable] T on E.Employee_ID = T.Employee_ID\n" +
+                "WHERE E.Employee_Id = " + employeeID + " "+
+                "GROUP BY E.Employee_ID, E.F_Name, E.L_Name, E.Title, E.Is_Manager, E.Is_Logged_In, E.Birth_Date";
+
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(selectSql)) {
@@ -154,11 +157,10 @@ public class UserDBO implements DBO {
             if (!resultSet.next()) {
                 throw new UserNotFoundException();
             } else {
-                return new Employee(resultSet.getString(1), 
-                    resultSet.getString(2), resultSet.getString(3), 
-                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(12));
+                return new Employee(resultSet.getString(1),
+                        resultSet.getString(2), resultSet.getString(3),
+                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(6), resultSet.getDate(7),resultSet.getString(8));
             }
-
         } finally {
             connection.close();
         }
@@ -175,17 +177,19 @@ public class UserDBO implements DBO {
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
-        String selectSql = "SELECT * "
-                + "FROM Employee "
-                + "WHERE Is_Logged_In = " + 1 + ";\n";
+
+        String selectSql =  "SELECT E.Employee_ID, E.F_Name, E.L_Name, E.Is_Manager, E.Is_Logged_in, E.Title, E.Birth_Date, STRING_AGG(CONVERT(nvarchar(max),ISNULL(T.Dining_Table_ID,'N/A')), ', ')as tables\n" +
+                "FROM  [Employee] E\n" +
+                "INNER JOIN [DiningTable] T on E.Employee_ID = T.Employee_ID\n" +
+                "GROUP BY E.Employee_ID, E.F_Name, E.L_Name, E.Title, E.Is_Manager, E.Is_Logged_In, E.Birth_Date";
 
         try (Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(selectSql)) {
 
             while(resultSet.next()){
-                employees.add(new Employee(resultSet.getString(1), 
-                    resultSet.getString(2), resultSet.getString(3), 
-                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(12)));
+                employees.add(new Employee(resultSet.getString(1),
+                    resultSet.getString(2), resultSet.getString(3),
+                        resultSet.getString(4).equals("1"), resultSet.getString(5).equals("1"), resultSet.getString(6), resultSet.getDate(7),resultSet.getString(8)));
             }
             return employees;
 

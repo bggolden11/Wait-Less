@@ -12,4 +12,15 @@ Content-Type: application/json
 }
 
 ###
+## SAMPLE OUTPUT BELOW
+#[
+#  {
+#    "taskID": "1005",
+#    "employeeID": "2127",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "tableNumber": "C1"
+#  }
+#]
 

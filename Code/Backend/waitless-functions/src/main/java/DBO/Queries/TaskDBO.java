@@ -1,7 +1,6 @@
 package DBO.Queries;
 
 import Exceptions.TaskNotFoundException;
-import Models.Employee;
 import Models.Task;
 
 import java.sql.*;
@@ -144,7 +143,7 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Employee_ID = " + employeeID + "AND Finish_Time IS NULL"+ ";\n";
+                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Active'"+ ";\n";
 
         return getTasks(connection, selectSql);
     }
@@ -163,7 +162,7 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Employee_ID = " + employeeID + "AND Finish_Time IS NOT NULL"+ ";\n";
+                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Complete'"+ ";\n";
 
         return getTasks(connection, selectSql);
     }

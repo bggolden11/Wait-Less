@@ -4,3 +4,96 @@ GET http://localhost:7071/api/Get-Logged-In-Users
 
 ###
 
+##SAMPLE OUTPUT BELOW
+#[
+#  {
+#    "employeeID": "2121",
+#    "firstName": "Manager",
+#    "lastName": "Test",
+#    "title": "Manager",
+#    "isLoggedIn": true,
+#    "isManager": true,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "A1, OT"
+#  },
+#  {
+#    "employeeID": "2124",
+#    "firstName": "Host",
+#    "lastName": "Test",
+#    "title": "SysAdmin",
+#    "isLoggedIn": false,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "A2"
+#  },
+#  {
+#    "employeeID": "2127",
+#    "firstName": "Waiter",
+#    "lastName": "Test",
+#    "title": "Waiter",
+#    "isLoggedIn": true,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "A3"
+#  },
+#  {
+#    "employeeID": "2130",
+#    "firstName": "Manager",
+#    "lastName": "Test",
+#    "title": "Manager",
+#    "isLoggedIn": false,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "B1"
+#  },
+#  {
+#    "employeeID": "2133",
+#    "firstName": "Host",
+#    "lastName": "Test",
+#    "title": "SysAdmin",
+#    "isLoggedIn": false,
+#    "isManager": true,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "B2"
+#  },
+#  {
+#    "employeeID": "2136",
+#    "firstName": "Waiter",
+#    "lastName": "Test",
+#    "title": "Waiter",
+#    "isLoggedIn": false,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "C1"
+#  },
+#  {
+#    "employeeID": "2139",
+#    "firstName": "Manager",
+#    "lastName": "Test",
+#    "title": "Manager",
+#    "isLoggedIn": false,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "D1"
+#  },
+#  {
+#    "employeeID": "2142",
+#    "firstName": "Host",
+#    "lastName": "Test",
+#    "title": "SysAdmin",
+#    "isLoggedIn": false,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "E1"
+#  },
+#  {
+#    "employeeID": "2145",
+#    "firstName": "Waiter",
+#    "lastName": "Test",
+#    "title": "Waiter",
+#    "isLoggedIn": false,
+#    "isManager": false,
+#    "birthday": "Dec 12, 2001",
+#    "tables": "E2"
+#  }
+#]

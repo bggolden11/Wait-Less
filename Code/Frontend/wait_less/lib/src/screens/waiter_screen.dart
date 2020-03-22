@@ -43,9 +43,8 @@ class _WaiterPage extends State<WaiterPage>{
   @override
   void dispose() {
     reloadTimer?.cancel();
-    super.dispose();
-    print('Logging Out');
     _logout();
+    super.dispose();
   }
 
   void _logout() async{
@@ -131,6 +130,11 @@ class _WaiterPage extends State<WaiterPage>{
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.cancel),
+              onTap: () {
+                _logout();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
               // edit to change what happens on tap
             ),
           ],

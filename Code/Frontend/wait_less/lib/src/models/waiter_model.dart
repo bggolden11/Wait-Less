@@ -25,13 +25,8 @@ class Waiter {
         tables = parsedJSON['tables'] ?? '';
 
   bool isBDayToday(){
-    var now = new DateTime.now();
-    var formatter = new DateFormat.yMMMd('en_US');
-    String formattedDate = formatter.format(now);
-    var formatter2 = new DateFormat.yMMMMd('en_US');
-    String formattedDate2 = formatter.format(now);
-    print(formattedDate);
-    print(formattedDate2);
+    String formattedDate = new DateFormat.yMMMd('en_US').format(DateTime.now()).split(',')[0];
+    return formattedDate == bday.split(',')[0];
   }
 
   @override

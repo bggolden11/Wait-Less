@@ -105,6 +105,7 @@ class _SendTask extends State<SendTask> {
                       else
                         sendTask(sendingTask);
                     },
+                    loggedIn: true,
                     trailingIcon: Icons.send,
                     waiterImage: AssetImage("assets/user.png")
                 ),

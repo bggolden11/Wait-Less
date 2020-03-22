@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/src/models/task_model.dart' as taskModel;
 import 'package:flutter_app/src/widgets/create_task.dart';
 import '../models/employee_login_credentials.dart';
+import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'manager/tableList_screen.dart';
@@ -51,16 +52,15 @@ class _ManagerPage extends State<ManagerPage>{
   @override
   void dispose() {
     reloadTimer?.cancel();
-    super.dispose();
-    print('Logging Out');
     _logout();
+    super.dispose();
   }
 
   void _logout() async{
     String message = 'Error';
     try {
       final body = {
-//        "employeeId":"${widget.employeeCredentials.employeeId}",
+        "employeeId":"${EmployeeLoginCredentials.employeeId}",
       };
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",
@@ -131,6 +131,11 @@ class _ManagerPage extends State<ManagerPage>{
               new ListTile(
                 title: new Text("Logout"),
                 trailing: new Icon(Icons.cancel),
+                onTap: () {
+                  _logout();
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),

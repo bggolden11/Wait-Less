@@ -83,7 +83,7 @@ CREATE TABLE [dbo].[Task](
     [Description] [text] NOT NULL,
     [Start_Time] [time] DEFAULT CONVERT(time, GETDATE()),
     [Finish_Time] [time], 
-    [Total_Time] [time],
+    [Total_Time] AS CONVERT(TIME,DATEADD(MS,DATEDIFF(SS, [Start_Time], [Finish_Time] )*1000,0),114),
     [Task_Date] [date] DEFAULT CONVERT(date, GETDATE()),
     [Dining_Table_ID] [varchar](20) NOT NULL,
     FOREIGN KEY ([Employee_ID]) REFERENCES [dbo].[Employee] ([Employee_ID])
@@ -111,3 +111,16 @@ GO
 /* DiningTable Table Creation END */
 
 
+/* Triggers */
+-- DROP TRIGGER IF EXISTS Total_Time
+-- GO
+-- CREATE TRIGGER Total_Time  
+-- ON [Task]  
+-- AFTER UPDATE   
+-- AS  
+--    EXEC msdb.dbo.sp_send_dbmail  
+--         @profile_name = 'AdventureWorks2012 Administrator',  
+--         @recipients = 'danw@Adventure-Works.com',  
+--         @body = 'Don''t forget to print a report for the sales force.',  
+--         @subject = 'Reminder';  
+-- GO  

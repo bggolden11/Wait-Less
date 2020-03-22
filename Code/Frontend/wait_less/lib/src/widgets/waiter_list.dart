@@ -22,20 +22,23 @@ class Waiter_list extends ListTile{ // implementing the layout using list tile
       //leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(waiter.name[0], style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(trailingIcon),
       leading: CircleAvatar( backgroundColor: Colors.transparent,
-        backgroundImage: waiterImage
+        backgroundImage: waiter.isBDayToday() ? AssetImage("assets/waiterbday.png") : waiterImage
       ),
       onTap: () => onWaiterPress(waiter)
   );
 }
 
 
-Future getWaiters() async {
+Future getWaiters(bool loggedIn) async {
   try {
     final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Employees?code=AiIkGSpsrYMJWydPjsZIGLLDc85VBtlplRpNS6qEJAZ12BQcrcci5Q==");
 
-    listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').waiterList;
+    if(loggedIn)
+      listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').getLoggedInWaiters();
+    else
+      listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').waiterList;
 
-    listWaiters.forEach((e) => print('EID: ${e.employeeID}\nName: ${e.toString()}'));
+//    listWaiters.forEach((e) => print('EID: ${e.employeeID}\nName: ${e.toString()}'));
     return listWaiters;
   } on DioError catch (e){
     print(e.response.toString());
@@ -44,9 +47,9 @@ Future getWaiters() async {
   return null;
 }
 
-Widget BuildWaiterList({Function(Waiter w) onWaiterPress, IconData trailingIcon, AssetImage waiterImage}) {
+Widget BuildWaiterList({Function(Waiter w) onWaiterPress, IconData trailingIcon, AssetImage waiterImage, bool loggedIn}) {
   return FutureBuilder(
-    future: getWaiters(),
+    future: getWaiters(loggedIn),
     builder: (context, snapshot) {
       return snapshot.hasData ?
       listWaiters.length == 0 ? new Container(child: Text('No Waiters!'))  // No tasks

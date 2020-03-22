@@ -118,6 +118,7 @@ class _WaiterList extends State<WaiterList>{
                         description: "Currently working on tables ${w.tables}"
                       ));
                     },
+                      loggedIn: false,
                     trailingIcon: Icons.details,
                     waiterImage: AssetImage("assets/waiter.png")
                   ),

@@ -22,7 +22,8 @@ class Waiter_list extends ListTile{ // implementing the layout using list tile
       //leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(waiter.name[0], style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(trailingIcon),
       leading: CircleAvatar( backgroundColor: Colors.transparent,
-        backgroundImage: waiterImage,),
+        backgroundImage: waiterImage
+      ),
       onTap: () => onWaiterPress(waiter)
   );
 }
@@ -30,7 +31,7 @@ class Waiter_list extends ListTile{ // implementing the layout using list tile
 
 Future getWaiters() async {
   try {
-    final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-Logged-In-Users?code=4kq5Ed1tKRCVM1C3V27gLDhIJMU3vUdzyq3to69zKurMdW4pzTxmmQ==");
+    final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Employees?code=AiIkGSpsrYMJWydPjsZIGLLDc85VBtlplRpNS6qEJAZ12BQcrcci5Q==");
 
     listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').waiterList;
 

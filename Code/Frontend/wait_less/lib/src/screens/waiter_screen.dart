@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,9 +26,24 @@ class WaiterPage extends StatefulWidget { // class for Manager Page
 class _WaiterPage extends State<WaiterPage>{
   // list of pages 
   List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
+  Timer reloadTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+  }
+
+  void reloadScreen() {
+    print('Reloading');
+    setState(() {
+      pagesTasks =[CurrentTasks(), CompletedTasks()];
+    });
+  }
 
   @override
   void dispose() {
+    reloadTimer?.cancel();
     super.dispose();
     print('Logging Out');
     _logout();
@@ -168,9 +185,6 @@ class _WaiterPage extends State<WaiterPage>{
       if(response.statusCode == 201) {
         message = 'Created Task!';
         Navigator.pop(context);
-        setState(() {
-          pagesTasks =[CurrentTasks(), CompletedTasks()];
-        });
       }
     } on DioError catch (e){
       message = e.message;

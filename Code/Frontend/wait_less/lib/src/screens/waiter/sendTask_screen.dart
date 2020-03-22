@@ -42,11 +42,12 @@ class _SendTask extends State<SendTask> {
   }
 
   void sendTask(Task t) async {
+    print('${t.employeeID}, ${t.taskID}');
     String message = 'Failed to send Task!';
     try {
       final body = {
         'taskId' : "${t.taskID}",
-        'employeeId' : "${t.employeeID}"
+        'employeeToAssignId' : "${t.employeeID}"
       };
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Update-Task-User?code=tz6IzOzltKMXwHzljWBglCdjL3Zw7GeZ3VO2xjrpTxckXlz3XMrt8A==",
           data: body);
@@ -54,6 +55,9 @@ class _SendTask extends State<SendTask> {
         message = 'Sent Task!';
         Navigator.pop(context);
         Navigator.pop(context);
+        setState(() {
+
+        });
       }
     } on DioError catch (e){
       message = e.message;
@@ -88,7 +92,9 @@ class _SendTask extends State<SendTask> {
 
                 child: BuildWaiterList(
                     onWaiterPress: (Waiter w) {
+                      print('${w.employeeID}, ${widget.task.taskID}');
                       Task sendingTask = new Task(
+                        taskID: widget.task.taskID,
                         employeeID: w.employeeID,
                         title: widget.task.title,
                         description: widget.task.description,

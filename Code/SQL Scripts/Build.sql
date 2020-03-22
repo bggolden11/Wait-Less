@@ -25,18 +25,18 @@ CREATE TABLE [dbo].[Employee](
 )
 GO
 
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Manager', 'Test', 1, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Host', 'Test', 0, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Waiter', 'Test', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Manager', 'Test', 0, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Host', 'Test', 1, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Waiter', 'Test', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Manager', 'Test', 0, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Host', 'Test', 0, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Waiter', 'Test', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Manager', 'Test', 0, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Host', 'Test', 1, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
-INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Waiter', 'Test', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Beast', 'Manager', 1, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Sam', 'Jackson', 0, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Iron', 'Man', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Black', 'Panther', 0, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('John', 'Carter', 1, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Spider', 'Man', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Tony', 'Stark', 0, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('The', 'Hulk', 0, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Speed', 'Racer', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Mary', 'Poppins', 0, '2001-11-11', '2001-12-12', '123 Drive', '123-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 14.20, 'Manager')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Toy', 'Story', 1, '2001-11-11', '2001-12-12', '4389 Circle', '928-456-2354', '5z0ZYrqhDOm5nkK5oIEudg==', 8.80, 'SysAdmin')
+INSERT INTO [dbo].[Employee] ( [F_Name], [L_Name], [Is_Manager], [Hire_Date], [Birth_Date], [Address], [Phone], [Token], [Salary], [Title] ) VALUES ('Creepy', 'Guy', 0, '2001-11-11', '2001-12-12', '390 Ave', '347-456-7890', '5z0ZYrqhDOm5nkK5oIEudg==', 10.0, 'Waiter')
 GO
 /* Employee Table Creation END */
 
@@ -60,15 +60,15 @@ CREATE TABLE [dbo].[DiningTable](
 GO
 
 INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('A1', 2121, 4, 1, 1, CONVERT(time, GETDATE()), 'Michael Goldenberg' , 0, 'My special request')
-INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('A2', 2124, 2, 0, 0, CONVERT(time, GETDATE()), '' , 1, 'Not a window')
-INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('A3', 2127, 8, 1, 0, CONVERT(time, GETDATE()), 'Harsh Gupta' , 1, 'Round Table')
+INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('A2', 2124, 2, 1, 0, CONVERT(time, GETDATE()), '' , 1, 'Not a window')
+INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('A3', 2127, 8, 1, 1, CONVERT(time, GETDATE()), 'Harsh Gupta' , 1, 'Round Table')
 INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('B1', 2130, 4, 1, 1, CONVERT(time, GETDATE()), 'Natalie Portman' , 0, '')
-INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('B2', 2133, 2, 0, 0, CONVERT(time, GETDATE()), '' , 1, 'Not a window')
+INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('B2', 2133, 2, 1, 0, CONVERT(time, GETDATE()), '' , 1, 'Not a window')
 INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('C1', 2136, 10, 0, 0, CONVERT(time, GETDATE()), 'Huge Mungos' , 1, 'Round Table')
 INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('D1', 2139, 2, 1, 0, CONVERT(time, GETDATE()), '' , 0, 'My special request')
 INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('E1', 2142, 1, 0, 0, CONVERT(time, GETDATE()), 'Pala Guma' , 1, 'Not a window')
 INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('E2', 2145, 3, 1, 1, CONVERT(time, GETDATE()), 'Ice W' , 1, 'Round Table')
-INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('OT', 2121, 0, 0, 0, CONVERT(time, GETDATE()), '' , 0, '')
+INSERT INTO [dbo].[DiningTable] ( [Dining_Table_ID], [Employee_ID], [Seats], [Is_Active], [Is_Occupied], [Seating_Time], [Reservation_Name], [Has_Birthday], [Special_Request] ) VALUES ('OT', 2121, 0, 1, 0, CONVERT(time, GETDATE()), '' , 0, '')
 GO
 /* DiningTable Table Creation END */
 
@@ -95,12 +95,18 @@ CREATE TABLE [dbo].[Task](
 )
 GO
 
-INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2121, 'Active', 'Sweep the floor', 'Sweep the floor that is near the assigned table', 'A1')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2124, 'Active', 'Sweep the floor', 'Sweep the floor that is near the assigned table', 'A1')
 INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2124, 'Active', 'Cleanup table', 'Clean the assigned table', 'B1')
-INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2127, 'Complete', 'Attend Customer', 'Attend the customer at the assigned table, haven''t attended customer', 'C1')
-INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2130, 'Complete', 'Sweep the floor', 'Sweep the floor that is near the assigned table', 'B2')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2124, 'Complete', 'Attend Customer', 'Attend the customer at the assigned table, haven''t attended customer', 'C1')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2127, 'Complete', 'Sweep the floor', 'Sweep the floor that is near the assigned table', 'B2')
 INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2127, 'Active', 'Take out the trash', 'We need the trash to be taken out', 'OT')
 INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2130, 'Active', 'Wash dishes', 'Wash the dirty dishes in the kitchen', 'OT')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2130, 'Active', 'Sweep the floor', 'Sweep the floor that is near the assigned table', 'A1')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2133, 'Active', 'Cleanup table', 'Clean the assigned table', 'B1')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2133, 'Complete', 'Attend Customer', 'Attend the customer at the assigned table, haven''t attended customer', 'C1')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2136, 'Complete', 'Sweep the floor', 'Sweep the floor that is near the assigned table', 'B2')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2136, 'Active', 'Take out the trash', 'We need the trash to be taken out', 'OT')
+INSERT INTO [dbo].[Task] ( [Employee_ID], [Status], [Title], [Description], [Dining_Table_ID] ) VALUES (2139, 'Active', 'Wash dishes', 'Wash the dirty dishes in the kitchen', 'OT')
 GO
 /* DiningTable Table Creation END */
 

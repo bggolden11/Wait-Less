@@ -20,9 +20,12 @@ class CurrentList extends ListTile{ // implementing the layout using list tile
       subtitle: Text(task.description),
       leading: CircleAvatar(backgroundColor: Colors.redAccent[200], child: Text(task.tableNumber, style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(Icons.assignment),
-      onTap: (){showDialog(context: context, builder: (context) => CustomDialog( // calling the custome dialog I created
-        title: task.title,
-        description: task.description,
+      onTap: (){
+        print('${task.employeeID}, ${task.taskID}');
+        showDialog(context: context, builder: (context) => CustomDialog( // calling the custome dialog I created
+          title: task.title,
+          description: task.description,
+          clickedTask: task,
       ));}
   );
 }
@@ -73,8 +76,9 @@ Widget _buildCurrentList() {
 class CustomDialog extends StatelessWidget{
   final String title, description, buttonText;
   final Image image;
+  final Task clickedTask;
 
-  CustomDialog({this.title, this.description, this.buttonText, this.image});
+  CustomDialog({this.title, this.description, this.buttonText, this.image, this.clickedTask});
   @override
   Widget build(BuildContext context){
     return Dialog(
@@ -145,10 +149,11 @@ class CustomDialog extends StatelessWidget{
                   ),
                   RaisedButton(
                     onPressed: (){
+                      print('${clickedTask.employeeID}, ${clickedTask.taskID}');
                       showDialog(context: context,
                           builder: (BuildContext context){
                             return Dialog(
-                              child: SendTask(),
+                              child: SendTask(task: clickedTask),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(12))
                               ),

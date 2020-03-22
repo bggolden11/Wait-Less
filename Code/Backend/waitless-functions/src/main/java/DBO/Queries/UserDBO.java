@@ -171,7 +171,7 @@ public class UserDBO implements DBO {
      * @return List of all logged in users
      * @throws SQLException Error connecting to DB
      */
-    public List<Employee> getLoggedInEmployees() throws SQLException {
+    public List<Employee> getAllEmployees() throws SQLException {
         List<Employee> employees = new ArrayList<>();
         Connection connection = null;
         connection = DriverManager.getConnection(url);

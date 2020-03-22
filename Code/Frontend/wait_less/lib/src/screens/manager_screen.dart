@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -28,13 +29,28 @@ class _ManagerPage extends State<ManagerPage>{
   // list of all the screens
   int currentPage = 0; // index of the pages in the list
   // list of pages
-  final List<Widget> pagesManager =[TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+  List<Widget> pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
 
 
+  Timer reloadTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+  }
+
+  void reloadScreen() {
+    setState(() {
+      pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+    });
+  }
+
   @override
   void dispose() {
+    reloadTimer?.cancel();
     super.dispose();
     print('Logging Out');
     _logout();

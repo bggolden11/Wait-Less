@@ -35,7 +35,6 @@ class _WaiterPage extends State<WaiterPage>{
   }
 
   void reloadScreen() {
-    print('Reloading');
     setState(() {
       pagesTasks =[CurrentTasks(), CompletedTasks()];
     });

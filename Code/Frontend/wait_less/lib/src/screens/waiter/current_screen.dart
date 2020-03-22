@@ -9,6 +9,7 @@ import 'package:flutter_app/src/screens/waiter/sendTask_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../models/employee_login_credentials.dart';
+import '../../toast/toast_message.dart';
 import '../login_screen.dart';
 
 List<Task> listCurrentTasks = []; // for test will contain all the tasks
@@ -78,6 +79,24 @@ class CustomDialog extends StatelessWidget{
   final Image image;
   final Task clickedTask;
 
+  void finishTask(BuildContext context) async {
+    String message = 'Error Finishing Task!';
+    try {
+      final body = {
+        "taskID" : "${clickedTask.taskID}"
+      };
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Finish-Task?code=wKbC9oJJDJAp3DwaxKh/Te2tMh7QhvngWueDDLefcXlFoQ6Qo0bv4A==",
+          data: body);
+      if(response.statusCode == 200){
+        message = 'Finished Task!';
+        Navigator.pop(context);
+      }
+    } on DioError catch (e){
+      print(e.response.toString());
+    }
+    ToastMessage.show(message);
+  }
+
   CustomDialog({this.title, this.description, this.buttonText, this.image, this.clickedTask});
   @override
   Widget build(BuildContext context){
@@ -135,7 +154,9 @@ class CustomDialog extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      finishTask(context);
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(18.0),
 

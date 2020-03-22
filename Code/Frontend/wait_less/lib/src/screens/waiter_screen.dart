@@ -79,18 +79,17 @@ class _WaiterPage extends State<WaiterPage>{
         title: new Center(child: new Text("Wait Less", style: TextStyle(color: Colors.black, fontFamily: "Poppins-Bold"))), // center the name of the app
         //leading: Icon(Icons.menu),
 
-        actions: <Widget>[ // for the menu and the notifications center
+        actions: <Widget>[
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: Container(
-              width: 36,
-              height: 30,
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(10)
+            child: new GestureDetector(
+              onTap: () => this.reloadScreen(),
+              child: Container(
+                width: 36,
+                height: 30,
+                child: Center(child: Icon(Icons.refresh)),
               ),
-              child: Center(child: Text("1")), // once notifications are implemented we can increase and decrease the counter accordingly and implement this
-            ),
+            )
           )
 
         ],

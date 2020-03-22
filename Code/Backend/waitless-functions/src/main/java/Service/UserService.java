@@ -123,9 +123,9 @@ public class UserService {
      * @return 200 list of logged in employees
      *         500 if internal server error
      */
-    public HttpResponseMessage getLoggedInUser(HttpRequestMessage<Optional<String>> request){
+    public HttpResponseMessage getAllEmployees(HttpRequestMessage<Optional<String>> request){
         try{
-            return request.createResponseBuilder(HttpStatus.OK).body(userDBO.getLoggedInEmployees()).build();
+            return request.createResponseBuilder(HttpStatus.OK).body(userDBO.getAllEmployees()).build();
         } catch (SQLException e) {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         }

@@ -105,10 +105,10 @@ public class Function {
         }
     }
 
-    @FunctionName("Get-Logged-In-Users")
-    public HttpResponseMessage getLoggedInUsers(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    @FunctionName("Get-All-Employees")
+    public HttpResponseMessage getAllEmployees(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
                                               final ExecutionContext context){
-        return userService.getLoggedInUser(request);
+        return userService.getAllEmployees(request);
     }
 
     @FunctionName("Log-User-Out")

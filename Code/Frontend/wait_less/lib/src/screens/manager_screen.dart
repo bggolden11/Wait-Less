@@ -1,8 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart' as taskModel;
+import 'package:flutter_app/src/widgets/create_task.dart';
+import '../models/employee_login_credentials.dart';
 import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
 import 'login_screen.dart';
@@ -10,7 +14,7 @@ import 'manager/tableList_screen.dart';
 import 'manager/waiterList_screen.dart';
 import 'manager/emptyTableList_screen.dart';
 import 'manager/summary_screen.dart';
-import 'manager/createTask_screen.dart';
+import 'waiter/sendTask_screen.dart' as sendTaskClass;
 
 class ManagerPage extends StatefulWidget { // class for Manager Page
 
@@ -26,23 +30,37 @@ class _ManagerPage extends State<ManagerPage>{
   // list of all the screens
   int currentPage = 0; // index of the pages in the list
   // list of pages
-  final List<Widget> pagesManager =[TablesList(),EmptyTablesList(), SummaryList(),WaiterList()];
+  List<Widget> pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
 
 
+  Timer reloadTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+  }
+
+  void reloadScreen() {
+    setState(() {
+      pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+    });
+  }
+
   @override
   void dispose() {
-    super.dispose();
-    print('Logging Out');
+    reloadTimer?.cancel();
     _logout();
+    super.dispose();
   }
 
   void _logout() async{
     String message = 'Error';
     try {
       final body = {
-//        "employeeId":"${widget.employeeCredentials.employeeId}",
+        "employeeId":"${EmployeeLoginCredentials.employeeId}",
       };
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",
@@ -113,6 +131,11 @@ class _ManagerPage extends State<ManagerPage>{
               new ListTile(
                 title: new Text("Logout"),
                 trailing: new Icon(Icons.cancel),
+                onTap: () {
+                  _logout();
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
@@ -126,10 +149,21 @@ class _ManagerPage extends State<ManagerPage>{
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.amber,
           child: Icon(Icons.add),
-          onPressed: (){showDialog(context: context,
+          onPressed: (){ showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(),
+                  child: CreateTask(onAddPressed: (taskModel.Task t) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext buildContext) {
+                          return Dialog(
+                              child: sendTaskClass.SendTask(task: t,),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(12)))
+                          );
+                        }
+                    );
+                  }),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12))
                   ),

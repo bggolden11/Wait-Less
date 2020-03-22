@@ -1,53 +1,70 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart';
+import 'package:flutter_app/src/models/waiter_model.dart';
+import 'package:flutter_app/src/widgets/waiter_list.dart';
 
-// class to store the details for each waiter
-class Waiter{
-  Waiter({this.name});
-  final String name;
+import '../../models/employee_login_credentials.dart';
+import '../../toast/toast_message.dart';
 
-
-}
-List<Waiter> listWaiters = [
-  Waiter(name: 'Iron Man'),
-  Waiter(name: 'Ant-Man'),
-  Waiter(name: 'Spider-Man'),
-  Waiter(name: 'Captain America'),
-  Waiter(name: 'Thanos'),
-  Waiter(name: 'Deadpool'),
-  Waiter(name: 'Black Panther'),
-  Waiter(name: 'Groot'),
-  Waiter(name: 'Nick Fury'),
-  Waiter(name: 'War Machine'),
-
-
-]; // for test will contain all the waiters
-class WaiterList extends ListTile{ // implementing the layout using list tile
-  WaiterList(Waiter waiter, BuildContext context) // for each
-      : super( // super class
-      title: Text(waiter.name), // get name
-      //leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(waiter.name[0], style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
-      trailing: new Icon(Icons.send),
-      leading: CircleAvatar( backgroundColor: Colors.transparent,
-        backgroundImage: AssetImage("assets/user.png"),),
-      onTap: (){} // if you want to add any action that happens when you click a waiter you can add it here
-  );
-}
-
-Widget _buildWaiterList() {
-  return ListView.builder(itemCount: listWaiters.length,
-      itemBuilder: (BuildContext content, int index){
-        Waiter waiter = listWaiters[index];
-        return WaiterList(waiter, content);
-
-      });
-}
 class SendTask extends StatefulWidget {
+
+  final Task task;
+
+  SendTask({ this.task });
+
   @override
   _SendTask createState() => _SendTask();
 }
 
 class _SendTask extends State<SendTask> {
+
+  void createAndSendTask(Task t) async {
+    String message = 'Failed to create Task!';
+    try {
+      final body = {
+        'employeeId' : "${t.employeeID}",
+        "title" : "${t.title}",
+        "description" : "${t.description}",
+        "table": "${t.tableNumber}"};
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Create-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==",
+          data: body);
+      if(response.statusCode == 201) {
+        message = 'Sent Task!';
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }
+    } on DioError catch (e){
+      message = e.message;
+    }
+    ToastMessage.show(message);
+  }
+
+  void sendTask(Task t) async {
+    print('${t.employeeID}, ${t.taskID}');
+    String message = 'Failed to send Task!';
+    try {
+      final body = {
+        'taskId' : "${t.taskID}",
+        'employeeToAssignId' : "${t.employeeID}"
+      };
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Update-Task-User?code=tz6IzOzltKMXwHzljWBglCdjL3Zw7GeZ3VO2xjrpTxckXlz3XMrt8A==",
+          data: body);
+      if(response.statusCode == 200) {
+        message = 'Sent Task!';
+        Navigator.pop(context);
+        Navigator.pop(context);
+        setState(() {
+
+        });
+      }
+    } on DioError catch (e){
+      message = e.message;
+    }
+    ToastMessage.show(message);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +90,25 @@ class _SendTask extends State<SendTask> {
                 height: 400,
                 width: 500,
 
-                child: _buildWaiterList(),
+                child: BuildWaiterList(
+                    onWaiterPress: (Waiter w) {
+                      print('${w.employeeID}, ${widget.task.taskID}');
+                      Task sendingTask = new Task(
+                        taskID: widget.task.taskID,
+                        employeeID: w.employeeID,
+                        title: widget.task.title,
+                        description: widget.task.description,
+                        tableNumber: widget.task.tableNumber
+                      );
+                      if(EmployeeLoginCredentials.isManager)
+                        createAndSendTask(sendingTask);
+                      else
+                        sendTask(sendingTask);
+                    },
+                    loggedIn: true,
+                    trailingIcon: Icons.send,
+                    waiterImage: AssetImage("assets/user.png")
+                ),
               ),
             ),
             SizedBox(

@@ -13,7 +13,7 @@ void main() {
     int statusCode = 0;
     try {
       final Dio httpClient = new HTTPClient().dio;
-      final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-Logged-In-Users?code=4kq5Ed1tKRCVM1C3V27gLDhIJMU3vUdzyq3to69zKurMdW4pzTxmmQ==");
+      final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Employees?code=AiIkGSpsrYMJWydPjsZIGLLDc85VBtlplRpNS6qEJAZ12BQcrcci5Q==");
       statusCode = response.statusCode;
       print(response.data.toString());
     } on DioError catch (e){
@@ -23,3 +23,4 @@ void main() {
   });
 
 }
+

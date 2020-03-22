@@ -9,26 +9,11 @@ import 'package:flutter_app/src/screens/waiter/sendTask_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../models/employee_login_credentials.dart';
+import '../../toast/toast_message.dart';
 import '../login_screen.dart';
 
-// class to store the details for each task.dart
-//class Task{
-//  Task({this.name, this.table, this.description});
-//  final String name;
-//  final String table;
-//  final String description;
-//
-//}
-List<Task> listCurrentTasks = [
-//  Task(description: 'Can you please wipe the table' , name: 'Wipe Table', table: 'A1'),
-//  Task(description: 'Can you please wipe the floor' , name: 'Wipe Floor', table: 'B3'),
-//  Task(description: 'Can you please serve the table' , name: 'Serve Table', table: 'F3'),
-//  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
-//  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
-//  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
-//  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
+List<Task> listCurrentTasks = []; // for test will contain all the tasks
 
-]; // for test will contain all the tasks
 class CurrentList extends ListTile{ // implementing the layout using list tile
   CurrentList(Task task, BuildContext context) // for each
       : super( // super class
@@ -36,9 +21,12 @@ class CurrentList extends ListTile{ // implementing the layout using list tile
       subtitle: Text(task.description),
       leading: CircleAvatar(backgroundColor: Colors.redAccent[200], child: Text(task.tableNumber, style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(Icons.assignment),
-      onTap: (){showDialog(context: context, builder: (context) => CustomDialog( // calling the custome dialog I created
-        title: task.title,
-        description: task.description,
+      onTap: (){
+        print('${task.employeeID}, ${task.taskID}');
+        showDialog(context: context, builder: (context) => CustomDialog( // calling the custome dialog I created
+          title: task.title,
+          description: task.description,
+          clickedTask: task,
       ));}
   );
 }
@@ -89,8 +77,27 @@ Widget _buildCurrentList() {
 class CustomDialog extends StatelessWidget{
   final String title, description, buttonText;
   final Image image;
+  final Task clickedTask;
 
-  CustomDialog({this.title, this.description, this.buttonText, this.image});
+  void finishTask(BuildContext context) async {
+    String message = 'Error Finishing Task!';
+    try {
+      final body = {
+        "taskID" : "${clickedTask.taskID}"
+      };
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Finish-Task?code=wKbC9oJJDJAp3DwaxKh/Te2tMh7QhvngWueDDLefcXlFoQ6Qo0bv4A==",
+          data: body);
+      if(response.statusCode == 200){
+        message = 'Finished Task!';
+        Navigator.pop(context);
+      }
+    } on DioError catch (e){
+      print(e.response.toString());
+    }
+    ToastMessage.show(message);
+  }
+
+  CustomDialog({this.title, this.description, this.buttonText, this.image, this.clickedTask});
   @override
   Widget build(BuildContext context){
     return Dialog(
@@ -147,7 +154,9 @@ class CustomDialog extends StatelessWidget{
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      finishTask(context);
+                    },
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(18.0),
 
@@ -161,10 +170,11 @@ class CustomDialog extends StatelessWidget{
                   ),
                   RaisedButton(
                     onPressed: (){
+                      print('${clickedTask.employeeID}, ${clickedTask.taskID}');
                       showDialog(context: context,
                           builder: (BuildContext context){
                             return Dialog(
-                              child: SendTask(),
+                              child: SendTask(task: clickedTask),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(Radius.circular(12))
                               ),

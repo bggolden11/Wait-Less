@@ -1,16 +1,20 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/task_model.dart';
+import 'package:flutter_app/src/widgets/create_task.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../HTTPClient/http_client.dart';
 import '../models/employee_login_credentials.dart';
 import '../models/employee_login_credentials.dart';
 import '../models/employee_login_credentials.dart';
 import '../toast/toast_message.dart';
+import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'waiter/completed_screen.dart';
 import 'waiter/current_screen.dart';
-import 'waiter/createTask_screen.dart';
 
 
 class WaiterPage extends StatefulWidget { // class for Manager Page
@@ -21,13 +25,26 @@ class WaiterPage extends StatefulWidget { // class for Manager Page
 
 class _WaiterPage extends State<WaiterPage>{
   // list of pages 
-  final List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
+  List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
+  Timer reloadTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+  }
+
+  void reloadScreen() {
+    setState(() {
+      pagesTasks =[CurrentTasks(), CompletedTasks()];
+    });
+  }
 
   @override
   void dispose() {
-    super.dispose();
-    print('Logging Out');
+    reloadTimer?.cancel();
     _logout();
+    super.dispose();
   }
 
   void _logout() async{
@@ -62,18 +79,17 @@ class _WaiterPage extends State<WaiterPage>{
         title: new Center(child: new Text("Wait Less", style: TextStyle(color: Colors.black, fontFamily: "Poppins-Bold"))), // center the name of the app
         //leading: Icon(Icons.menu),
 
-        actions: <Widget>[ // for the menu and the notifications center
+        actions: <Widget>[
           Padding(
             padding: EdgeInsets.all(10.0),
-            child: Container(
-              width: 36,
-              height: 30,
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(10)
+            child: new GestureDetector(
+              onTap: () => this.reloadScreen(),
+              child: Container(
+                width: 36,
+                height: 30,
+                child: Center(child: Icon(Icons.refresh)),
               ),
-              child: Center(child: Text("1")), // once notifications are implemented we can increase and decrease the counter accordingly and implement this
-            ),
+            )
           )
 
         ],
@@ -113,6 +129,11 @@ class _WaiterPage extends State<WaiterPage>{
             new ListTile(
               title: new Text("Logout"),
               trailing: new Icon(Icons.cancel),
+              onTap: () {
+                _logout();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
               // edit to change what happens on tap
             ),
           ],
@@ -136,7 +157,9 @@ class _WaiterPage extends State<WaiterPage>{
               showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(),
+                  child: CreateTask(onAddPressed: (Task t) {
+                    createTask(t);
+                  }),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12))
                   ),
@@ -149,4 +172,26 @@ class _WaiterPage extends State<WaiterPage>{
 
     );
   }
+
+
+  void createTask(Task t) async {
+    String message = 'Failed to create Task!';
+    try {
+      final body = {
+        'employeeId' : "${t.employeeID}",
+        "title" : "${t.title}",
+        "description" : "${t.description}",
+        "table": "${t.tableNumber}"};
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Create-Task?code=7ppCvZncW81fJggMNpSX1MbiuaklafIQR7bilfa0IMrkGtcNy6KUPA==",
+          data: body);
+      if(response.statusCode == 201) {
+        message = 'Created Task!';
+        Navigator.pop(context);
+      }
+    } on DioError catch (e){
+      message = e.message;
+    }
+    ToastMessage.show(message);
+  }
+
 }

@@ -12,7 +12,7 @@ class TaskList {
 
   TaskList.taskListFromJSON(String parsedJSON){
     var arr = jsonDecode(parsedJSON)['result'] as List;
-    taskList = arr.map((tagJson) => Task.taskFromJSON(tagJson)).toList();
+    taskList = arr.map((taskJson) => Task.taskFromJSON(taskJson)).toList();
   }
 
 

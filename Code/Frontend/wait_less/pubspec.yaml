@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  intl: ^0.16.1
   flutter_spinkit: ^4.1.2
   encrypt: ^4.0.0
   dio: ^3.0.8

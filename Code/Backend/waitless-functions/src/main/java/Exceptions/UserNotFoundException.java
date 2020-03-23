@@ -1,4 +1,3 @@
 package Exceptions;
 
-public class UserNotFoundException extends Exception{
-}
+public class UserNotFoundException extends Exception {}

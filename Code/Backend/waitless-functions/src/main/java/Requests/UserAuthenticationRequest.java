@@ -1,6 +1,6 @@
 package Requests;
 
 public class UserAuthenticationRequest {
-    public String employeeID;
-    public String passwordtoken;
+  public String employeeID;
+  public String passwordtoken;
 }

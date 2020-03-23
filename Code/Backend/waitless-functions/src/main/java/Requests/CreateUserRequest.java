@@ -1,6 +1,5 @@
 package Requests;
 
-
 /*
  * First name, last name, isManager (int), hiredate(auto gen), birthday, address, phone, token(generated from password, salary.
  */
@@ -16,5 +15,5 @@ package Requests;
 }
  */
 public class CreateUserRequest {
-    public String firstName, lastName, birthday, address, phone, title, encryptedPassword;
+  public String firstName, lastName, birthday, address, phone, title, encryptedPassword;
 }

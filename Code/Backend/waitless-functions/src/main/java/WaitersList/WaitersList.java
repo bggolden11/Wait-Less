@@ -1,10 +1,6 @@
 package WaitersList;
 
-/**
- *
- * Will probably be deleted since this data will be stored in sql
- * not used anymore
- */
+/** Will probably be deleted since this data will be stored in sql not used anymore */
 
 /*
 public class WaitersList {

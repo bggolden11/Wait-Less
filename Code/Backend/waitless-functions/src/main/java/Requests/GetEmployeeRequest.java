@@ -1,9 +1,6 @@
 package Requests;
 
-/**
- * employeeId : String
- */
-
+/** employeeId : String */
 public class GetEmployeeRequest {
-    public String employeeId;
+  public String employeeId;
 }

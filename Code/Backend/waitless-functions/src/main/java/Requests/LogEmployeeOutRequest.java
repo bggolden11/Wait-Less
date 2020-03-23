@@ -1,5 +1,5 @@
 package Requests;
 
 public class LogEmployeeOutRequest {
-    public String employeeId;
+  public String employeeId;
 }

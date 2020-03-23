@@ -1,5 +1,5 @@
 package Requests;
 
 public class FinishTaskRequest {
-    public String taskID;
+  public String taskID;
 }

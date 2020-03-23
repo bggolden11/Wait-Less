@@ -1,9 +1,9 @@
 package Response;
 
 public class CreateUserResponse {
-    String employeeId;
+  String employeeId;
 
-    public CreateUserResponse(String employeeId){
-        this.employeeId = employeeId;
-    }
+  public CreateUserResponse(String employeeId) {
+    this.employeeId = employeeId;
+  }
 }

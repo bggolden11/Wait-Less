@@ -200,5 +200,33 @@ public class TaskDBO implements DBO{
         }
     }
 
+    /**
+     * @return The average wait time of the resturaunt
+     * @throws SQLException Error with the Sql database
+     */
+    public String getAverageWaitTime() throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String insertSql = "SELECT AVG(Total_Time) "
+                + "FROM Task ";
+
+        try {
+            PreparedStatement preparedStmt = connection.prepareStatement(insertSql);
+
+            ResultSet resultSet = preparedStmt.executeQuery();
+
+                // Print results from select statement
+            if (!resultSet.next()) {
+                throw new SQLException();
+            } else {
+                return resultSet.getString(1);
+            }
+        }
+        finally {
+            connection.close();
+        }
+    }
 
 }

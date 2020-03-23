@@ -6,6 +6,7 @@ import Exceptions.TaskNotFoundException;
 import Exceptions.UserNotFoundException;
 import Requests.CreateTaskRequest;
 import Requests.FinishTaskRequest;
+import Requests.GetAverageWaitTimeRequest;
 import Requests.GetTasksBasedOnUserRequest;
 import Requests.UpdateUserToTaskRequest;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -116,6 +117,20 @@ public class TaskService {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
         } catch (TaskNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Error retrieving tasks").build();
+        }
+    }
+
+    /**
+     *
+     * @param request http request to send and receive
+     * @param employeeId employee Id you would like to get tasks for
+     * @return lists of uncompleted tasks corresponding to that employee Id
+     */
+    public HttpResponseMessage getAverageWaitTime(HttpRequestMessage<Optional<String>> request){
+        try{
+            return request.createResponseBuilder(HttpStatus.CREATED).body(taskDbo.getAverageWaitTime()).build();
+        } catch (SQLException e) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body(e.fillInStackTrace() + e.getMessage()).build();
         }
     }
 

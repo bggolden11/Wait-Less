@@ -146,5 +146,12 @@ public class Function {
                                                   final ExecutionContext context){
         return diningTablesService.getAllDiningTables(request);
     }
+
+    @FunctionName("Get-Average-Wait-Time")
+    public HttpResponseMessage getAverageWaitTime(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                                          final ExecutionContext context) {
+        return taskService.getAverageWaitTime(request);
+  
+    }
 }
 

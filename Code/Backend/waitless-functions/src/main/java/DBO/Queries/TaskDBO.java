@@ -29,9 +29,9 @@ public class TaskDBO implements DBO{
         try {
             PreparedStatement preparedStmt = connection.prepareStatement(insertSql);
             preparedStmt.setString(1, employeeId);
-            preparedStmt.setString(2,title);
-            preparedStmt.setString(3,description);
-            preparedStmt.setString(4,table);
+            preparedStmt.setString(2, title);
+            preparedStmt.setString(3, description);
+            preparedStmt.setString(4, table);
 
             ResultSet resultSet = preparedStmt.executeQuery();
 
@@ -53,20 +53,23 @@ public class TaskDBO implements DBO{
      * @return The TaskId of the finished task
      * @throws SQLException Error with the Sql database
      */
-    public void finishTask(String taskID) throws SQLException {
+    public void finishTask(String taskId) throws SQLException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
+
+
         String selectSql = "UPDATE Task "
                 + "SET Finish_Time = GETDATE(), Status = 'Complete' "
-                + "WHERE Task_ID = " + taskID + ";\n";
+                + "WHERE Task_ID = ?";
 
-        try (Statement statement = connection.createStatement())
-        {
-            statement.executeUpdate(selectSql);
-        }  
-        finally {
+        try {
+            PreparedStatement preparedStmt = connection.prepareStatement(selectSql);
+            preparedStmt.setString(1, taskId);
+            preparedStmt.executeQuery();
+
+        } finally {
             connection.close();
         }
     }
@@ -83,11 +86,13 @@ public class TaskDBO implements DBO{
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "UPDATE Task "
-                + "SET Employee_ID = " + employeeToAssignId + " "
-                + "WHERE Task_ID = " + taskId + ";\n";
+                + "SET Employee_ID=? "
+                + "WHERE Task_ID=?";
         try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(selectSql);
+            PreparedStatement preparedStmt = connection.prepareStatement(selectSql);
+            preparedStmt.setString(1, employeeToAssignId);
+            preparedStmt.setString(2, taskId);
+            preparedStmt.executeQuery();
         }
         finally {
             connection.close();
@@ -108,11 +113,12 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Task_ID = " + taskId + ";\n";
+                + "WHERE Task_ID=?";
 
        try{
-           Statement statement = connection.createStatement();
-           ResultSet resultSet = statement.executeQuery(selectSql);
+            PreparedStatement preparedStmt = connection.prepareStatement(selectSql);
+            preparedStmt.setString(1, taskId);
+            ResultSet resultSet = preparedStmt.executeQuery();
 
            if (!resultSet.next()) {
                throw new TaskNotFoundException();
@@ -136,14 +142,14 @@ public class TaskDBO implements DBO{
      * @return lists of uncompleted tasks corresponding to that employee Id
      * @throws SQLException error connecting to SQL DB
      */
-    public List<Task> getUncompletedTaskBasedOnEmployeeID(String employeeID) throws SQLException {
+    public List<Task> getUncompletedTaskBasedOnEmployeeID(String employeeID) throws SQLException, TaskNotFoundException {
         Connection connection = null;
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Active'"+ ";\n";
+                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Active'" + ";\n";
 
         return getTasks(connection, selectSql);
     }
@@ -154,7 +160,7 @@ public class TaskDBO implements DBO{
      * @return lists of completed tasks corresponding to that employee Id
      * @throws SQLException error connecting to SQL DB
      */
-    public List<Task> getCompletedTaskBasedOnEmployeeID(String employeeID) throws SQLException {
+    public List<Task> getCompletedTaskBasedOnEmployeeID(String employeeID) throws SQLException, TaskNotFoundException {
 
         Connection connection = null;
         connection = DriverManager.getConnection(url);
@@ -174,7 +180,7 @@ public class TaskDBO implements DBO{
      * @return Tasks gotten from SQL statement
      * @throws SQLException ERROR connecting TO DB
      */
-    private List<Task> getTasks(Connection connection, String selectSql) throws SQLException {
+    private List<Task> getTasks(Connection connection, String selectSql) throws SQLException, TaskNotFoundException {
         List<Task> tasks = new ArrayList<>();
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(selectSql)) {

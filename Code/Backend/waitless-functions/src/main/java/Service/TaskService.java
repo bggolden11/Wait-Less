@@ -52,11 +52,11 @@ public class TaskService {
             taskDbo.finishTask(taskID);
             return request.createResponseBuilder(HttpStatus.OK).build();
         }
-        catch (TaskNotFoundException e){
-            return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find requested Task").build();
-        }
         catch (SQLException e) {
-            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not find requested Task").build();
+        }
+        catch (Exception e){
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not connect to database").build();
         }
     }
 
@@ -95,6 +95,8 @@ public class TaskService {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+        } catch (TaskNotFoundException e) {
+            return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Error retrieving tasks").build();
         }
     }
 
@@ -112,6 +114,8 @@ public class TaskService {
             return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
         } catch (UserNotFoundException e) {
             return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Could not find user").build();
+        } catch (TaskNotFoundException e) {
+            return request.createResponseBuilder(HttpStatus.NOT_FOUND).body("Error retrieving tasks").build();
         }
     }
 

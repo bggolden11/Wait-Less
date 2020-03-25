@@ -25,11 +25,8 @@ public class HttpRequestTest{
     @Test
     public void getLoggedInUserTest() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-Logged-In-Users");
-
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-
         assert(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
-
     }
 
     @Test
@@ -182,6 +179,16 @@ public class HttpRequestTest{
     @Test
     public void getAllDiningRoomTables() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Dining-Tables");
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
+
+    }
+
+    @Test
+    public void getAverageWaitTime() throws IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-Average-Wait-Time");
 
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 

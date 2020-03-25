@@ -23,8 +23,8 @@ import java.io.IOException;
 public class HttpRequestTest{
 
     @Test
-    public void getLoggedInUserTest() throws IOException {
-        HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-Logged-In-Users");
+    public void getAllEmployeesTest() throws IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Employees");
 
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 

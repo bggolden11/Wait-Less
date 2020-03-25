@@ -1,7 +1,10 @@
 package DBO.Queries;
 import com.typesafe.config.*;
 
-
+/**
+ * DBO interface
+ * Stores database settings
+ */
 public interface DBO {
     Config conf = ConfigFactory.load();
 

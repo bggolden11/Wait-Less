@@ -8,6 +8,7 @@ import 'package:flutter_app/src/screens/manager_screen.dart';
 import 'package:flutter_app/src/screens/successful_registration_screen.dart';
 
 import 'src/screens/login_screen.dart';
+import 'src/screens/newlogin.dart';
 
 
 main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
 
-      home: LoginPage(),
+      home: LoginScreen(),
       routes: {MainMenu.route : (context) => MainMenu(),
                RegistrationScreen.route : (context) => RegistrationScreen(),
                LoginPage.route : (context) => LoginPage(),

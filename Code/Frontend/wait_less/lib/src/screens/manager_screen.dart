@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'registration_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +14,7 @@ import 'manager/tableList_screen.dart';
 import 'manager/waiterList_screen.dart';
 import 'manager/emptyTableList_screen.dart';
 import 'manager/summary_screen.dart';
+import 'registration_screen.dart';
 import 'waiter/sendTask_screen.dart' as sendTaskClass;
 
 class ManagerPage extends StatefulWidget { // class for Manager Page
@@ -127,6 +128,11 @@ class _ManagerPage extends State<ManagerPage>{
                 title: new Text("Waiter List"),
                 trailing: new Icon(Icons.assignment_turned_in),
                 onTap: (){Navigator.push(context, MaterialPageRoute(builder : (context) => ManagerPage()));},
+              ),
+              new ListTile(
+                title: new Text("Add Employee"),
+                trailing: new Icon(Icons.assignment_turned_in),
+                onTap: (){Navigator.push(context, MaterialPageRoute(builder : (context) => RegistrationScreen()));},
               ),
               new ListTile(
                 title: new Text("Logout"),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/FormCard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'registration_screen.dart';
-//import 'package:waitless/registration_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -175,7 +176,7 @@ class _LoginScreen extends State<LoginScreen> {
                             fontFamily: "Poppins-Medium"),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: (){Navigator.push(context, MaterialPageRoute(builder : (context) => RegistrationScreen()));},
                         child: Text("SignUp",
                             style: TextStyle(
                                 color: Color(0xFF5d74e3),

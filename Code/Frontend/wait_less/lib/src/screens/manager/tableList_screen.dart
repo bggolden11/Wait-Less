@@ -19,6 +19,98 @@ List<TableInfo> listTableInfo = [
   TableInfo(waiters: 'Ant-Man' , name: 'C2', tasks: 'Clean Table', image: 'assets/task4.jpg'),
 
 ];
+// class for tables info popup
+class CustomDialog extends StatelessWidget{
+  final String title, description, buttonText;
+  final Image image;
+
+  CustomDialog({this.title, this.description, this.buttonText, this.image});
+  @override
+  Widget build(BuildContext context){
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: dialogContent(context),
+
+    );
+  }
+  dialogContent(BuildContext context){
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(
+              top: 200,
+              bottom: 16,
+              left: 16,
+              right: 16
+          ),
+
+          margin: EdgeInsets.only(top: 16),
+          decoration: BoxDecoration(
+              color: Colors.brown[600],
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(17),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black87,
+                  blurRadius: 10.0,
+                  offset: Offset(0.0, 10.0),
+
+                )
+              ]
+          ),
+
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w700,
+
+                ),
+
+              ),
+              SizedBox(height: 16.0),
+              Text(description,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),),
+              SizedBox(height: 24.0),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: RaisedButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(18.0),
+
+                  ),
+                  textColor: Colors.white,
+                  color: Colors.red,
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Text(
+                    "Close",
+                  ),
+                ),
+              )
+            ],
+          ),
+
+        ),
+        Positioned(
+          top: 30,
+          left: 30,
+          right: 30,
+          child: new Image(image: AssetImage('assets/tables.gif'), width: 350, height: 150, fit: BoxFit.cover,),
+        )
+      ],
+    );
+  }
+}
 
 class TablesList extends StatefulWidget { // class for Waiter Page
   @override
@@ -59,51 +151,6 @@ class _TablesList extends State<TablesList>{
                   padding: EdgeInsets.only(top: 1.0),
 
                 ),
-//                Container( // this button is for completed tasks
-//                  width: double.infinity,
-//                  height: 180,
-//                  decoration: BoxDecoration(
-//                      borderRadius: BorderRadius.circular(20),
-//                      image: DecorationImage(
-//                          image: AssetImage("assets/ctasks.jpg"), // insert the image here
-//                          fit: BoxFit.cover
-//
-//                      )
-//                  ),
-//                  child: Container(
-//                      decoration: BoxDecoration(
-//                          borderRadius: BorderRadius.circular(20),
-//                          gradient: LinearGradient(
-//                              begin: Alignment.bottomRight,
-//                              colors: [
-//                                Colors.black.withOpacity(0.4), // adding opacity in order to increase visibility
-//                                Colors.black.withOpacity(0.2),
-//                              ]
-//                          )
-//                      ),
-//                      child: Column(
-//                        mainAxisAlignment: MainAxisAlignment.end,
-//                        children: <Widget>[
-////                          Text(
-////                            'Completed Tasks', // for the area where the current tasks would be developed
-////                            style:TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: "Poppins-Medium"),
-////
-////                          ),
-//                          SizedBox(height: 10,),
-//                          Container(
-//                            height: 50,
-//                            margin: EdgeInsets.symmetric(horizontal: 40),
-//                            decoration: BoxDecoration(
-//                                borderRadius: BorderRadius.circular(10),
-//                                color: Colors.redAccent[200]
-//                            ),
-//                            child: Center(child: Text("Completed Tasks", style: TextStyle(color: Colors.grey[900], fontWeight: FontWeight.bold),)),
-//                          ),
-//                          SizedBox(height: 20,),
-//                        ],
-//                      )
-//                  ),
-//                ),
                 SizedBox(height: 10,), // just for padding
                 Column(
                   children: <Widget>[
@@ -121,16 +168,22 @@ class _TablesList extends State<TablesList>{
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       children: listTableInfo.map((item) => Card( // making a card for each using the card layout
+
                         color: Colors.transparent,
                         elevation: 0,
-                        child: Container(
-                          decoration: BoxDecoration( // dimension of the box and the image
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  image: AssetImage(item.image),
-                                  fit: BoxFit.cover
-                              )
-                          ),
+                        child: InkWell(
+                          onTap: (){showDialog(context: context, builder: (context) => CustomDialog(
+                            title: item.name,
+                            description: item.tasks, // you can change the description later
+                          ));},
+                          child: Container(
+                            decoration: BoxDecoration( // dimension of the box and the image
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage(item.image),
+                                    fit: BoxFit.cover
+                                )
+                            ),
 //                          child: Transform.translate( // this is just for an optional icon we can use it to enhance capablities by showing it's pending, current or almost done
 //                            // it's a future job
 //                            offset: Offset(50, -50),
@@ -144,41 +197,42 @@ class _TablesList extends State<TablesList>{
 //                              child: CircleAvatar(backgroundColor: Colors.white, child: Text("A2"),),
 //                            ),
 //                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                gradient: LinearGradient(
-                                    begin: Alignment.bottomRight,
-                                    colors: [
-                                      Colors.limeAccent.withOpacity(0.3), // adding opacity in order to increase visibility
-                                      Colors.redAccent.withOpacity(0.1),
-                                    ]
-                                )
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.bottomRight,
+                                      colors: [
+                                        Colors.limeAccent.withOpacity(0.3), // adding opacity in order to increase visibility
+                                        Colors.redAccent.withOpacity(0.1),
+                                      ]
+                                  )
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
 
 
-                                //SizedBox(height: 20,),
-                                Container(
-                                  child: Transform.translate( // this is just for an optional icon we can use it to enhance capablities by showing it's pending, current or almost done
-                                    // it's a future job
-                                    offset: Offset(50, -50),
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
+                                  //SizedBox(height: 20,),
+                                  Container(
+                                    child: Transform.translate( // this is just for an optional icon we can use it to enhance capablities by showing it's pending, current or almost done
+                                      // it's a future job
+                                      offset: Offset(50, -50),
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
 //                                      decoration: BoxDecoration(
 //                                          borderRadius: BorderRadius.circular(10),
 //                                          color: Colors.white70
 //                                      ),
-                                      child: CircleAvatar(backgroundColor: Colors.white70, child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, fontFamily: "Poppins-Medium")),), // you can change the icon if you want
+                                        child: CircleAvatar(backgroundColor: Colors.white70, child: Text(item.name, style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, fontFamily: "Poppins-Medium")),), // you can change the icon if you want
+
+                                      ),
 
                                     ),
-
                                   ),
-                                ),
 
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

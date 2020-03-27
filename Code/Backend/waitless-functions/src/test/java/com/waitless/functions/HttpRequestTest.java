@@ -189,4 +189,15 @@ public class HttpRequestTest{
 
     }
 
+    @Test
+    public void getAllTasks() throws IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Tasks");
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
+
+    }
+
+
 }

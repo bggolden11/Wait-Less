@@ -146,5 +146,11 @@ public class Function {
                                                   final ExecutionContext context){
         return diningTablesService.getAllDiningTables(request);
     }
+
+    @FunctionName("Get-All-Tasks")
+    public HttpResponseMessage getAllTasks(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                                           final ExecutionContext context){
+        return taskService.getAllTasks(request);
+    }
 }
 

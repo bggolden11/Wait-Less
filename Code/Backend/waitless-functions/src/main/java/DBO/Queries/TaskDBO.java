@@ -145,7 +145,7 @@ public class TaskDBO implements DBO{
                 + "FROM Task "
                 + "WHERE Employee_ID = " + employeeID + "AND Status = 'Active'"+ ";\n";
 
-        return getTasks(connection, selectSql);
+        return extractListOfTasks(connection, selectSql);
     }
 
     /**
@@ -164,7 +164,22 @@ public class TaskDBO implements DBO{
                 + "FROM Task "
                 + "WHERE Employee_ID = " + employeeID + "AND Status = 'Complete'"+ ";\n";
 
-        return getTasks(connection, selectSql);
+        return extractListOfTasks(connection, selectSql);
+    }
+
+    /**
+     *
+     * @return A list of all tasks
+     * @throws SQLException Error connecting to database
+     */
+    public List<Task> getAllTasks() throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task ";
+        return extractListOfTasks(connection, selectSql);
     }
 
     /**
@@ -174,7 +189,7 @@ public class TaskDBO implements DBO{
      * @return Tasks gotten from SQL statement
      * @throws SQLException ERROR connecting TO DB
      */
-    private List<Task> getTasks(Connection connection, String selectSql) throws SQLException {
+    private List<Task> extractListOfTasks(Connection connection, String selectSql) throws SQLException {
         List<Task> tasks = new ArrayList<>();
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(selectSql)) {

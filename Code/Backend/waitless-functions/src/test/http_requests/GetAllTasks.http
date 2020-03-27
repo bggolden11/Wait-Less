@@ -1,0 +1,184 @@
+# curl --location --request GET 'http://localhost:7071/api/Get-All-Tasks'
+GET http://localhost:7071/api/Get-All-Tasks
+
+###
+
+## EXAMPLE OUTPUT
+#[
+#  {
+#    "taskID": "1001",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Sweep the floor",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1003",
+#    "employeeID": "2124",
+#    "status": "Active",
+#    "title": "Cleanup table",
+#    "description": "Clean the assigned table",
+#    "tableNumber": "B1"
+#  },
+#  {
+#    "taskID": "1005",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "tableNumber": "C1"
+#  },
+#  {
+#    "taskID": "1007",
+#    "employeeID": "2127",
+#    "status": "Complete",
+#    "title": "Sweep the floor",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "tableNumber": "B2"
+#  },
+#  {
+#    "taskID": "1009",
+#    "employeeID": "2127",
+#    "status": "Active",
+#    "title": "Take out the trash",
+#    "description": "We need the trash to be taken out",
+#    "tableNumber": "OT"
+#  },
+#  {
+#    "taskID": "1011",
+#    "employeeID": "2130",
+#    "status": "Active",
+#    "title": "Wash dishes",
+#    "description": "Wash the dirty dishes in the kitchen",
+#    "tableNumber": "OT"
+#  },
+#  {
+#    "taskID": "1013",
+#    "employeeID": "2130",
+#    "status": "Active",
+#    "title": "Sweep the floor",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1015",
+#    "employeeID": "2133",
+#    "status": "Active",
+#    "title": "Cleanup table",
+#    "description": "Clean the assigned table",
+#    "tableNumber": "B1"
+#  },
+#  {
+#    "taskID": "1017",
+#    "employeeID": "2133",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "tableNumber": "C1"
+#  },
+#  {
+#    "taskID": "1019",
+#    "employeeID": "2136",
+#    "status": "Complete",
+#    "title": "Sweep the floor",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "tableNumber": "B2"
+#  },
+#  {
+#    "taskID": "1021",
+#    "employeeID": "2136",
+#    "status": "Active",
+#    "title": "Take out the trash",
+#    "description": "We need the trash to be taken out",
+#    "tableNumber": "OT"
+#  },
+#  {
+#    "taskID": "1023",
+#    "employeeID": "2139",
+#    "status": "Active",
+#    "title": "Wash dishes",
+#    "description": "Wash the dirty dishes in the kitchen",
+#    "tableNumber": "OT"
+#  },
+#  {
+#    "taskID": "1025",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Clean",
+#    "description": "Clean the table",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1027",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Clean",
+#    "description": "Clean the table",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1029",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Please work",
+#    "description": "PLEAH",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1031",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Please work",
+#    "description": "PLEAH",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1033",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Clean",
+#    "description": "Clean the table",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1035",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Please work's 6969",
+#    "description": "PLEAH's",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1037",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Please work's 6969",
+#    "description": "PLEAH's",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1039",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Please work's 6969",
+#    "description": "PLEAH's",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1041",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Clean",
+#    "description": "Clean the table",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1043",
+#    "employeeID": "2121",
+#    "status": "Active",
+#    "title": "Clean",
+#    "description": "Clean the table",
+#    "tableNumber": "A1"
+#  }
+#]

@@ -165,6 +165,22 @@ public class TaskDBO implements DBO{
                 + "WHERE Employee_ID = " + employeeID + "AND Status = 'Complete'"+ ";\n";
 
         return getTasks(connection, selectSql);
+
+    }
+
+    /**
+     *
+     * @return A list of all tasks
+     * @throws SQLException Error connecting to database
+     */
+    public List<Task> getAllTasks() throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task ";
+        return getTasks(connection, selectSql);
     }
 
     /**

@@ -115,4 +115,17 @@ public class TaskService {
         }
     }
 
+    /**
+     *
+     * @param request http request to send and receive
+     * @return 200 - list of all tasks
+     *         500 - error connecting to sql database
+     */
+    public HttpResponseMessage getAllTasks(HttpRequestMessage<Optional<String>> request){
+        try{
+            return request.createResponseBuilder(HttpStatus.OK).body(taskDbo.getAllTasks()).build();
+        } catch (SQLException e) {
+            return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error connecting to SQL database").build();
+        }
+    }
 }

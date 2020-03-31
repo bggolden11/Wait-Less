@@ -85,22 +85,26 @@ class _CreateTask extends State<CreateTask> {
               height: 10,
             ),
 
+            /// Drop down button code for table selection
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text("Select Table:\t"),
                 DropdownButton<String>(
                   items: widget.diningTableList.map((DiningTable value) {
+                    /// Individual item options as strings
                     return new DropdownMenuItem<String>(
                       value: value.diningTableId,
                       child: new Text(value.diningTableId),
                     );
                   })?.toList() ?? [],
+                  /// Update selected item
                   onChanged: (String value) {
                     setState(() {
                       selectedTable = value;
                     });
                   },
+                  /// Display the selected item
                   value: selectedTable != null ? selectedTable : null,
                 ),
               ],

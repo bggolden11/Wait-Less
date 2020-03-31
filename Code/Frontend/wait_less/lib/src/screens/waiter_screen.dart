@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/dining_table_model.dart';
 import 'package:flutter_app/src/models/task_model.dart';
+import 'package:flutter_app/src/screens/manager/tableList_screen.dart';
 import 'package:flutter_app/src/widgets/create_task.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../HTTPClient/http_client.dart';
@@ -16,6 +18,7 @@ import 'login_screen.dart';
 import 'waiter/completed_screen.dart';
 import 'waiter/current_screen.dart';
 
+final Dio httpClient = new HTTPClient().dio;
 
 class WaiterPage extends StatefulWidget { // class for Manager Page
 
@@ -26,12 +29,18 @@ class WaiterPage extends StatefulWidget { // class for Manager Page
 class _WaiterPage extends State<WaiterPage>{
   // list of pages 
   List<Widget> pagesTasks =[CurrentTasks(), CompletedTasks()];
+  List<DiningTable> diningTableList;
   Timer reloadTimer;
 
   @override
   void initState() {
     super.initState();
     reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+    getTables();
+  }
+
+  void getTables() async {
+    diningTableList = await getDiningTables();
   }
 
   void reloadScreen() {
@@ -157,9 +166,11 @@ class _WaiterPage extends State<WaiterPage>{
               showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(onAddPressed: (Task t) {
-                    createTask(t);
-                  }),
+                  child: CreateTask(
+                    diningTableList: diningTableList,
+                    onAddPressed: (Task t) {
+                      createTask(t);
+                    }),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12))
                   ),

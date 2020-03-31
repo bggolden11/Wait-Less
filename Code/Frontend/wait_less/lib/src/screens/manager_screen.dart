@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/models/dining_table_model.dart';
+
 import 'registration_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +19,8 @@ import 'manager/emptyTableList_screen.dart';
 import 'manager/summary_screen.dart';
 import 'registration_screen.dart';
 import 'waiter/sendTask_screen.dart' as sendTaskClass;
+
+final Dio httpClient = new HTTPClient().dio;
 
 class ManagerPage extends StatefulWidget { // class for Manager Page
 
@@ -35,6 +40,7 @@ class _ManagerPage extends State<ManagerPage>{
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
 
+  List<DiningTable> diningTableList;
 
   Timer reloadTimer;
 
@@ -42,6 +48,12 @@ class _ManagerPage extends State<ManagerPage>{
   void initState() {
     super.initState();
     reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+    getTables();
+  }
+
+  void getTables() async {
+    diningTableList = await getDiningTables();
+    print('got tables');
   }
 
   void reloadScreen() {
@@ -158,7 +170,9 @@ class _ManagerPage extends State<ManagerPage>{
           onPressed: (){ showDialog(context: context,
               builder: (BuildContext context){
                 return Dialog(
-                  child: CreateTask(onAddPressed: (taskModel.Task t) {
+                  child: CreateTask(
+                    diningTableList: diningTableList,
+                    onAddPressed: (taskModel.Task t) {
                     showDialog(
                         context: context,
                         builder: (BuildContext buildContext) {

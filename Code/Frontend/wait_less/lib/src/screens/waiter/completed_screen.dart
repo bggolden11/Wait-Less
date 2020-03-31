@@ -29,8 +29,9 @@ Future getTasks() async {
       "employeeId":"${EmployeeLoginCredentials.employeeId}"
     };
 
-    final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-Inactive-Tasks-Based-On-User?code=Ciyv62I26diHC58R7NFzBxZsMeiGIEe5IiLVuavOJo7ZzZR/L465eQ==",
+    final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-All-Tasks?code=en6hGfbSMIdl/VPvvYvZrDn0vguXJMiOj1pju5ZycqEFsT3pZw8mkA==",
         data: body);
+
 
     listComTasks = TaskList.taskListFromJSON('{ "result" : ${response.data.toString()} }').taskList;
     listComTasks.forEach((e) => print('TID: ${e.taskID}\nEID: ${e.employeeID}'));

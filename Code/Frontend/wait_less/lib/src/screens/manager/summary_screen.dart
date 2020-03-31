@@ -1,44 +1,67 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/models/list_task_model.dart';
+import 'package:flutter_app/src/models/list_waiter_model.dart';
+import 'package:flutter_app/src/models/task_model.dart';
+import 'package:flutter_app/src/models/waiter_model.dart';
+import 'package:flutter_app/src/screens/login_screen.dart';
+import 'package:flutter_app/src/widgets/waiter_list.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-// class to store the details for each task.dart
-class Task{
-  Task({this.name, this.table, this.description});
-  final String name;
-  final String table;
-  final String description;
+final Dio httpClient = new HTTPClient().dio;
 
-}
-List<Task> listComTasks = [
-  Task(description: 'Can you please wipe the table' , name: 'Wipe Table', table: 'A1'),
-  Task(description: 'Can you please wipe the floor' , name: 'Wipe Floor', table: 'B3'),
-  Task(description: 'Can you please serve the table' , name: 'Serve Table', table: 'F3'),
-  Task(description: 'Can you please get the order' , name: 'Get Order', table: 'F5'),
-  Task(description: 'Can you please call the manager' , name: 'Get Manager', table: 'A4'),
-  Task(description: 'Can you please get water' , name: 'Get Water', table: 'F2'),
-  Task(description: 'Can you please get main course' , name: 'Get Main Course', table: 'B2'),
+List<Task> listComTasks = []; // for test will contain all the tasks
 
-]; // for test will contain all the tasks
 class CompletedList extends ListTile{ // implementing the layout using list tile
   CompletedList(Task task, BuildContext context) // for each
       : super( // super class
-      title: Text(task.name), // get name
-      leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(task.table, style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
+      title: Text(task.title), // get name
+      leading: CircleAvatar(backgroundColor: Colors.limeAccent[400], child: Text(task.tableNumber, style: TextStyle(fontSize: 15.0, color: Colors.black87, fontFamily: "Poppins-Medium"))),
       trailing: new Icon(Icons.assignment_turned_in),
       onTap: (){showDialog(context: context, builder: (context) => CustomDialog(
-        title: task.name,
-        description: task.description,
+        task: task,
       ));}
   );
 }
 
-Widget _buildCompletedList() {
-  return ListView.builder(itemCount: listComTasks.length,
-      itemBuilder: (BuildContext content, int index){
-        Task task = listComTasks[index];
-        return CompletedList(task, content);
+Future getTasks() async {
+  try {
 
-      });
+    final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Tasks?code=en6hGfbSMIdl/VPvvYvZrDn0vguXJMiOj1pju5ZycqEFsT3pZw8mkA==");
+
+    final List<Waiter> waiterList = await getWaiters(false);
+
+    listComTasks = TaskList.taskListWithWaitersFromJSON('{ "result" : ${response.data.toString()} }', waiterList).taskList;
+    return listComTasks;
+  } on DioError catch (e){
+    print(e.response.toString());
+    print(e.response.statusCode);
+  }
+  return null;
+}
+
+
+Widget _buildCompletedList() {
+  return FutureBuilder(
+    future: getTasks(),
+    builder: (context, snapshot) {
+      return snapshot.hasData ?
+      listComTasks.length == 0 ? new Container(child: Text('No Completed Tasks!'))  // No tasks
+          : new ListView.builder( // Has Tasks
+        itemCount: listComTasks.length,
+        itemBuilder: (BuildContext content, int index){
+          Task task = listComTasks[index];
+          return CompletedList(task, content);
+        },
+      )
+          : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks
+
+    },
+
+  );
+
 }
 
 // define popup function
@@ -58,10 +81,10 @@ Widget _popupFunction(context){
 }
 // class for completed tasks popup
 class CustomDialog extends StatelessWidget{
-  final String title, description, buttonText;
+  final Task task;
   final Image image;
 
-  CustomDialog({this.title, this.description, this.buttonText, this.image});
+  CustomDialog({this.task, this.image});
   @override
   Widget build(BuildContext context){
     return Dialog(
@@ -100,7 +123,7 @@ class CustomDialog extends StatelessWidget{
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                title,
+                task.title,
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.w700,
@@ -109,10 +132,17 @@ class CustomDialog extends StatelessWidget{
 
               ),
               SizedBox(height: 16.0),
-              Text(description,
+              Text(task.description,
                 style: TextStyle(
                   fontSize: 16.0,
                 ),),
+
+              SizedBox(height: 24.0),
+              Text('Completed By: ${task.employeeName}',
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),),
+
               SizedBox(height: 24.0),
               Align(
                 alignment: Alignment.bottomRight,

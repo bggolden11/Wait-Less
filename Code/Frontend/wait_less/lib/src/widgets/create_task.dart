@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/models/dining_table_model.dart';
 import 'package:flutter_app/src/models/task_model.dart';
+import 'package:flutter_app/src/screens/manager/tableList_screen.dart';
 
 import '../models/employee_login_credentials.dart';
 
@@ -9,8 +11,9 @@ import '../models/employee_login_credentials.dart';
 class CreateTask extends StatefulWidget {
 
   Function(Task t) onAddPressed;
+  List<DiningTable> diningTableList;
 
-  CreateTask({this.onAddPressed});
+  CreateTask({this.onAddPressed, this.diningTableList});
 
   @override
   _CreateTask createState() => _CreateTask();
@@ -20,7 +23,22 @@ class _CreateTask extends State<CreateTask> {
 
   final titleController = TextEditingController();
   final descController = TextEditingController();
-  final tableController = TextEditingController();
+  String selectedTable = 'OT';
+
+
+//  @override
+//  void initState(){
+//    getDiningTables().then((tableList) {
+//      setState(() {
+//        diningTableList = tableList;
+//      });
+//    });
+//    super.initState();
+//  }
+
+//  void getTables() async {
+//    diningTableList = await getDiningTables();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +84,47 @@ class _CreateTask extends State<CreateTask> {
             SizedBox(
               height: 10,
             ),
-            TextField(
-              controller: tableController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
 
+            /// Drop down button code for table selection
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Select Table:\t"),
+                DropdownButton<String>(
+                  items: widget.diningTableList.map((DiningTable value) {
+                    /// Individual item options as strings
+                    return new DropdownMenuItem<String>(
+                      value: value.diningTableId,
+                      child: new Text(value.diningTableId),
+                    );
+                  })?.toList() ?? [],
+                  /// Update selected item
+                  onChanged: (String value) {
+                    setState(() {
+                      selectedTable = value;
+                    });
+                  },
+                  /// Display the selected item
+                  value: selectedTable != null ? selectedTable : null,
                 ),
-                labelText: "Table",
-              ),
+              ],
             ),
+
+            SizedBox(
+              height: 10,
+            ),
+
+
+//            TextField(
+//              controller: tableController,
+//              decoration: InputDecoration(
+//                border: OutlineInputBorder(
+//                  borderRadius: BorderRadius.all(Radius.circular(12)),
+//
+//                ),
+//                labelText: "Table",
+//              ),
+//            ),
             SizedBox(
               height: 10,
             ),
@@ -87,7 +136,7 @@ class _CreateTask extends State<CreateTask> {
                     Task t = new Task(
                       title: titleController.text.toString().trim(),
                       description: descController.text.toString().trim(),
-                      tableNumber: tableController.text.toString().trim(),
+                      tableNumber: selectedTable,
                       employeeID: EmployeeLoginCredentials.employeeId,
                     );
                     this.widget.onAddPressed(t);

@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FormCard extends StatelessWidget {
+
+  final employeeIDController;
+  final passwordController;
+
+  FormCard({ this.employeeIDController, this.passwordController });
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -39,6 +45,7 @@ class FormCard extends StatelessWidget {
                       fontFamily: "Poppins-Medium",
                       fontSize: ScreenUtil().setSp(26))),
               TextField(
+                controller: employeeIDController,
                 decoration: InputDecoration(
                     hintText: "Employee ID",
                     hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
@@ -46,11 +53,12 @@ class FormCard extends StatelessWidget {
               SizedBox(
                 height: ScreenUtil().setHeight(30),
               ),
-              Text("PassWord",
+              Text("Password",
                   style: TextStyle(
                       fontFamily: "Poppins-Medium",
                       fontSize: ScreenUtil().setSp(26))),
               TextField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                     hintText: "Password",

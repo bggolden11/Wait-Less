@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
+
 import 'registration_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ import 'manager/emptyTableList_screen.dart';
 import 'manager/summary_screen.dart';
 import 'registration_screen.dart';
 import 'waiter/sendTask_screen.dart' as sendTaskClass;
+
+final Dio httpClient = new HTTPClient().dio;
 
 class ManagerPage extends StatefulWidget { // class for Manager Page
 

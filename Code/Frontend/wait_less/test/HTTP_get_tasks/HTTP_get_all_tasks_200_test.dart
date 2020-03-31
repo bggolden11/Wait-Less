@@ -9,11 +9,11 @@ import '../../lib/src/models/employee_login_credentials.dart';
 
 void main() {
 
-  test('HTTP Get all Users tasks API call should return status code 200 OK for retrieval', () async {
+  test('HTTP Get all tasks API call should return status code 200 OK for retrieval', () async {
     int statusCode = 0;
     try {
       final Dio httpClient = new HTTPClient().dio;
-      final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Employees?code=AiIkGSpsrYMJWydPjsZIGLLDc85VBtlplRpNS6qEJAZ12BQcrcci5Q==");
+      final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Tasks?code=en6hGfbSMIdl/VPvvYvZrDn0vguXJMiOj1pju5ZycqEFsT3pZw8mkA==");
       statusCode = response.statusCode;
       print(response.data.toString());
     } on DioError catch (e){

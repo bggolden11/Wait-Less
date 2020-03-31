@@ -36,9 +36,9 @@ Future getWaiters(bool loggedIn) async {
     if(loggedIn)
       listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').getLoggedInWaiters();
     else
-      listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').waiterList;
+      listWaiters = WaiterList.waiterListFromJSON('{ "result" : ${response.data.toString()} }').getAllWaiters();
 
-//    listWaiters.forEach((e) => print('EID: ${e.employeeID}\nName: ${e.toString()}'));
+    listWaiters.forEach((e) => print('EID: ${e.employeeID}\nName: ${e.toString()}'));
     return listWaiters;
   } on DioError catch (e){
     print(e.response.toString());

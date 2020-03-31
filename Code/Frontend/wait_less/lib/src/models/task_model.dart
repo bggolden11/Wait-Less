@@ -1,7 +1,10 @@
 
+import 'package:flutter_app/src/models/list_waiter_model.dart';
+
 class Task {
   final String taskID;
   final String employeeID;
+  String employeeName;
   final String status;
   final String title;
   final String description;
@@ -9,7 +12,7 @@ class Task {
 
   Task({this.taskID, this.employeeID, this.status, this.title, this.description, this.tableNumber});
 
-  Task.taskFromJSON(Map<String, dynamic> parsedJSON)
+  Task.taskFromJSON(Map<String, dynamic> parsedJSON,)
       : taskID = parsedJSON['taskID'] ?? parsedJSON['taskId'] ?? '',
         employeeID = parsedJSON['employeeId'] ?? parsedJSON['employeeID'] ?? '',
         status = parsedJSON['status'] ?? '',

@@ -1,24 +1,136 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/models/dining_table_model.dart';
+import 'package:flutter_app/src/models/list_dining_table_model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class TableInfo{
-  TableInfo({this.name, this.tasks, this.waiters, this.image});
-  final String name;
-  final String tasks;
-  final String waiters;
-  final String image;
+final Dio httpClient = new HTTPClient().dio;
+
+List<DiningTable> diningTableList = [];
+
+Future getDiningTables() async {
+  try {
+
+    final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Dining-Tables?code=Xz204yaUqCMLaAMHHOYgXAsFER99G3EjVkF6sLhXd3DUlaa9fJ7UGA==");
+
+
+    diningTableList = DiningTableList.diningTableListFromJSON('{ "result" : ${response.data.toString()} }').diningTableList;
+
+    diningTableList.forEach((e) => print('ID: ${e.diningTableId}'));
+
+    return diningTableList;
+  } on DioError catch (e){
+    print(e.response.toString());
+    print(e.response.statusCode);
+  }
+  return null;
+}
+
+Widget _buildDiningTableList() {
+  return FutureBuilder(
+    future: getDiningTables(),
+    builder: (context, snapshot) {
+      return snapshot.hasData ?
+      diningTableList.length == 0 ? new Container(child: Text('No Dining Tables!'))  // No tasks
+          : GridView.count( // using GridView layout by flutter and you don't need to use scroll becuase it does it for us
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              children: new List.generate( // Has Tasks
+                diningTableList.length,
+
+                  (index) {
+                    return getDiningTableCard(context, diningTableList[index]);
+                  }
+
+              ),
+
+            )
+
+
+          : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks
+
+    },
+
+  );
 
 }
-List<TableInfo> listTableInfo = [
-  TableInfo(waiters: 'Iron Man' , name: 'A1', tasks: 'Wipe Floor, Get Water', image: 'assets/task1.jpg'),
-  TableInfo(waiters: 'Spider-Man' , name: 'B2', tasks: 'Clean Table', image: 'assets/task2.jpg'),
-  TableInfo(waiters: 'Thor' , name: 'F4', tasks: 'Wipe Table', image: 'assets/task3.jpg'),
-  TableInfo(waiters: 'Hulk' , name: 'A9', tasks: 'Serve Food, Get Water', image: 'assets/task4.jpg'),
-  TableInfo(waiters: 'Nick Fury' , name: 'L4', tasks: 'Serve Main Cours', image: 'assets/task1.jpg'),
-  TableInfo(waiters: 'War Machine' , name: 'C6', tasks: 'Get water', image: 'assets/task3.jpg'),
-  TableInfo(waiters: 'Ant-Man' , name: 'C2', tasks: 'Clean Table', image: 'assets/task4.jpg'),
 
-];
+Widget getDiningTableCard(BuildContext context, DiningTable table){
+  return Card( // making a card for each using the card layout
+
+    color: Colors.transparent,
+    elevation: 0,
+    child: InkWell(
+      onTap: (){showDialog(context: context, builder: (context) => CustomDialog(
+        title: table.diningTableId,
+        description: 'Reservation: ${table.reservationName}', // you can change the description later
+      ));},
+      child: Container(
+        decoration: BoxDecoration( // dimension of the box and the image
+            borderRadius: BorderRadius.circular(20),
+            image: DecorationImage(
+                image: table.image,
+                fit: BoxFit.cover
+            )
+        ),
+//                          child: Transform.translate( // this is just for an optional icon we can use it to enhance capablities by showing it's pending, current or almost done
+//                            // it's a future job
+//                            offset: Offset(50, -50),
+//                            child: Container(
+//                              margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
+////                              decoration: BoxDecoration(
+////                                  borderRadius: BorderRadius.circular(10),
+////                                  color: Colors.white70
+////                              ),
+//                              //child: Icon(Icons.assignment, size: 30,), // you can change the icon if you want
+//                              child: CircleAvatar(backgroundColor: Colors.white, child: Text("A2"),),
+//                            ),
+//                          ),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: LinearGradient(
+                  begin: Alignment.bottomRight,
+                  colors: [
+                    Colors.limeAccent.withOpacity(0.3), // adding opacity in order to increase visibility
+                    Colors.redAccent.withOpacity(0.1),
+                  ]
+              )
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+
+
+              //SizedBox(height: 20,),
+              Container(
+                child: Transform.translate( // this is just for an optional icon we can use it to enhance capablities by showing it's pending, current or almost done
+                  // it's a future job
+                  offset: Offset(50, -50),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 65, vertical: 63),
+//                                      decoration: BoxDecoration(
+//                                          borderRadius: BorderRadius.circular(10),
+//                                          color: Colors.white70
+//                                      ),
+                    child: CircleAvatar(backgroundColor: Colors.white70, child: Text(table.diningTableId, style: TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.bold, fontFamily: "Poppins-Medium")),), // you can change the icon if you want
+
+                  ),
+
+                ),
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 // class for tables info popup
 class CustomDialog extends StatelessWidget{
   final String title, description, buttonText;
@@ -163,11 +275,26 @@ class _TablesList extends State<TablesList>{
                 ),
                 Expanded( // for the grid view, currently it goes through the list called task list and makes those many tasks, once we can populate the tasks you
                   // can change the image at line 166 to a fixed one and it will work
-                    child: GridView.count( // using GridView layout by flutter and you don't need to use scroll becuase it does it for us
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      children: listTableInfo.map((item) => Card( // making a card for each using the card layout
+                    child: _buildDiningTableList()
+                )
+              ],
+            ),
+
+
+          ),
+
+
+
+        ),
+
+      ),
+
+    );
+  }
+}
+
+/*
+Card( // making a card for each using the card layout
 
                         color: Colors.transparent,
                         elevation: 0,
@@ -236,21 +363,5 @@ class _TablesList extends State<TablesList>{
                             ),
                           ),
                         ),
-                      )).toList(),
-                    )
-                )
-              ],
-            ),
-
-
-          ),
-
-
-
-        ),
-
-      ),
-
-    );
-  }
-}
+                      )
+ */

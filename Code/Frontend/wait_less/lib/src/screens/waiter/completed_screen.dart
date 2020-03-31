@@ -29,7 +29,7 @@ Future getTasks() async {
       "employeeId":"${EmployeeLoginCredentials.employeeId}"
     };
 
-    final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-All-Tasks?code=en6hGfbSMIdl/VPvvYvZrDn0vguXJMiOj1pju5ZycqEFsT3pZw8mkA==",
+    final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-Inactive-Tasks-Based-On-User?code=Ciyv62I26diHC58R7NFzBxZsMeiGIEe5IiLVuavOJo7ZzZR/L465eQ==",
         data: body);
 
 
@@ -56,7 +56,7 @@ Widget _buildCompletedList() {
           return CompletedList(task, content);
         },
       )
-          : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks
+          : new Center(child: SpinKitWave(color: Colors.cyan, size: 50)); //  Haven't gotten the tasks
 
     },
 

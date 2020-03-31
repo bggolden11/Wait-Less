@@ -56,7 +56,7 @@ Widget _buildCompletedList() {
           return CompletedList(task, content);
         },
       )
-          : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks
+          : new Center(child: SpinKitWave(color: Colors.cyan, size: 50)); //  Haven't gotten the tasks
 
     },
 

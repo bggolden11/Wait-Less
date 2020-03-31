@@ -122,6 +122,7 @@ public class TaskDBO implements DBO{
                        resultSet.getString(3),
                        resultSet.getString(4),
                        resultSet.getString(5),
+                       resultSet.getTime(8),
                        resultSet.getString(10));
            }
        }
@@ -182,6 +183,8 @@ public class TaskDBO implements DBO{
         return extractListOfTasks(connection, selectSql);
     }
 
+    public
+
     /**
      * HELPER FUNCTION TO EXTRACT TASKS
      * @param connection SQL connection
@@ -200,6 +203,7 @@ public class TaskDBO implements DBO{
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
+                        resultSet.getTime(8),
                         resultSet.getString(10)));
             }
             return tasks;

@@ -11,6 +11,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Complete",
 #    "title": "Sweep the floor",
 #    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "12:08:36 AM",
 #    "tableNumber": "A1"
 #  },
 #  {
@@ -100,85 +101,5 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "title": "Wash dishes",
 #    "description": "Wash the dirty dishes in the kitchen",
 #    "tableNumber": "OT"
-#  },
-#  {
-#    "taskID": "1025",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1027",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1029",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work",
-#    "description": "PLEAH",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1031",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work",
-#    "description": "PLEAH",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1033",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1035",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work's 6969",
-#    "description": "PLEAH's",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1037",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work's 6969",
-#    "description": "PLEAH's",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1039",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work's 6969",
-#    "description": "PLEAH's",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1041",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
-#    "tableNumber": "A1"
-#  },
-#  {
-#    "taskID": "1043",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
-#    "tableNumber": "A1"
 #  }
 #]

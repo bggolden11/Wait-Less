@@ -144,7 +144,6 @@ public class TaskService {
       Map<Date, ArrayList<Task>> datesToTask = new HashMap<>();
       List<Task> allTasks = taskDbo.getAllTasks();
       allTasks.stream()
-          .sorted(Comparator.comparing((Task task) -> task.taskDate))
           .filter(task->task.completionTime!=null)
           .forEach(
               task -> {
@@ -164,6 +163,7 @@ public class TaskService {
         taskStats.add(new TaskStats(key, numberOfTasks, averageTime));
       }
       taskStats.forEach(task -> System.out.println(task.averageTimeTaken));
+      taskStats.sort(Comparator.comparing((TaskStats taskOne) -> taskOne.date));
       return request.createResponseBuilder(HttpStatus.OK).body(taskStats).build();
     } catch (ObtainingAverageException e) {
       return request.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR).body("Error parsing average time ").build();

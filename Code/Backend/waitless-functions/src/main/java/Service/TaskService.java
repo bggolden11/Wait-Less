@@ -17,6 +17,7 @@ import com.microsoft.azure.functions.HttpStatus;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.*;
 
 public class TaskService {
@@ -158,7 +159,7 @@ public class TaskService {
         Date key = entry.getKey();
         ArrayList<Task> value = entry.getValue();
         OptionalDouble averageTime =
-            value.stream().mapToLong(task -> task.completionTime.getTime()).average();
+            value.stream().mapToLong(task -> Time.valueOf((task.completionTime)).getTime()).average();
         int numberOfTasks = value.size();
         taskStats.add(new TaskStats(key, numberOfTasks, averageTime));
       }

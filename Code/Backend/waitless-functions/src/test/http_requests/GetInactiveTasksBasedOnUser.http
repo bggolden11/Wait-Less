@@ -20,7 +20,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Sweep the floor",
 #    "description": "Sweep the floor that is near the assigned table",
-#    "completionTime": "12:04:43 AM",
+#    "completionTime": "00:04:43",
 #    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "A1"
 #  },
@@ -30,7 +30,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer",
-#    "completionTime": "12:04:24 AM",
+#    "completionTime": "00:04:24",
 #    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "C1"
 #  },
@@ -49,7 +49,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer",
-#    "completionTime": "12:02:30 AM",
+#    "completionTime": "00:02:30",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
@@ -59,7 +59,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
-#    "completionTime": "12:02:30 AM",
+#    "completionTime": "00:02:30",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
@@ -69,7 +69,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Sweep the floow",
 #    "description": "Sweep the floor that is near the assigned table",
-#    "completionTime": "12:04:49 AM",
+#    "completionTime": "00:04:49",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A2"
 #  },
@@ -79,7 +79,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Clean table",
 #    "description": "Clean the assigned table",
-#    "completionTime": "12:02:59 AM",
+#    "completionTime": "00:02:59",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A3"
 #  },
@@ -89,7 +89,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
-#    "completionTime": "12:02:57 AM",
+#    "completionTime": "00:02:57",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A2"
 #  },
@@ -99,7 +99,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Wash Dishes",
 #    "description": "Wash the diches since there are no customers at the moment",
-#    "completionTime": "12:07:26 AM",
+#    "completionTime": "00:07:26",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A3"
 #  },
@@ -109,7 +109,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Customer Check",
 #    "description": "The customer has been waiting for their check",
-#    "completionTime": "12:01:56 AM",
+#    "completionTime": "00:01:56",
 #    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
@@ -119,7 +119,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
-#    "completionTime": "12:02:30 AM",
+#    "completionTime": "00:02:30",
 #    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "A1"
 #  },
@@ -129,7 +129,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Sweep the floow",
 #    "description": "Sweep the floor that is near the assigned table",
-#    "completionTime": "12:04:49 AM",
+#    "completionTime": "00:04:49",
 #    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "A2"
 #  },
@@ -139,7 +139,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Clean table",
 #    "description": "Clean the assigned table",
-#    "completionTime": "12:02:59 AM",
+#    "completionTime": "00:02:59",
 #    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "A3"
 #  },
@@ -149,7 +149,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
-#    "completionTime": "12:02:57 AM",
+#    "completionTime": "00:02:57",
 #    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "A2"
 #  },
@@ -159,7 +159,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Wash Dishes",
 #    "description": "Wash the diches since there are no customers at the moment",
-#    "completionTime": "12:07:26 AM",
+#    "completionTime": "00:07:26",
 #    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "OT"
 #  },
@@ -169,7 +169,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Customer Check",
 #    "description": "The customer has been waiting for their check",
-#    "completionTime": "12:01:56 AM",
+#    "completionTime": "00:01:56",
 #    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "A1"
 #  },
@@ -179,7 +179,7 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
-#    "completionTime": "12:03:42 AM",
+#    "completionTime": "00:03:42",
 #    "taskDate": "Mar 29, 2020",
 #    "tableNumber": "D1"
 #  },
@@ -189,9 +189,9 @@ Content-Type: application/json
 #    "status": "Complete",
 #    "title": "Sweep the floow",
 #    "description": "Sweep the floor that is near the assigned table",
-#    "completionTime": "12:02:03 AM",
+#    "completionTime": "00:02:03",
 #    "taskDate": "Mar 29, 2020",
 #    "tableNumber": "E1"
 #  }
-]
+#]
 

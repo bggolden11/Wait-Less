@@ -122,7 +122,7 @@ public class TaskDBO implements DBO{
                        resultSet.getString(3),
                        resultSet.getString(4),
                        resultSet.getString(5),
-                       resultSet.getTime(8),
+                       resultSet.getString(8),
                        resultSet.getDate(9),
                        resultSet.getString(10));
            }
@@ -191,7 +191,7 @@ public class TaskDBO implements DBO{
      * @return Tasks gotten from SQL statement
      * @throws SQLException ERROR connecting TO DB
      */
-    private static List<Task> extractListOfTasks(Connection connection, String selectSql) throws SQLException {
+    private List<Task> extractListOfTasks(Connection connection, String selectSql) throws SQLException {
         List<Task> tasks = new ArrayList<>();
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(selectSql)) {
@@ -202,7 +202,7 @@ public class TaskDBO implements DBO{
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
-                        resultSet.getTime(8),
+                        resultSet.getString(8),
                         resultSet.getDate(9),
                         resultSet.getString(10)));
             }

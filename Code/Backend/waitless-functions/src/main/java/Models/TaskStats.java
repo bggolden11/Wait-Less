@@ -4,7 +4,6 @@ import Exceptions.ObtainingAverageException;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.Duration;
 import java.util.OptionalDouble;
 
 public class TaskStats {

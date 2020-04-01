@@ -122,6 +122,8 @@ public class TaskDBO implements DBO{
                        resultSet.getString(3),
                        resultSet.getString(4),
                        resultSet.getString(5),
+                       resultSet.getString(8),
+                       resultSet.getDate(9),
                        resultSet.getString(10));
            }
        }
@@ -200,6 +202,8 @@ public class TaskDBO implements DBO{
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
+                        resultSet.getString(8),
+                        resultSet.getDate(9),
                         resultSet.getString(10)));
             }
             return tasks;

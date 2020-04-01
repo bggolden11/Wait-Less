@@ -199,5 +199,15 @@ public class HttpRequestTest{
 
     }
 
+    @Test
+    public void getStats() throws IOException {
+        HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-Statistics-For-Tasks");
+
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assert(httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK);
+
+    }
+
 
 }

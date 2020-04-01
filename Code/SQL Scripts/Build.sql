@@ -45,7 +45,7 @@ SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 CREATE TABLE [dbo].[DiningTable](
     [Dining_Table_ID] [varchar](20) NOT NULL PRIMARY KEY,
-    [Employee_ID] [int] NOT NULL,
+    [Employee_ID] [int],
     [Seats] [int] NOT NULL,
     [Is_Active] [bit] NOT NULL,
     [Is_Occupied] [bit] NOT NULL,

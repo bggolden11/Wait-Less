@@ -5,23 +5,43 @@ GET http://localhost:7071/api/Get-Statistics-For-Tasks
 ## Sample output
 #[
 #  {
-#    "date": "Mar 31, 2020",
-#    "numberOfCompletedTasks": 5,
-#    "averageTimeTaken": "00:04:39"
+#    "date": "Mar 25, 2020",
+#    "numberOfCompletedTasks": 23,
+#    "averageTimeTaken": "00:04:11"
 #  },
 #  {
 #    "date": "Mar 26, 2020",
-#    "numberOfCompletedTasks": 6,
-#    "averageTimeTaken": "00:03:46"
+#    "numberOfCompletedTasks": 25,
+#    "averageTimeTaken": "00:03:53"
 #  },
 #  {
-#    "date": "Mar 24, 2020",
-#    "numberOfCompletedTasks": 7,
-#    "averageTimeTaken": "00:03:35"
+#    "date": "Mar 27, 2020",
+#    "numberOfCompletedTasks": 21,
+#    "averageTimeTaken": "00:04:28"
+#  },
+#  {
+#    "date": "Mar 28, 2020",
+#    "numberOfCompletedTasks": 21,
+#    "averageTimeTaken": "00:04:12"
 #  },
 #  {
 #    "date": "Mar 29, 2020",
-#    "numberOfCompletedTasks": 2,
-#    "averageTimeTaken": "00:02:52"
+#    "numberOfCompletedTasks": 19,
+#    "averageTimeTaken": "00:04:25"
+#  },
+#  {
+#    "date": "Mar 30, 2020",
+#    "numberOfCompletedTasks": 26,
+#    "averageTimeTaken": "00:03:48"
+#  },
+#  {
+#    "date": "Mar 31, 2020",
+#    "numberOfCompletedTasks": 19,
+#    "averageTimeTaken": "00:04:34"
+#  },
+#  {
+#    "date": "Apr 1, 2020",
+#    "numberOfCompletedTasks": 19,
+#    "averageTimeTaken": "00:04:02"
 #  }
 #]

@@ -145,7 +145,8 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Active'"+ ";\n";
+                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Active' "
+                + "ORDER BY Task_Date ";
 
         return extractListOfTasks(connection, selectSql);
     }
@@ -164,7 +165,8 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Complete'"+ ";\n";
+                + "WHERE Employee_ID = " + employeeID + "AND Status = 'Complete' "
+                + "ORDER BY Task_Date ";
 
         return extractListOfTasks(connection, selectSql);
     }
@@ -180,7 +182,8 @@ public class TaskDBO implements DBO{
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
-                + "FROM Task ";
+                + "FROM Task "
+                + "ORDER BY Task_Date";
         return extractListOfTasks(connection, selectSql);
     }
 

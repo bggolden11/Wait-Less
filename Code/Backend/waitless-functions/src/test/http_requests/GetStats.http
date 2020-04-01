@@ -1,0 +1,27 @@
+# curl --location --request GET 'http://localhost:7071/api/Get-Statistics-For-Tasks'
+GET http://localhost:7071/api/Get-Statistics-For-Tasks
+
+###
+## Sample output
+#[
+#  {
+#    "date": "Mar 31, 2020",
+#    "numberOfCompletedTasks": 5,
+#    "averageTimeTaken": "00:04:39"
+#  },
+#  {
+#    "date": "Mar 26, 2020",
+#    "numberOfCompletedTasks": 6,
+#    "averageTimeTaken": "00:03:46"
+#  },
+#  {
+#    "date": "Mar 24, 2020",
+#    "numberOfCompletedTasks": 7,
+#    "averageTimeTaken": "00:03:35"
+#  },
+#  {
+#    "date": "Mar 29, 2020",
+#    "numberOfCompletedTasks": 2,
+#    "averageTimeTaken": "00:02:52"
+#  }
+#]

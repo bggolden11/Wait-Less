@@ -3,7 +3,6 @@ GET http://localhost:7071/api/Get-All-Tasks
 
 ###
 
-## EXAMPLE OUTPUT
 #[
 #  {
 #    "taskID": "1001",
@@ -11,6 +10,8 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Complete",
 #    "title": "Sweep the floor",
 #    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "00:04:43",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
@@ -19,6 +20,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Cleanup table",
 #    "description": "Clean the assigned table",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "B1"
 #  },
 #  {
@@ -27,6 +29,8 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "completionTime": "00:04:24",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "C1"
 #  },
 #  {
@@ -35,6 +39,8 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Complete",
 #    "title": "Sweep the floor",
 #    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "00:04:35",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "B2"
 #  },
 #  {
@@ -43,6 +49,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Take out the trash",
 #    "description": "We need the trash to be taken out",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "OT"
 #  },
 #  {
@@ -51,6 +58,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Wash dishes",
 #    "description": "Wash the dirty dishes in the kitchen",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "OT"
 #  },
 #  {
@@ -59,6 +67,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Sweep the floor",
 #    "description": "Sweep the floor that is near the assigned table",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
@@ -67,6 +76,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Cleanup table",
 #    "description": "Clean the assigned table",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "B1"
 #  },
 #  {
@@ -75,6 +85,8 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Complete",
 #    "title": "Attend Customer",
 #    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "completionTime": "00:04:44",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "C1"
 #  },
 #  {
@@ -83,6 +95,8 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Complete",
 #    "title": "Sweep the floor",
 #    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "00:04:51",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "B2"
 #  },
 #  {
@@ -91,6 +105,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Take out the trash",
 #    "description": "We need the trash to be taken out",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "OT"
 #  },
 #  {
@@ -99,6 +114,7 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Wash dishes",
 #    "description": "Wash the dirty dishes in the kitchen",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "OT"
 #  },
 #  {
@@ -107,78 +123,166 @@ GET http://localhost:7071/api/Get-All-Tasks
 #    "status": "Active",
 #    "title": "Clean",
 #    "description": "Clean the table",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
 #    "taskID": "1027",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
 #    "taskID": "1029",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work",
-#    "description": "PLEAH",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer",
+#    "completionTime": "00:02:30",
+#    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
 #    "taskID": "1031",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work",
-#    "description": "PLEAH",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
+#    "completionTime": "00:02:30",
+#    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
 #    "taskID": "1033",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
-#    "tableNumber": "A1"
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Sweep the floow",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "00:04:49",
+#    "taskDate": "Mar 24, 2020",
+#    "tableNumber": "A2"
 #  },
 #  {
 #    "taskID": "1035",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work's 6969",
-#    "description": "PLEAH's",
-#    "tableNumber": "A1"
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Clean table",
+#    "description": "Clean the assigned table",
+#    "completionTime": "00:02:59",
+#    "taskDate": "Mar 24, 2020",
+#    "tableNumber": "A3"
 #  },
 #  {
 #    "taskID": "1037",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work's 6969",
-#    "description": "PLEAH's",
-#    "tableNumber": "A1"
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
+#    "completionTime": "00:02:57",
+#    "taskDate": "Mar 24, 2020",
+#    "tableNumber": "A2"
 #  },
 #  {
 #    "taskID": "1039",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Please work's 6969",
-#    "description": "PLEAH's",
-#    "tableNumber": "A1"
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Wash Dishes",
+#    "description": "Wash the diches since there are no customers at the moment",
+#    "completionTime": "00:07:26",
+#    "taskDate": "Mar 24, 2020",
+#    "tableNumber": "A3"
 #  },
 #  {
 #    "taskID": "1041",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Customer Check",
+#    "description": "The customer has been waiting for their check",
+#    "completionTime": "00:01:56",
+#    "taskDate": "Mar 24, 2020",
 #    "tableNumber": "A1"
 #  },
 #  {
 #    "taskID": "1043",
-#    "employeeID": "2121",
-#    "status": "Active",
-#    "title": "Clean",
-#    "description": "Clean the table",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
+#    "completionTime": "00:02:30",
+#    "taskDate": "Mar 26, 2020",
 #    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1045",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Sweep the floow",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "00:04:49",
+#    "taskDate": "Mar 26, 2020",
+#    "tableNumber": "A2"
+#  },
+#  {
+#    "taskID": "1047",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Clean table",
+#    "description": "Clean the assigned table",
+#    "completionTime": "00:02:59",
+#    "taskDate": "Mar 26, 2020",
+#    "tableNumber": "A3"
+#  },
+#  {
+#    "taskID": "1049",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
+#    "completionTime": "00:02:57",
+#    "taskDate": "Mar 26, 2020",
+#    "tableNumber": "A2"
+#  },
+#  {
+#    "taskID": "1051",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Wash Dishes",
+#    "description": "Wash the diches since there are no customers at the moment",
+#    "completionTime": "00:07:26",
+#    "taskDate": "Mar 26, 2020",
+#    "tableNumber": "OT"
+#  },
+#  {
+#    "taskID": "1053",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Customer Check",
+#    "description": "The customer has been waiting for their check",
+#    "completionTime": "00:01:56",
+#    "taskDate": "Mar 26, 2020",
+#    "tableNumber": "A1"
+#  },
+#  {
+#    "taskID": "1055",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Attend Customer",
+#    "description": "Attend the customer at the assigned table, haven't attended customer in a while",
+#    "completionTime": "00:03:42",
+#    "taskDate": "Mar 29, 2020",
+#    "tableNumber": "D1"
+#  },
+#  {
+#    "taskID": "1057",
+#    "employeeID": "2124",
+#    "status": "Complete",
+#    "title": "Sweep the floow",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "completionTime": "00:02:03",
+#    "taskDate": "Mar 29, 2020",
+#    "tableNumber": "E1"
 #  }
 #]

@@ -8,26 +8,28 @@ POST https://waitless-functions-2.azurewebsites.net/api/Get-Active-Tasks-Based-O
 Content-Type: application/json
 
 {
-  employeeID: "2121"
+  employeeID: "2130"
 }
 
 ###
-## SAMPLE OUTPUT BELOW
+## SAMPLE OUTPUT BELOW[
 #[
 #  {
-#    "taskID": "1009",
-#    "employeeID": "2127",
+#    "taskID": "1011",
+#    "employeeID": "2130",
 #    "status": "Active",
-#    "title": "Take out the trash",
-#    "description": "We need the trash to be taken out",
+#    "title": "Wash dishes",
+#    "description": "Wash the dirty dishes in the kitchen",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "OT"
 #  },
 #  {
 #    "taskID": "1013",
-#    "employeeID": "2127",
+#    "employeeID": "2130",
 #    "status": "Active",
-#    "title": "test seting",
-#    "description": "this is a test sending task",
+#    "title": "Sweep the floor",
+#    "description": "Sweep the floor that is near the assigned table",
+#    "taskDate": "Mar 31, 2020",
 #    "tableNumber": "A1"
 #  }
 #]

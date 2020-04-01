@@ -152,5 +152,11 @@ public class Function {
                                            final ExecutionContext context){
         return taskService.getAllTasks(request);
     }
+
+    @FunctionName("Get-Statistics-For-Tasks")
+    public HttpResponseMessage getTasksStats(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+                                           final ExecutionContext context){
+        return taskService.getTasksStats(request);
+    }
 }
 

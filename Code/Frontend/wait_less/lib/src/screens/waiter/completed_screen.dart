@@ -32,6 +32,7 @@ Future getTasks() async {
     final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Get-Inactive-Tasks-Based-On-User?code=Ciyv62I26diHC58R7NFzBxZsMeiGIEe5IiLVuavOJo7ZzZR/L465eQ==",
         data: body);
 
+
     listComTasks = TaskList.taskListFromJSON('{ "result" : ${response.data.toString()} }').taskList;
     listComTasks.forEach((e) => print('TID: ${e.taskID}\nEID: ${e.employeeID}'));
     return listComTasks;
@@ -55,7 +56,7 @@ Widget _buildCompletedList() {
           return CompletedList(task, content);
         },
       )
-          : new Center(child: SpinKitWave(color: Colors.lightGreen, size: 100)); //  Haven't gotten the tasks
+          : new Center(child: SpinKitWave(color: Colors.cyan, size: 50)); //  Haven't gotten the tasks
 
     },
 

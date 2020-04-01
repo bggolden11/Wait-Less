@@ -1,9 +1,21 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/encrypter/encrypter.dart';
+import 'package:flutter_app/src/models/employee_login_credentials.dart';
+import 'package:flutter_app/src/models/waiter_model.dart';
+import 'package:flutter_app/src/screens/login_screen.dart';
+import 'package:flutter_app/src/screens/manager_screen.dart';
+import 'package:flutter_app/src/screens/waiter_screen.dart';
+import 'package:flutter_app/src/toast/toast_message.dart';
 import 'package:flutter_app/src/widgets/FormCard.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'registration_screen.dart';
 
+final Dio httpClient = new HTTPClient().dio;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,6 +29,44 @@ class _LoginScreen extends State<LoginScreen> {
     setState(() {
       _isSelected = !_isSelected;
     });
+  }
+
+  /// Controllers for the retrieval of text from username and password
+  final employeeIDController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void _loginOnPressed() async{
+    final String employeeID = employeeIDController.text.toString().trim();
+    final String password  = passwordController.text.toString().trim();
+    String message = 'Error';
+    try {
+      final body = {
+        "employeeID":"$employeeID",
+        "passwordtoken":"${EncrypterUtil.encrypt(password)}"
+      };
+
+      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Authenticate-User?code=akKyCeyPLfZgmFZWFyrqhW43N3eZqq6I82aC2N8Tp4Drt9fEYrrVwA==",
+          data: body);
+
+      if(response.statusCode == 200) {
+        EmployeeLoginCredentials.loginFromJSON(json.decode(response.data.toString()), employeeID);
+        message = 'Login Successful!';
+
+        if(EmployeeLoginCredentials.isManager)
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  ManagerPage()));
+        else
+          Navigator.push(context, MaterialPageRoute(
+              builder: (context) =>
+                  WaiterPage()));
+      }
+
+    } on DioError catch (e){
+      message = e.response.toString();
+    }
+
+    ToastMessage.show(message);
   }
 
   Widget radioButton(bool isSelected) => Container(
@@ -90,7 +140,7 @@ class _LoginScreen extends State<LoginScreen> {
                   SizedBox(
                     height: ScreenUtil().setHeight(180),
                   ),
-                  FormCard(),
+                  FormCard(employeeIDController: employeeIDController, passwordController: passwordController,),
                   SizedBox(height: ScreenUtil().setHeight(40)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,7 +182,7 @@ class _LoginScreen extends State<LoginScreen> {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
-                              onTap: (){Navigator.push(context, MaterialPageRoute(builder : (context) => RegistrationScreen()));}, // this is for the
+                              onTap: _loginOnPressed, // this is for the
                               child: Center(
                                 child: Text("SIGN IN",
                                     style: TextStyle(
@@ -147,44 +197,44 @@ class _LoginScreen extends State<LoginScreen> {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(40),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      horizontalLine(),
-                      Text("Sign Up",
-                          style: TextStyle(
-                              fontSize: 20.0, fontFamily: "Poppins-Medium")),
-                      horizontalLine()
-                    ],
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(40),
-                  ),
-
-                  SizedBox(
-                    height: ScreenUtil().setHeight(30),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "New User? ",
-                        style: TextStyle(fontSize: 16,
-                            fontFamily: "Poppins-Medium"),
-                      ),
-                      InkWell(
-                        onTap: (){Navigator.push(context, MaterialPageRoute(builder : (context) => RegistrationScreen()));},
-                        child: Text("SignUp",
-                            style: TextStyle(
-                                color: Color(0xFF5d74e3),
-                                fontSize:16,
-                                fontFamily: "Poppins-Bold")),
-                      )
-                    ],
-                  )
+//                  SizedBox(
+//                    height: ScreenUtil().setHeight(40),
+//                  ),
+//                  Row(
+//                    mainAxisAlignment: MainAxisAlignment.center,
+//                    children: <Widget>[
+//                      horizontalLine(),
+//                      Text("Sign Up",
+//                          style: TextStyle(
+//                              fontSize: 20.0, fontFamily: "Poppins-Medium")),
+//                      horizontalLine()
+//                    ],
+//                  ),
+//                  SizedBox(
+//                    height: ScreenUtil().setHeight(40),
+//                  ),
+//
+//                  SizedBox(
+//                    height: ScreenUtil().setHeight(30),
+//                  ),
+//                  Row(
+//                    mainAxisAlignment: MainAxisAlignment.center,
+//                    children: <Widget>[
+//                      Text(
+//                        "New User? ",
+//                        style: TextStyle(fontSize: 16,
+//                            fontFamily: "Poppins-Medium"),
+//                      ),
+//                      InkWell(
+//                        onTap: (){Navigator.push(context, MaterialPageRoute(builder : (context) => RegistrationScreen()));},
+//                        child: Text("SignUp",
+//                            style: TextStyle(
+//                                color: Color(0xFF5d74e3),
+//                                fontSize:16,
+//                                fontFamily: "Poppins-Bold")),
+//                      )
+//                    ],
+//                  )
                 ],
               ),
             ),

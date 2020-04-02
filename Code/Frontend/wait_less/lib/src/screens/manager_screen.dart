@@ -15,7 +15,7 @@ import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'manager/tableList_screen.dart';
 import 'manager/waiterList_screen.dart';
-import 'manager/emptyTableList_screen.dart';
+import 'manager/all_employee_stats_screen.dart';
 import 'manager/summary_screen.dart';
 import 'registration_screen.dart';
 import 'waiter/sendTask_screen.dart' as sendTaskClass;
@@ -36,7 +36,7 @@ class _ManagerPage extends State<ManagerPage>{
   // list of all the screens
   int currentPage = 0; // index of the pages in the list
   // list of pages
-  List<Widget> pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+  List<Widget> pagesManager = [TablesList(),StatsScreen(), SummaryList(), WaiterList()];
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
 
@@ -58,7 +58,7 @@ class _ManagerPage extends State<ManagerPage>{
 
   void reloadScreen() {
     setState(() {
-      pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+      pagesManager = [TablesList(),StatsScreen(), SummaryList(), WaiterList()];
     });
   }
 
@@ -232,7 +232,7 @@ class _ManagerPage extends State<ManagerPage>{
                       minWidth: 40,
                       onPressed: (){
                         setState(() {
-                          currentScreen = EmptyTablesList();
+                          currentScreen = StatsScreen();
                           currentPage = 1;
                         });
                       },

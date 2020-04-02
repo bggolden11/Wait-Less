@@ -1,6 +1,4 @@
 
-import 'package:flutter_app/src/models/list_waiter_model.dart';
-
 class Task {
   final String taskID;
   final String employeeID;

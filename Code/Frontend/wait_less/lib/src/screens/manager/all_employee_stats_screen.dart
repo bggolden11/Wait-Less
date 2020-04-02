@@ -1,9 +1,18 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/HTTPClient/http_client.dart';
+import 'package:flutter_app/src/models/data_model.dart';
+import 'package:flutter_app/src/models/stats_model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+
+final Dio httpClient = new HTTPClient().dio;
+
+List<DataPoint> taskStats;
 
 class StatsScreen extends StatefulWidget { // class for Waiter Page
   @override
@@ -14,6 +23,23 @@ class Data {
   final DateTime x;
   final double y;
 }
+
+
+Future getStats() async {
+  try {
+    print('awdawd');
+    final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-Statistics-For-Tasks?code=RGNAyFaYqThnYIdiW/41HVT5X8UDyhXQar0dqJ8RRUiItBFsXDfxCQ==");
+    print('bbbb');
+    taskStats = Stats.statsFromJSON('{ "result" : ${response.data.toString()} }').graphData;
+    print('aaaaaaa');
+    return taskStats;
+  } on DioError catch (e){
+    print(e.response.toString());
+    print(e.response.statusCode);
+  }
+  return null;
+}
+
 
 
 class _StatsScreenState extends State<StatsScreen>{
@@ -38,6 +64,127 @@ class _StatsScreenState extends State<StatsScreen>{
   ];
 
 
+  Widget _buildStatsGraphs() {
+    return FutureBuilder(
+      future: getStats(),
+      builder: (context, snapshot) {
+        return snapshot.hasData ?
+        taskStats.length == 0 ? new Container(child: Text('No Task Stats!'))  // No tasks
+            : new Column(
+          children: <Widget>[
+            Container(
+              height: 400,
+              padding: EdgeInsets.only(right: 20),
+              child: SfCartesianChart(
+                margin: const EdgeInsets.all(0),
+                onPointTapped: (pt) {
+
+
+
+                },
+                primaryXAxis: DateTimeAxis(
+                  title: AxisTitle(text: 'Date'),
+                  interval: 3,
+                  minimum: rangeStart,
+                  maximum: rangeEnd,
+                  isVisible: true,
+                  dateFormat: DateFormat('MMMd'),
+                ),
+                primaryYAxis: NumericAxis(
+                  isVisible: true,
+                  title: AxisTitle(text: 'Average Task Completion Time'),
+                ),
+                plotAreaBorderWidth: 0,
+                title: ChartTitle(text: 'Avg Task Completion Timer Per Day'),
+                series: <SplineAreaSeries<Data, DateTime>>[
+                  SplineAreaSeries<Data, DateTime>(
+                      markerSettings: MarkerSettings(
+                          isVisible: true,
+                          width: 10,
+                          height: 10,
+                          borderWidth: 5,
+                          borderColor: Colors.cyan
+                      ),
+//                          color: Color.fromARGB(255, 126, 184, 253),
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomRight,
+                          colors: [
+                            Colors.cyanAccent.withOpacity(0.9), // adding opacity in order to increase visibility
+                            Colors.blueAccent.withOpacity(0.4),
+                          ]
+                      ),
+                      dataSource: chartData,
+                      xValueMapper: (Data sales, _) => sales.x,
+                      yValueMapper: (Data sales, _) => sales.y)
+                ],
+              ),
+            ),
+
+            Center(
+              child: SfRangeSliderTheme(
+                data: SfRangeSliderThemeData(
+                  tickOffset: Offset(0.0, 20.0),
+                  tickSize: Size(3.0, 12.0),
+                  minorTickSize: Size(3.0, 8.0),
+                ),
+                child: SfRangeSelector(
+                  min: _min,
+                  max: _max,
+                  interval: 7,
+                  showLabels: true,
+                  minorTicksPerInterval: 1,
+                  showTicks: true,
+                  showTooltip: true,
+                  dateFormat: DateFormat('MMMd'),
+                  dateIntervalType: DateIntervalType.days,
+                  initialValues: _values,
+                  onChanged: (values) {
+                    setState(() {
+                      rangeStart = values.start;
+                      rangeEnd = values.end;
+                    });
+                  },
+                  child: Container(
+                    height: 100,
+                    child: SfCartesianChart(
+                      margin: const EdgeInsets.all(0),
+                      primaryXAxis: DateTimeAxis(
+                          minimum: _min,
+                          maximum: _max,
+                          isVisible: false,
+                          dateFormat: DateFormat('MMMd')
+                      ),
+                      primaryYAxis: NumericAxis(isVisible: false),
+                      plotAreaBorderWidth: 0,
+                      series: <SplineAreaSeries<Data, DateTime>>[
+                        SplineAreaSeries<Data, DateTime>(
+                            gradient: LinearGradient(
+                                begin: Alignment.bottomRight,
+                                colors: [
+                                  Colors.cyanAccent.withOpacity(0.9), // adding opacity in order to increase visibility
+                                  Colors.blueAccent.withOpacity(0.4),
+                                ]
+                            ),
+                            dataSource: chartData,
+                            xValueMapper: (Data sales, _) => sales.x,
+                            yValueMapper: (Data sales, _) => sales.y)
+                      ],
+                    ),
+                  ),
+                ),
+
+              ),
+            ),
+          ],
+        )
+
+            : new Center(child: SpinKitWave(color: Colors.cyan, size: 50)); //  Haven't gotten the tasks
+
+      },
+
+    );
+
+  }
 
 
   @override
@@ -68,7 +215,7 @@ class _StatsScreenState extends State<StatsScreen>{
                 SizedBox(height: 30,), // just for padding
 
 
-
+                _buildStatsGraphs()
 
 //                AspectRatio(
 //                  aspectRatio: 1,
@@ -115,107 +262,109 @@ class _StatsScreenState extends State<StatsScreen>{
 //                            yValueMapper: (Data sales, _) => sales.y)
 
 
-                Container(
-                  height: 400,
-                  padding: EdgeInsets.only(right: 20),
-                  child: SfCartesianChart(
-                    margin: const EdgeInsets.all(0),
-                    onPointTapped: (pt) {
-                      print('${pt.pointIndex}');
-                    },
-                    primaryXAxis: DateTimeAxis(
-                      title: AxisTitle(text: 'Date'),
-                      interval: 3,
-                      minimum: rangeStart,
-                      maximum: rangeEnd,
-                      isVisible: true,
-                      dateFormat: DateFormat('MMMd'),
-                    ),
-                    primaryYAxis: NumericAxis(
-                      isVisible: true,
-                      title: AxisTitle(text: 'Average Task Completion Time'),
-                    ),
-                    plotAreaBorderWidth: 0,
-                    title: ChartTitle(text: 'Avg Task Completion Timer Per Day'),
-                    series: <SplineAreaSeries<Data, DateTime>>[
-                      SplineAreaSeries<Data, DateTime>(
-                          markerSettings: MarkerSettings(
-                              isVisible: true,
-                              width: 10,
-                              height: 10,
-                              borderWidth: 5,
-                              borderColor: Colors.cyan
-                          ),
-//                          color: Color.fromARGB(255, 126, 184, 253),
-                          gradient: LinearGradient(
-                              begin: Alignment.bottomRight,
-                              colors: [
-                                Colors.cyanAccent.withOpacity(0.9), // adding opacity in order to increase visibility
-                                Colors.blueAccent.withOpacity(0.4),
-                              ]
-                          ),
-                          dataSource: chartData,
-                          xValueMapper: (Data sales, _) => sales.x,
-                          yValueMapper: (Data sales, _) => sales.y)
-                    ],
-                  ),
-                ),
-
-              Center(
-                child: SfRangeSliderTheme(
-                  data: SfRangeSliderThemeData(
-                    tickOffset: Offset(0.0, 20.0),
-                    tickSize: Size(3.0, 12.0),
-                    minorTickSize: Size(3.0, 8.0),
-                  ),
-                  child: SfRangeSelector(
-                    min: _min,
-                    max: _max,
-                    interval: 7,
-                    showLabels: true,
-                    minorTicksPerInterval: 1,
-                    showTicks: true,
-                    showTooltip: true,
-                    dateFormat: DateFormat('MMMd'),
-                    dateIntervalType: DateIntervalType.days,
-                    initialValues: _values,
-                    onChanged: (values) {
-                      setState(() {
-                        rangeStart = values.start;
-                        rangeEnd = values.end;
-                      });
-                    },
-                    child: Container(
-                      height: 100,
-                      child: SfCartesianChart(
-                        margin: const EdgeInsets.all(0),
-                        primaryXAxis: DateTimeAxis(
-                            minimum: _min,
-                            maximum: _max,
-                            isVisible: false,
-                            dateFormat: DateFormat('MMMd')
-                        ),
-                        primaryYAxis: NumericAxis(isVisible: false),
-                        plotAreaBorderWidth: 0,
-                        series: <SplineAreaSeries<Data, DateTime>>[
-                          SplineAreaSeries<Data, DateTime>(
-                              gradient: LinearGradient(
-                                  begin: Alignment.bottomRight,
-                                  colors: [
-                                    Colors.cyanAccent.withOpacity(0.9), // adding opacity in order to increase visibility
-                                    Colors.blueAccent.withOpacity(0.4),
-                                  ]
-                              ),
-                              dataSource: chartData,
-                              xValueMapper: (Data sales, _) => sales.x,
-                              yValueMapper: (Data sales, _) => sales.y)
-                        ],
-                      ),
-                    ),
-                  ),
-
-                ),
-              ),
+//                Container(
+//                  height: 400,
+//                  padding: EdgeInsets.only(right: 20),
+//                  child: SfCartesianChart(
+//                    margin: const EdgeInsets.all(0),
+//                    onPointTapped: (pt) {
+//
+//
+//
+//                    },
+//                    primaryXAxis: DateTimeAxis(
+//                      title: AxisTitle(text: 'Date'),
+//                      interval: 3,
+//                      minimum: rangeStart,
+//                      maximum: rangeEnd,
+//                      isVisible: true,
+//                      dateFormat: DateFormat('MMMd'),
+//                    ),
+//                    primaryYAxis: NumericAxis(
+//                      isVisible: true,
+//                      title: AxisTitle(text: 'Average Task Completion Time'),
+//                    ),
+//                    plotAreaBorderWidth: 0,
+//                    title: ChartTitle(text: 'Avg Task Completion Timer Per Day'),
+//                    series: <SplineAreaSeries<Data, DateTime>>[
+//                      SplineAreaSeries<Data, DateTime>(
+//                          markerSettings: MarkerSettings(
+//                              isVisible: true,
+//                              width: 10,
+//                              height: 10,
+//                              borderWidth: 5,
+//                              borderColor: Colors.cyan
+//                          ),
+////                          color: Color.fromARGB(255, 126, 184, 253),
+//                          gradient: LinearGradient(
+//                              begin: Alignment.bottomRight,
+//                              colors: [
+//                                Colors.cyanAccent.withOpacity(0.9), // adding opacity in order to increase visibility
+//                                Colors.blueAccent.withOpacity(0.4),
+//                              ]
+//                          ),
+//                          dataSource: chartData,
+//                          xValueMapper: (Data sales, _) => sales.x,
+//                          yValueMapper: (Data sales, _) => sales.y)
+//                    ],
+//                  ),
+//                ),
+//
+//              Center(
+//                child: SfRangeSliderTheme(
+//                  data: SfRangeSliderThemeData(
+//                    tickOffset: Offset(0.0, 20.0),
+//                    tickSize: Size(3.0, 12.0),
+//                    minorTickSize: Size(3.0, 8.0),
+//                  ),
+//                  child: SfRangeSelector(
+//                    min: _min,
+//                    max: _max,
+//                    interval: 7,
+//                    showLabels: true,
+//                    minorTicksPerInterval: 1,
+//                    showTicks: true,
+//                    showTooltip: true,
+//                    dateFormat: DateFormat('MMMd'),
+//                    dateIntervalType: DateIntervalType.days,
+//                    initialValues: _values,
+//                    onChanged: (values) {
+//                      setState(() {
+//                        rangeStart = values.start;
+//                        rangeEnd = values.end;
+//                      });
+//                    },
+//                    child: Container(
+//                      height: 100,
+//                      child: SfCartesianChart(
+//                        margin: const EdgeInsets.all(0),
+//                        primaryXAxis: DateTimeAxis(
+//                            minimum: _min,
+//                            maximum: _max,
+//                            isVisible: false,
+//                            dateFormat: DateFormat('MMMd')
+//                        ),
+//                        primaryYAxis: NumericAxis(isVisible: false),
+//                        plotAreaBorderWidth: 0,
+//                        series: <SplineAreaSeries<Data, DateTime>>[
+//                          SplineAreaSeries<Data, DateTime>(
+//                              gradient: LinearGradient(
+//                                  begin: Alignment.bottomRight,
+//                                  colors: [
+//                                    Colors.cyanAccent.withOpacity(0.9), // adding opacity in order to increase visibility
+//                                    Colors.blueAccent.withOpacity(0.4),
+//                                  ]
+//                              ),
+//                              dataSource: chartData,
+//                              xValueMapper: (Data sales, _) => sales.x,
+//                              yValueMapper: (Data sales, _) => sales.y)
+//                        ],
+//                      ),
+//                    ),
+//                  ),
+//
+//                ),
+//              ),
 
 
 

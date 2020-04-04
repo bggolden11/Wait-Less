@@ -14,7 +14,7 @@ jobs:
           run: |
                 pushd Code/Backend/waitless-functions
                 docker build -t maven-app .
-                docker run -p 7071:80 -it maven-app:latest                
+                docker run -p 7071:80 maven-app:latest                
                 popd
         - name: Set up JDK 1.8
           uses: actions/setup-java@v1

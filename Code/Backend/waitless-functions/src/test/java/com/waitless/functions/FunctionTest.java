@@ -51,13 +51,4 @@ public class FunctionTest {
         assertEquals(ret.getStatus(), HttpStatus.OK);
     }
 
-//    @Test
-//    public void testAuthenticUser() throws Exception {
-//        final HttpRequestMessage<Optional<UserAuthenticationRequest>> req = mock(HttpRequestMessage.class);
-//
-//        final Map<String, String> queryParams = new HashMap<>();
-//
-//    }
-
-
 }

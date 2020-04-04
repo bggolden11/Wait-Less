@@ -154,7 +154,7 @@ public class Function {
     }
 
     @FunctionName("Get-Statistics-For-Tasks")
-    public HttpResponseMessage getTasksStats(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getTasksStats(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
                                            final ExecutionContext context){
         return taskService.getTasksStats(request);
     }

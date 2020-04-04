@@ -11,6 +11,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.io.IOException;
 /**
  * ! These tests are to be run on dev side only. Used for verifying functions work on local host.
  */
-@Ignore
+@Disabled
 public class HttpRequestTest{
 
     @Test

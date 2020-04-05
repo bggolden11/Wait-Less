@@ -160,7 +160,7 @@ public class TaskService {
         OptionalDouble averageTime =
             value.stream().mapToLong(task -> Time.valueOf((task.completionTime)).getTime()).average();
         int numberOfTasks = value.size();
-        taskStats.add(new TaskStats(key, numberOfTasks, averageTime));
+        taskStats.add(new TaskStats(key.toString(), numberOfTasks, averageTime));
       }
       taskStats.forEach(task -> System.out.println(task.averageTimeTaken));
       taskStats.sort(Comparator.comparing((TaskStats taskOne) -> taskOne.date));

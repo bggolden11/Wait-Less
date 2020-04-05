@@ -1,6 +1,5 @@
 package com.waitless.functions;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,7 +10,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 
 import java.io.IOException;
 
@@ -19,8 +19,9 @@ import java.io.IOException;
 /**
  * ! These tests are to be run on dev side only. Used for verifying functions work on local host.
  */
-@Ignore
-public class HttpRequestTest{
+
+
+public class HttpRequestIntegrationTest {
 
     @Test
     public void getAllEmployeesTest() throws IOException {
@@ -94,7 +95,7 @@ public class HttpRequestTest{
     public void getActiveTasks() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Active-Tasks-Based-On-User");
-        StringEntity entity = new StringEntity("{ employeeId: \"2124\"}\n");
+        StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
@@ -108,7 +109,7 @@ public class HttpRequestTest{
     public void getInactiveTasks() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Inactive-Tasks-Based-On-User");
-        StringEntity entity = new StringEntity("{ employeeId: \"2124\"}\n");
+        StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
@@ -122,7 +123,7 @@ public class HttpRequestTest{
     public void getUser() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Employee");
-        StringEntity entity = new StringEntity("{ employeeId: \"2124\"}\n");
+        StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
@@ -136,7 +137,7 @@ public class HttpRequestTest{
     public void logUserOut() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Log-User-Out");
-        StringEntity entity = new StringEntity("{ employeeId: \"2124\"}\n");
+        StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
@@ -152,7 +153,7 @@ public class HttpRequestTest{
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Update-Task-User");
         StringEntity entity = new StringEntity("{\n" +
                 "\ttaskId: \"1234\",\n" +
-                "\temployeeToAssignId: \"2124\"\n" +
+                "\temployeeToAssignId: \"2130\"\n" +
                 "}");
         httpPost.setEntity(entity);
         httpPost.setHeader("Accept", "application/json");

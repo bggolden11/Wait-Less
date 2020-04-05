@@ -20,7 +20,7 @@ public class Function {
 
     @FunctionName("HttpTrigger-Java-Testing")
     public HttpResponseMessage run(
-            @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+            @HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
         context.getLogger().info("Java HTTP trigger processed a request.");
 
@@ -36,7 +36,7 @@ public class Function {
     }
 
     @FunctionName("Add-User")
-    public HttpResponseMessage AddUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateUserRequest>> request,
+    public HttpResponseMessage AddUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<CreateUserRequest>> request,
                                        final ExecutionContext context) {
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if (createUserRequest != null)
@@ -49,7 +49,7 @@ public class Function {
     }
 
     @FunctionName("Authenticate-User")
-    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
+    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                                 final ExecutionContext context) {
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);
@@ -61,7 +61,7 @@ public class Function {
     }
 
     @FunctionName("Get-Employee")
-    public HttpResponseMessage getEmployee(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetEmployeeRequest>> request,
+    public HttpResponseMessage getEmployee(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<GetEmployeeRequest>> request,
                                            final ExecutionContext context) {
         String query = request.getQueryParameters().get("name");
         GetEmployeeRequest getEmployeeRequest = request.getBody().orElse(null);
@@ -73,7 +73,7 @@ public class Function {
     }
 
     @FunctionName("Create-Task")
-    public HttpResponseMessage createTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<CreateTaskRequest>> request,
+    public HttpResponseMessage createTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<CreateTaskRequest>> request,
                                           final ExecutionContext context) {
         CreateTaskRequest createTaskRequest = request.getBody().orElse(null);
         if (createTaskRequest != null)
@@ -84,7 +84,7 @@ public class Function {
     }
 
     @FunctionName("Finish-Task")
-    public HttpResponseMessage finishTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<FinishTaskRequest>> request,
+    public HttpResponseMessage finishTask(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<FinishTaskRequest>> request,
                                           final ExecutionContext context) {
         FinishTaskRequest finishTaskRequest = request.getBody().orElse(null);
         if (finishTaskRequest != null)
@@ -95,7 +95,7 @@ public class Function {
     }
 
     @FunctionName("Update-Task-User")
-    public HttpResponseMessage updateTaskUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
+    public HttpResponseMessage updateTaskUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<UpdateUserToTaskRequest>> request,
                                               final ExecutionContext context) {
         UpdateUserToTaskRequest updateUserToTaskRequest = request.getBody().orElse(null);
         if (updateUserToTaskRequest != null)
@@ -106,13 +106,13 @@ public class Function {
     }
 
     @FunctionName("Get-All-Employees")
-    public HttpResponseMessage getAllEmployees(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getAllEmployees(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
                                               final ExecutionContext context){
         return userService.getAllEmployees(request);
     }
 
     @FunctionName("Log-User-Out")
-    public HttpResponseMessage logUserOut(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<LogEmployeeOutRequest>> request,
+    public HttpResponseMessage logUserOut(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<LogEmployeeOutRequest>> request,
                                                 final ExecutionContext context) {
         LogEmployeeOutRequest logEmployeeOutRequest = request.getBody().orElse(null);
         if(logEmployeeOutRequest != null)
@@ -122,7 +122,7 @@ public class Function {
     }
 
     @FunctionName("Get-Active-Tasks-Based-On-User")
-    public HttpResponseMessage getUncompletedTasksBasedOnEmployeeID(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
+    public HttpResponseMessage getUncompletedTasksBasedOnEmployeeID(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
                                                 final ExecutionContext context) {
         GetTasksBasedOnUserRequest getTasksBasedOnUserRequest = request.getBody().orElse(null);
         if(getTasksBasedOnUserRequest != null)
@@ -132,7 +132,7 @@ public class Function {
     }
 
     @FunctionName("Get-Inactive-Tasks-Based-On-User")
-    public HttpResponseMessage getCompletedTasksBasedOnEmployeeID(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
+    public HttpResponseMessage getCompletedTasksBasedOnEmployeeID(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<GetTasksBasedOnUserRequest>> request,
                                                               final ExecutionContext context) {
         GetTasksBasedOnUserRequest getTasksBasedOnUserRequest = request.getBody().orElse(null);
         if(getTasksBasedOnUserRequest != null)
@@ -142,19 +142,19 @@ public class Function {
     }
 
     @FunctionName("Get-All-Dining-Tables")
-    public HttpResponseMessage getAllDiningTables(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getAllDiningTables(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
                                                   final ExecutionContext context){
         return diningTablesService.getAllDiningTables(request);
     }
 
     @FunctionName("Get-All-Tasks")
-    public HttpResponseMessage getAllTasks(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getAllTasks(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
                                            final ExecutionContext context){
         return taskService.getAllTasks(request);
     }
 
     @FunctionName("Get-Statistics-For-Tasks")
-    public HttpResponseMessage getTasksStats(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getTasksStats(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
                                            final ExecutionContext context){
         return taskService.getTasksStats(request);
     }

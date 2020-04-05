@@ -1,7 +1,7 @@
 FROM maven:3.6.3 AS installer-env
 COPY src home/src
 COPY pom.xml /home
-RUN mvn -f /home/pom.xml clean package -DskipTests
+RUN mvn -f /home/pom.xml clean package
 
 FROM mcr.microsoft.com/azure-functions/java:2.0
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \

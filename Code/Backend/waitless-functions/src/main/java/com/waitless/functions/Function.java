@@ -106,7 +106,7 @@ public class Function {
     }
 
     @FunctionName("Get-All-Employees")
-    public HttpResponseMessage getAllEmployees(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.FUNCTION) HttpRequestMessage<Optional<String>> request,
+    public HttpResponseMessage getAllEmployees(@HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<String>> request,
                                               final ExecutionContext context){
         return userService.getAllEmployees(request);
     }

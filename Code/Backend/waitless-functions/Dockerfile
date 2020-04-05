@@ -6,5 +6,6 @@ RUN mvn -f /home/pom.xml clean package -DskipTests
 FROM mcr.microsoft.com/azure-functions/java:2.0
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
     AzureFunctionsJobHost__Logging__Console__IsEnabled=true
+ENV ASPNETCORE_URLS=http://+:7071
 
 COPY --from=installer-env ["/home/target/azure-functions/waitless-functions-2", "/home/site/wwwroot"]

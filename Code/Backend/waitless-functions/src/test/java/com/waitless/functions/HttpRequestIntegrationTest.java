@@ -1,6 +1,5 @@
 package com.waitless.functions;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,8 +10,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 
 import java.io.IOException;
 
@@ -20,8 +19,9 @@ import java.io.IOException;
 /**
  * ! These tests are to be run on dev side only. Used for verifying functions work on local host.
  */
-@Disabled
-public class HttpRequestTest{
+
+
+public class HttpRequestIntegrationTest {
 
     @Test
     public void getAllEmployeesTest() throws IOException {

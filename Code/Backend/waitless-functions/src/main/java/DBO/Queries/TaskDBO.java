@@ -189,6 +189,23 @@ public class TaskDBO implements DBO{
     }
 
     /**
+     *
+     * @return A list of all completed tasks
+     * @throws SQLException Error connecting to database
+     */
+    public List<Task> getAllCompletedTasks() throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task "
+                + "WHERE Status = 'Complete'"
+                + "ORDER BY Task_ID DESC";
+        return extractListOfTasks(connection, selectSql);
+    }
+
+    /**
      * HELPER FUNCTION TO EXTRACT TASKS
      * @param connection SQL connection
      * @param selectSql Select Statement to run based on operation

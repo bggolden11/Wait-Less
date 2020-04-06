@@ -36,7 +36,7 @@ public class Function {
     }
 
     @FunctionName("Add-User")
-    public HttpResponseMessage AddUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<CreateUserRequest>> request,
+    public HttpResponseMessage addUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<CreateUserRequest>> request,
                                        final ExecutionContext context) {
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if (createUserRequest != null)
@@ -49,7 +49,7 @@ public class Function {
     }
 
     @FunctionName("Authenticate-User")
-    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
+    public HttpResponseMessage authenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                                 final ExecutionContext context) {
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);

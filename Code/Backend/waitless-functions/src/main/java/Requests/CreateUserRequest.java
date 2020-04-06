@@ -17,4 +17,14 @@ package Requests;
  */
 public class CreateUserRequest {
     public String firstName, lastName, birthday, address, phone, title, encryptedPassword;
+
+    public CreateUserRequest(String firstName, String lastName, String birthday, String address, String phone, String title, String encryptedPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.address = address;
+        this.phone = phone;
+        this.title = title;
+        this.encryptedPassword = encryptedPassword;
+    }
 }

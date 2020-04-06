@@ -14,9 +14,21 @@ import com.microsoft.azure.functions.*;
  * Azure Functions with HTTP Trigger.
  */
 public class Function {
-    UserService userService = new UserService();
-    TaskService taskService = new TaskService();
-    DiningTablesService diningTablesService = new DiningTablesService();
+    private final UserService userService;
+    private final TaskService taskService;
+    private final DiningTablesService diningTablesService;
+
+    public Function(UserService userService, TaskService taskService, DiningTablesService diningTablesService) {
+        this.userService = userService;
+        this.taskService = taskService;
+        this.diningTablesService = diningTablesService;
+    }
+
+    public Function(){
+        this.userService = new UserService();
+        this.taskService = new TaskService();
+        this.diningTablesService = new DiningTablesService();
+    }
 
     @FunctionName("HttpTrigger-Java-Testing")
     public HttpResponseMessage run(

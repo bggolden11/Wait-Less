@@ -9,12 +9,12 @@ import '../../lib/src/models/employee_login_credentials.dart';
 
 void main() {
 
-  test('HTTP Update Task API call should return status code 200 OK for successful task.dart update', () async {
+  test('HTTP Update Task API call should return status code 200 OK for successful task update', () async {
     int statusCode = 0;
     try {
       final Dio httpClient = new HTTPClient().dio;
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Update-Task-User?code=tz6IzOzltKMXwHzljWBglCdjL3Zw7GeZ3VO2xjrpTxckXlz3XMrt8A==",
-          data: {'taskId' : "1001", 'employeeToAssignId' : "2124"});
+          data: {'taskId' : "1003", 'employeeToAssignId' : "2127"});
       statusCode = response.statusCode;
     } on DioError catch (e){
       statusCode = e.response.statusCode;

@@ -183,7 +183,8 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "ORDER BY Task_Date";
+                + "WHERE Task_Date = CONVERT(date, GETDATE()) "
+                + "ORDER BY Task_ID DESC";
         return extractListOfTasks(connection, selectSql);
     }
 

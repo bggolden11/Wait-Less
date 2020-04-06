@@ -183,7 +183,25 @@ public class TaskDBO implements DBO{
         System.out.println("Successful connection - Schema: " + schema);
         String selectSql = "SELECT * "
                 + "FROM Task "
-                + "ORDER BY Task_Date";
+                + "WHERE Task_Date = CONVERT(date, GETDATE()) "
+                + "ORDER BY Task_ID DESC";
+        return extractListOfTasks(connection, selectSql);
+    }
+
+    /**
+     *
+     * @return A list of all completed tasks
+     * @throws SQLException Error connecting to database
+     */
+    public List<Task> getAllCompletedTasks() throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(url);
+        String schema = connection.getSchema();
+        System.out.println("Successful connection - Schema: " + schema);
+        String selectSql = "SELECT * "
+                + "FROM Task "
+                + "WHERE Status = 'Complete'"
+                + "ORDER BY Task_ID DESC";
         return extractListOfTasks(connection, selectSql);
     }
 

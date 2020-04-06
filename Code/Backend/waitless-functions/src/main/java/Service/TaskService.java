@@ -142,7 +142,7 @@ public class TaskService {
   public HttpResponseMessage getTasksStats(HttpRequestMessage<Optional<String>> request) {
     try {
       Map<Date, ArrayList<Task>> datesToTask = new HashMap<>();
-      List<Task> allTasks = taskDbo.getAllTasks();
+      List<Task> allTasks = taskDbo.getAllCompletedTasks();
       allTasks.stream()
           .filter(task->task.completionTime!=null)
           .forEach(

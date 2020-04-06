@@ -2,46 +2,235 @@
 GET http://localhost:7071/api/Get-Statistics-For-Tasks
 
 ###
-## Sample output
 #[
 #  {
-#    "date": "Mar 25, 2020",
-#    "numberOfCompletedTasks": 23,
-#    "averageTimeTaken": "00:04:11"
-#  },
-#  {
-#    "date": "Mar 26, 2020",
+#    "date": "2020-02-17",
 #    "numberOfCompletedTasks": 25,
-#    "averageTimeTaken": "00:03:53"
+#    "averageTimeTaken": "00:04:17"
 #  },
 #  {
-#    "date": "Mar 27, 2020",
-#    "numberOfCompletedTasks": 21,
-#    "averageTimeTaken": "00:04:28"
+#    "date": "2020-02-18",
+#    "numberOfCompletedTasks": 37,
+#    "averageTimeTaken": "00:04:14"
 #  },
 #  {
-#    "date": "Mar 28, 2020",
-#    "numberOfCompletedTasks": 21,
-#    "averageTimeTaken": "00:04:12"
+#    "date": "2020-02-19",
+#    "numberOfCompletedTasks": 28,
+#    "averageTimeTaken": "00:04:57"
 #  },
 #  {
-#    "date": "Mar 29, 2020",
+#    "date": "2020-02-20",
 #    "numberOfCompletedTasks": 19,
 #    "averageTimeTaken": "00:04:25"
 #  },
 #  {
-#    "date": "Mar 30, 2020",
+#    "date": "2020-02-21",
+#    "numberOfCompletedTasks": 21,
+#    "averageTimeTaken": "00:04:42"
+#  },
+#  {
+#    "date": "2020-02-22",
+#    "numberOfCompletedTasks": 23,
+#    "averageTimeTaken": "00:04:14"
+#  },
+#  {
+#    "date": "2020-02-23",
+#    "numberOfCompletedTasks": 35,
+#    "averageTimeTaken": "00:04:09"
+#  },
+#  {
+#    "date": "2020-02-24",
 #    "numberOfCompletedTasks": 26,
-#    "averageTimeTaken": "00:03:48"
+#    "averageTimeTaken": "00:03:41"
 #  },
 #  {
-#    "date": "Mar 31, 2020",
-#    "numberOfCompletedTasks": 19,
-#    "averageTimeTaken": "00:04:34"
+#    "date": "2020-02-25",
+#    "numberOfCompletedTasks": 23,
+#    "averageTimeTaken": "00:03:59"
 #  },
 #  {
-#    "date": "Apr 1, 2020",
-#    "numberOfCompletedTasks": 19,
+#    "date": "2020-02-26",
+#    "numberOfCompletedTasks": 31,
+#    "averageTimeTaken": "00:04:24"
+#  },
+#  {
+#    "date": "2020-02-27",
+#    "numberOfCompletedTasks": 30,
+#    "averageTimeTaken": "00:04:10"
+#  },
+#  {
+#    "date": "2020-02-28",
+#    "numberOfCompletedTasks": 27,
+#    "averageTimeTaken": "00:04:48"
+#  },
+#  {
+#    "date": "2020-02-29",
+#    "numberOfCompletedTasks": 35,
+#    "averageTimeTaken": "00:04:21"
+#  },
+#  {
+#    "date": "2020-03-01",
+#    "numberOfCompletedTasks": 24,
+#    "averageTimeTaken": "00:04:20"
+#  },
+#  {
+#    "date": "2020-03-02",
+#    "numberOfCompletedTasks": 29,
+#    "averageTimeTaken": "00:04:38"
+#  },
+#  {
+#    "date": "2020-03-03",
+#    "numberOfCompletedTasks": 24,
+#    "averageTimeTaken": "00:04:25"
+#  },
+#  {
+#    "date": "2020-03-04",
+#    "numberOfCompletedTasks": 16,
+#    "averageTimeTaken": "00:05:01"
+#  },
+#  {
+#    "date": "2020-03-05",
+#    "numberOfCompletedTasks": 26,
+#    "averageTimeTaken": "00:04:36"
+#  },
+#  {
+#    "date": "2020-03-06",
+#    "numberOfCompletedTasks": 31,
+#    "averageTimeTaken": "00:04:27"
+#  },
+#  {
+#    "date": "2020-03-07",
+#    "numberOfCompletedTasks": 29,
 #    "averageTimeTaken": "00:04:02"
+#  },
+#  {
+#    "date": "2020-03-08",
+#    "numberOfCompletedTasks": 28,
+#    "averageTimeTaken": "00:04:16"
+#  },
+#  {
+#    "date": "2020-03-09",
+#    "numberOfCompletedTasks": 23,
+#    "averageTimeTaken": "00:04:17"
+#  },
+#  {
+#    "date": "2020-03-10",
+#    "numberOfCompletedTasks": 26,
+#    "averageTimeTaken": "00:04:04"
+#  },
+#  {
+#    "date": "2020-03-11",
+#    "numberOfCompletedTasks": 30,
+#    "averageTimeTaken": "00:03:56"
+#  },
+#  {
+#    "date": "2020-03-12",
+#    "numberOfCompletedTasks": 28,
+#    "averageTimeTaken": "00:04:35"
+#  },
+#  {
+#    "date": "2020-03-13",
+#    "numberOfCompletedTasks": 31,
+#    "averageTimeTaken": "00:04:17"
+#  },
+#  {
+#    "date": "2020-03-14",
+#    "numberOfCompletedTasks": 24,
+#    "averageTimeTaken": "00:04:07"
+#  },
+#  {
+#    "date": "2020-03-15",
+#    "numberOfCompletedTasks": 32,
+#    "averageTimeTaken": "00:04:31"
+#  },
+#  {
+#    "date": "2020-03-16",
+#    "numberOfCompletedTasks": 27,
+#    "averageTimeTaken": "00:04:30"
+#  },
+#  {
+#    "date": "2020-03-17",
+#    "numberOfCompletedTasks": 26,
+#    "averageTimeTaken": "00:03:39"
+#  },
+#  {
+#    "date": "2020-03-18",
+#    "numberOfCompletedTasks": 31,
+#    "averageTimeTaken": "00:04:37"
+#  },
+#  {
+#    "date": "2020-03-19",
+#    "numberOfCompletedTasks": 35,
+#    "averageTimeTaken": "00:04:42"
+#  },
+#  {
+#    "date": "2020-03-20",
+#    "numberOfCompletedTasks": 37,
+#    "averageTimeTaken": "00:04:14"
+#  },
+#  {
+#    "date": "2020-03-21",
+#    "numberOfCompletedTasks": 24,
+#    "averageTimeTaken": "00:04:20"
+#  },
+#  {
+#    "date": "2020-03-22",
+#    "numberOfCompletedTasks": 31,
+#    "averageTimeTaken": "00:05:10"
+#  },
+#  {
+#    "date": "2020-03-23",
+#    "numberOfCompletedTasks": 29,
+#    "averageTimeTaken": "00:04:23"
+#  },
+#  {
+#    "date": "2020-03-24",
+#    "numberOfCompletedTasks": 29,
+#    "averageTimeTaken": "00:04:02"
+#  },
+#  {
+#    "date": "2020-03-25",
+#    "numberOfCompletedTasks": 27,
+#    "averageTimeTaken": "00:04:32"
+#  },
+#  {
+#    "date": "2020-03-26",
+#    "numberOfCompletedTasks": 23,
+#    "averageTimeTaken": "00:04:32"
+#  },
+#  {
+#    "date": "2020-03-27",
+#    "numberOfCompletedTasks": 25,
+#    "averageTimeTaken": "00:03:49"
+#  },
+#  {
+#    "date": "2020-03-28",
+#    "numberOfCompletedTasks": 21,
+#    "averageTimeTaken": "00:05:02"
+#  },
+#  {
+#    "date": "2020-03-29",
+#    "numberOfCompletedTasks": 21,
+#    "averageTimeTaken": "00:04:38"
+#  },
+#  {
+#    "date": "2020-03-30",
+#    "numberOfCompletedTasks": 19,
+#    "averageTimeTaken": "00:04:10"
+#  },
+#  {
+#    "date": "2020-03-31",
+#    "numberOfCompletedTasks": 26,
+#    "averageTimeTaken": "00:04:25"
+#  },
+#  {
+#    "date": "2020-04-01",
+#    "numberOfCompletedTasks": 16,
+#    "averageTimeTaken": "00:05:01"
+#  },
+#  {
+#    "date": "2020-04-02",
+#    "numberOfCompletedTasks": 20,
+#    "averageTimeTaken": "01:15:34"
 #  }
 #]

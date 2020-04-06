@@ -7,11 +7,11 @@ import java.sql.Time;
 import java.util.OptionalDouble;
 
 public class TaskStats {
-    public Date date;
+    public String date;
     public int numberOfCompletedTasks;
     public String averageTimeTaken;
 
-    public TaskStats(Date date, int numberOfCompletedTasks, OptionalDouble averageTimeTaken) throws ObtainingAverageException {
+    public TaskStats(String date, int numberOfCompletedTasks, OptionalDouble averageTimeTaken) throws ObtainingAverageException {
         this.date = date;
         this.numberOfCompletedTasks = numberOfCompletedTasks;
         if(averageTimeTaken.isPresent())

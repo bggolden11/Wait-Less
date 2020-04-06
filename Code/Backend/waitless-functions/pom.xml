@@ -298,7 +298,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>docker.io/kkapelon/docker-maven-comparison</name>
+                            <name>docker.io/bggolden11/docker-wait-less</name>
                             <build>
                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile >
                             </build>

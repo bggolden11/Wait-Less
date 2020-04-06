@@ -9,13 +9,13 @@ import '../../lib/src/models/employee_login_credentials.dart';
 
 void main() {
 
-  test('HTTP Update Task API call should return status code 200 OK for successful task update', () async {
+  test('HTTP Get stats API call should return status code 200 OK for retrieval', () async {
     int statusCode = 0;
     try {
       final Dio httpClient = new HTTPClient().dio;
-      final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Update-Task-User?code=tz6IzOzltKMXwHzljWBglCdjL3Zw7GeZ3VO2xjrpTxckXlz3XMrt8A==",
-          data: {'taskId' : "1003", 'employeeToAssignId' : "2127"});
+      final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-Statistics-For-Tasks?code=RGNAyFaYqThnYIdiW/41HVT5X8UDyhXQar0dqJ8RRUiItBFsXDfxCQ==");
       statusCode = response.statusCode;
+      print(response.data.toString());
     } on DioError catch (e){
       statusCode = e.response.statusCode;
     }
@@ -23,3 +23,4 @@ void main() {
   });
 
 }
+

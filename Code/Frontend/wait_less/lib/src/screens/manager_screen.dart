@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_app/src/HTTPClient/http_client.dart';
 import 'package:flutter_app/src/models/dining_table_model.dart';
+import 'package:flutter_app/src/models/stats_model.dart';
 
 import 'registration_screen.dart';
 import 'package:dio/dio.dart';
@@ -15,7 +16,7 @@ import '../toast/toast_message.dart';
 import 'login_screen.dart';
 import 'manager/tableList_screen.dart';
 import 'manager/waiterList_screen.dart';
-import 'manager/emptyTableList_screen.dart';
+import 'manager/all_employee_stats_screen.dart';
 import 'manager/summary_screen.dart';
 import 'registration_screen.dart';
 import 'waiter/sendTask_screen.dart' as sendTaskClass;
@@ -32,11 +33,29 @@ class ManagerPage extends StatefulWidget { // class for Manager Page
   _ManagerPage createState() => _ManagerPage();
 }
 
+Stats stats;
+
+Future getStats() async {
+  try {
+    print('aaa');
+    final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-Statistics-For-Tasks?code=RGNAyFaYqThnYIdiW/41HVT5X8UDyhXQar0dqJ8RRUiItBFsXDfxCQ==");
+    print('bbb');
+    stats = Stats.statsFromJSON('{ "result" : ${response.data.toString()} }');
+    print('ccc');
+    print('Start: ${stats.minDate}, End: ${stats.maxDate}');
+    return stats;
+  } on DioError catch (e){
+    print(e.response.toString());
+    print(e.response.statusCode);
+  }
+  return null;
+}
+
 class _ManagerPage extends State<ManagerPage>{
   // list of all the screens
   int currentPage = 0; // index of the pages in the list
   // list of pages
-  List<Widget> pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+  List<Widget> pagesManager = [TablesList(), StatsScreen(stats), SummaryList(), WaiterList()];
   Widget currentScreen = TablesList();
   final PageStorageBucket bucket = PageStorageBucket(); // to store the current screen a flutter widget look up the documentation
 
@@ -48,17 +67,21 @@ class _ManagerPage extends State<ManagerPage>{
   void initState() {
     super.initState();
     reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
-    getTables();
+    getData();
   }
 
-  void getTables() async {
+  void getData() async {
     diningTableList = await getDiningTables();
-    print('got tables');
+    stats = await getStats();
+    setState(() {
+      pagesManager = [TablesList(),StatsScreen(stats), SummaryList(), WaiterList()];
+    });
+    print('got data');
   }
 
   void reloadScreen() {
     setState(() {
-      pagesManager = [TablesList(),EmptyTablesList(), SummaryList(), WaiterList()];
+      pagesManager = [TablesList(),StatsScreen(stats), SummaryList(), WaiterList()];
     });
   }
 
@@ -88,6 +111,7 @@ class _ManagerPage extends State<ManagerPage>{
 
     ToastMessage.show(message);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +256,7 @@ class _ManagerPage extends State<ManagerPage>{
                       minWidth: 40,
                       onPressed: (){
                         setState(() {
-                          currentScreen = EmptyTablesList();
+                          currentScreen = StatsScreen(stats);
                           currentPage = 1;
                         });
                       },

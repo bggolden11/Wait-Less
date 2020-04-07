@@ -163,7 +163,7 @@ public class TaskDBO implements DBO{
         connection = DriverManager.getConnection(url);
         String schema = connection.getSchema();
         System.out.println("Successful connection - Schema: " + schema);
-        String selectSql = "SELECT * "
+        String selectSql = "SELECT TOP 10 * "
                 + "FROM Task "
                 + "WHERE Employee_ID = " + employeeID + "AND Status = 'Complete' "
                 + "ORDER BY Task_Date ";

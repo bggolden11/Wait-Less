@@ -91,7 +91,6 @@ public class FunctionTest {
         final HttpResponseMessage ret = function.addUser(req, context);
 
         assertEquals(ret.getStatus(), HttpStatus.OK);
-
     }
 
     @Test
@@ -114,7 +113,5 @@ public class FunctionTest {
         final HttpResponseMessage ret = function.addUser(req, context);
 
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
-
     }
-    
 }

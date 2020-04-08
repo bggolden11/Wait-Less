@@ -22,7 +22,7 @@ import java.io.IOException;
 public class HttpRequestIntegrationTest {
 
     @Test
-    public void getAllEmployeesTest() throws IOException {
+    public void getAllEmployees_Test() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Employees");
 
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
@@ -32,7 +32,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void authenticateUserTest() throws IOException {
+    public void authenticateUser_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Authenticate-User");
         StringEntity entity = new StringEntity("{\n" +
@@ -49,7 +49,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void createTask() throws IOException {
+    public void createTask_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Create-Task");
         StringEntity entity = new StringEntity("{\n" +
@@ -68,7 +68,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void createUser() throws IOException {
+    public void AddUser_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Add-User");
         StringEntity entity = new StringEntity("{\n" +
@@ -90,7 +90,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void getActiveTasks() throws IOException {
+    public void getUncompletedTasksBasedOnEmployeeID_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Active-Tasks-Based-On-User");
         StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
@@ -104,7 +104,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void getInactiveTasks() throws IOException {
+    public void getCompletedTasksBasedOnEmployeeID_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Inactive-Tasks-Based-On-User");
         StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
@@ -118,7 +118,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void getUser() throws IOException {
+    public void getEmployee_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Get-Employee");
         StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
@@ -132,7 +132,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void logUserOut() throws IOException {
+    public void logUserOut_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Log-User-Out");
         StringEntity entity = new StringEntity("{ employeeId: \"2130\"}\n");
@@ -146,7 +146,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void updateTaskUser() throws IOException {
+    public void updateTaskUser_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Update-Task-User");
         StringEntity entity = new StringEntity("{\n" +
@@ -163,7 +163,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void FinishTask() throws IOException {
+    public void finishTask_Test() throws IOException {
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost("http://localhost:7071/api/Finish-Task");
         StringEntity entity = new StringEntity("{\n" +
@@ -179,7 +179,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void getAllDiningRoomTables() throws IOException {
+    public void getAllDiningTables_Test() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Dining-Tables");
 
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
@@ -189,7 +189,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void getAllTasks() throws IOException {
+    public void getAllTasks_Test() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-All-Tasks");
 
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
@@ -199,7 +199,7 @@ public class HttpRequestIntegrationTest {
     }
 
     @Test
-    public void getStats() throws IOException {
+    public void getTasksStats_Test() throws IOException {
         HttpUriRequest request = new HttpGet("http://localhost:7071/api/Get-Statistics-For-Tasks");
 
         HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);

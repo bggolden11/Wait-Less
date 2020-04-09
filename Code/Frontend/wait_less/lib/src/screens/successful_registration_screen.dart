@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/employee_register_credentials.dart';
 import 'package:flutter_app/src/screens/login_screen.dart';
+import 'package:flutter_app/src/screens/newlogin.dart';
 import 'package:flutter_app/src/widgets/successful_card.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,7 +70,9 @@ class SuccessfulRegistrationScreen extends StatelessWidget{
                     children: <Widget>[
                       BuildButton(
                         buttonText: 'OK',
-                        onPress: () => Navigator.pushReplacementNamed(context, LoginPage.route),
+                        onPress: () => Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (context) =>
+                                LoginScreen())),
                       )
                     ],
                   ),

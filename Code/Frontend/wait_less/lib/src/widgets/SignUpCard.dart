@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/encrypter/encrypter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/src/widgets/widget_builder.dart';
 
 class SignUpCard extends StatelessWidget {
 
-  Map<String, String> getBody() {
+  Map<String, String> getBody(int password) {
     final String address = '${_streetController.text.toString().trim()} ${_cityController.text.toString().trim()} ${_stateController.text.toString().trim()} ${_zipController.text.toString().trim()}';
     return {
       "firstName": "${_fNameController.text.toString().trim()}",
@@ -12,7 +13,8 @@ class SignUpCard extends StatelessWidget {
       "birthday": "${_bdayController.text.toString().trim()}",
       "address": "$address",
       "phone": "${_phoneController.text.toString().trim()}",
-      "title": "${_roleController.text.toString().trim()}"
+      "title": "${_roleController.text.toString().trim()}",
+      "encryptedPassword" : "${EncrypterUtil.encrypt(password.toString())}"
     };
   }
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +37,14 @@ class _RegistrationScreen extends State<RegistrationScreen> {
 
   void _signUpOnPressed() async {
     String message = 'Error';
-    final body = signUpCard.getBody();
+    int password = Random.secure().nextInt(9999);
+    print(password);
+    final body = signUpCard.getBody(password);
     try{
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Add-User?code=qbKCJmMn8zHVga9kZ/p9Uwh03U9RKOrKGmfUdWL8sMsMOuVZJ12DKQ==",
           data: body);
 
-      final EmployeeRegisterCredentials employeeRegister = EmployeeRegisterCredentials.registerFromJSON(json.decode(response.data.toString()));
+      final EmployeeRegisterCredentials employeeRegister = EmployeeRegisterCredentials.registerFromJSON(json.decode(response.data.toString()), password.toString());
 
       if(response.statusCode == 200) {
         message = 'Sign Up Successful!';

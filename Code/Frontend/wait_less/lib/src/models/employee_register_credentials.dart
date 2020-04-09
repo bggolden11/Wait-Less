@@ -5,9 +5,9 @@ class EmployeeRegisterCredentials {
 
   EmployeeRegisterCredentials({this.employeeId, this.temporaryPassword});
 
-  EmployeeRegisterCredentials.registerFromJSON(Map<String, dynamic> parsedJSON)
+  EmployeeRegisterCredentials.registerFromJSON(Map<String, dynamic> parsedJSON, String password)
       : employeeId = parsedJSON['employeeId'],
-        temporaryPassword = parsedJSON['temporaryPassword'];
+        temporaryPassword = password;
 
 
 }

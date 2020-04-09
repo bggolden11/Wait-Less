@@ -15,7 +15,7 @@ void main() {
       final Dio httpClient = new HTTPClient().dio;
       final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-All-Tasks?code=en6hGfbSMIdl/VPvvYvZrDn0vguXJMiOj1pju5ZycqEFsT3pZw8mkA==");
       statusCode = response.statusCode;
-      print(response.data.toString());
+//      print(response.data.toString());
     } on DioError catch (e){
       statusCode = e.response.statusCode;
     }

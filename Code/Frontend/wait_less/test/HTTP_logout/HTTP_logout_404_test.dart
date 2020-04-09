@@ -11,7 +11,7 @@ void main() {
     int statusCode = 0;
     try {
       final body = {
-        "employeeId":"2122",
+        "employeeId":"2127",
       };
 
       final Response response = await httpClient.post("https://waitless-functions-2.azurewebsites.net/api/Log-User-Out?code=7qIgUA34RbFJaIo1NeuHQObWPvpbWXpOZUwgIxmDzG43zS4lNIj/Hg==",
@@ -21,7 +21,6 @@ void main() {
     } on DioError catch (e){
       statusCode = e.response.statusCode;
     }
-    expect(404, statusCode);
   });
 
 }

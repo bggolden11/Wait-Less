@@ -14,9 +14,21 @@ import com.microsoft.azure.functions.*;
  * Azure Functions with HTTP Trigger.
  */
 public class Function {
-    UserService userService = new UserService();
-    TaskService taskService = new TaskService();
-    DiningTablesService diningTablesService = new DiningTablesService();
+    private final UserService userService;
+    private final TaskService taskService;
+    private final DiningTablesService diningTablesService;
+
+    public Function(UserService userService, TaskService taskService, DiningTablesService diningTablesService) {
+        this.userService = userService;
+        this.taskService = taskService;
+        this.diningTablesService = diningTablesService;
+    }
+
+    public Function(){
+        this.userService = new UserService();
+        this.taskService = new TaskService();
+        this.diningTablesService = new DiningTablesService();
+    }
 
     @FunctionName("HttpTrigger-Java-Testing")
     public HttpResponseMessage run(
@@ -36,7 +48,7 @@ public class Function {
     }
 
     @FunctionName("Add-User")
-    public HttpResponseMessage AddUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<CreateUserRequest>> request,
+    public HttpResponseMessage addUser(@HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<CreateUserRequest>> request,
                                        final ExecutionContext context) {
         CreateUserRequest createUserRequest = request.getBody().orElse(null);
         if (createUserRequest != null)
@@ -49,7 +61,7 @@ public class Function {
     }
 
     @FunctionName("Authenticate-User")
-    public HttpResponseMessage AuthenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
+    public HttpResponseMessage authenticateUser(@HttpTrigger(name = "req", methods = {HttpMethod.GET, HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<UserAuthenticationRequest>> request,
                                                 final ExecutionContext context) {
         String query = request.getQueryParameters().get("name");
         UserAuthenticationRequest userAuthenticationRequest = request.getBody().orElse(null);

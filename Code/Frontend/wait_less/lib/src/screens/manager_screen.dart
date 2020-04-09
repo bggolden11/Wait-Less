@@ -37,12 +37,8 @@ Stats stats;
 
 Future getStats() async {
   try {
-    print('aaa');
     final Response response = await httpClient.get("https://waitless-functions-2.azurewebsites.net/api/Get-Statistics-For-Tasks?code=RGNAyFaYqThnYIdiW/41HVT5X8UDyhXQar0dqJ8RRUiItBFsXDfxCQ==");
-    print('bbb');
     stats = Stats.statsFromJSON('{ "result" : ${response.data.toString()} }');
-    print('ccc');
-    print('Start: ${stats.minDate}, End: ${stats.maxDate}');
     return stats;
   } on DioError catch (e){
     print(e.response.toString());

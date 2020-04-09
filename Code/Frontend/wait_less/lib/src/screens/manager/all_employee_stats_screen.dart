@@ -18,9 +18,6 @@ class StatsScreen extends StatefulWidget { // class for Waiter Page
 
   StatsScreen(Stats s){
     stats = s;
-    print(s?.minDate);
-    print(s?.maxDate);
-    print('--------- ${s?.rangeValues?.start} ${s?.rangeValues?.end}');
   }
 
   @override
@@ -76,11 +73,14 @@ class _StatsScreenState extends State<StatsScreen>{
                   padding: EdgeInsets.only(right: 20),
                   child: SfCartesianChart(
                     margin: const EdgeInsets.all(0),
-                    onPointTapped: (pt) { /// TODO: Harsh, this is when a data point is clicked, call your dialog here
-                      /// Pass in clicked point as a parameter and display the 3 fields that are in the class
+                    onPointTapped: (pt) {
                       DataPoint clickedPoint = stats.graphData[pt.pointIndex];
-                      print(clickedPoint.avgTime);
-
+                      List<String> times = clickedPoint.avgTime.toString().split('.');
+                      String avgTime = '${times[0]}m ${times[1]}s';
+                      showDialog(
+                          context: context,
+                          builder: (context) => CustomDialog(avg: avgTime, taskCount: clickedPoint.taskCount, date: DateFormat.yMMMd().format(clickedPoint.date),)
+                      );
                     },
                     primaryXAxis: DateTimeAxis(
                       title: AxisTitle(text: 'Date'),
@@ -197,7 +197,112 @@ class _StatsScreenState extends State<StatsScreen>{
   }
 }
 
+class CustomDialog extends StatelessWidget{ // this is a custom dialog box and for adding anything in the popup edit this
+  String avg;
+  int taskCount;
+  String date;
 
+  CustomDialog({this.date, this.avg, this.taskCount});
+  @override
+  Widget build(BuildContext context){
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: dialogContent(context),
+
+    );
+  }
+  dialogContent(BuildContext context){
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(
+              top: 200,
+              bottom: 16,
+              left: 16,
+              right: 16
+          ),
+          margin: EdgeInsets.only(top: 16),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(17),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black87,
+                  blurRadius: 10.0,
+                  offset: Offset(0.0, 10.0),
+
+                )
+              ]
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('Completed Tasks: $taskCount',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w700,
+
+                ),
+
+              ),
+              SizedBox(height: 16.0),
+              Text('Average Completion Time: $avg',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),),
+              SizedBox(height: 24.0),
+              Text('Date of Tasks: $date',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),),
+              SizedBox(height: 24.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+
+                  RaisedButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0),
+
+                    ),
+                    textColor: Colors.white,
+                    color: Colors.red,
+                    padding: const EdgeInsets.all(8.0),
+                    child: new Text(
+                      "Close",
+                    ),
+                  ),
+
+                ],
+              ),
+            ],
+          ),
+
+        ),
+        Positioned(
+          top: 0,
+          left: 16,
+          right: 16,
+          child: CircleAvatar(
+            backgroundColor: Colors.blue,
+            radius: 100,
+            backgroundImage: AssetImage('assets/completed.gif'),
+          ),
+        )
+      ],
+    );
+  }
+}
 
 
 

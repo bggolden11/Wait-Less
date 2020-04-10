@@ -5,6 +5,7 @@ import Requests.CreateUserRequest;
 import Requests.FinishTaskRequest;
 import Requests.GetEmployeeRequest;
 import Requests.UserAuthenticationRequest;
+import Requests.UpdateUserToTaskRequest;
 import Response.CreateUserResponse;
 import Service.DiningTablesService;
 import Service.TaskService;
@@ -283,6 +284,48 @@ public class FunctionTest {
         final ExecutionContext context = mock(ExecutionContext.class);
 
         final HttpResponseMessage ret = function.finishTask(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void updateTaskUser_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<UpdateUserToTaskRequest>> req = mock(HttpRequestMessage.class);
+
+        final UpdateUserToTaskRequest updateUserToTaskRequest =
+                new UpdateUserToTaskRequest("1001", "2121");
+        doReturn(Optional.of(updateUserToTaskRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(taskService).updateTaskUser(req, updateUserToTaskRequest.taskId, updateUserToTaskRequest.employeeToAssignId);
+
+        final HttpResponseMessage ret = function.updateTaskUser(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
+
+    @Test
+    public void updateTaskUser_improper() throws Exception {
+
+        final HttpRequestMessage<Optional<UpdateUserToTaskRequest>> req = mock(HttpRequestMessage.class);
+
+        doReturn(Optional.empty()).when(req).getBody();
+
+        doAnswer(new Answer<HttpResponseMessage.Builder>() {
+            @Override
+            public HttpResponseMessage.Builder answer(InvocationOnMock invocation) {
+                HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+                return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+            }
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        final HttpResponseMessage ret = function.updateTaskUser(req, context);
 
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }

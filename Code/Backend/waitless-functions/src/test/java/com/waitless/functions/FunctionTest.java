@@ -329,4 +329,23 @@ public class FunctionTest {
 
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    public void getAllEmployees_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+
+        final String getAllEmployeesRequest = "1001, 1002";
+        doReturn(Optional.of(getAllEmployeesRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(userService).getAllEmployees(req);
+
+        final HttpResponseMessage ret = function.getAllEmployees(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
 }

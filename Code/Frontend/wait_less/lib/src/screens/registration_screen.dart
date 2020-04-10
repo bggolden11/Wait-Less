@@ -158,11 +158,34 @@ class _RegistrationScreen extends State<RegistrationScreen> {
                       BuildButton(
                         buttonText: 'Sign Up',
                         onPress: _signUpOnPressed,
-                      )
+                      ),
+                      SizedBox(
+                        width: 25,
+                      ),
+                      RaisedButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        shape: RoundedRectangleBorder(
+
+                          borderRadius: new BorderRadius.circular(5.0),
+
+                        ),
+                        textColor: Colors.white,
+                        color: Colors.red,
+                        padding: const EdgeInsets.all(17.0),
+                        child: new Text(
+                          "Close",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
-                    height: ScreenUtil().setHeight(40),
+                    height: ScreenUtil().setHeight(12),
                   ),
 //                  Row(
 //                    mainAxisAlignment: MainAxisAlignment.center,

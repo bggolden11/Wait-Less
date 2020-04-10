@@ -453,4 +453,23 @@ public class FunctionTest {
 
         assertEquals(ret.getStatus(), HttpStatus.OK);
     }
+
+    @Test
+    public void getAllTasks_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+
+        final String getAllTasksRequest = "1001";
+        doReturn(Optional.of(getAllTasksRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(taskService).getAllTasks(req);
+
+        final HttpResponseMessage ret = function.getAllTasks(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
 }

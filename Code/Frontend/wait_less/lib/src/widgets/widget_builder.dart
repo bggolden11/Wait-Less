@@ -44,7 +44,6 @@ class BuildButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onLongPress: onPress,
       child: Container(
         width: ScreenUtil().setWidth(330),
         height: ScreenUtil().setHeight(100),
@@ -63,7 +62,7 @@ class BuildButton extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () {},
+            onTap: onPress, // this is for the
             child: Center(
               child: Text(buttonText,
                   style: TextStyle(

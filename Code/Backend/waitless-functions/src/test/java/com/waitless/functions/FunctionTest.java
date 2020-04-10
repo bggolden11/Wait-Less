@@ -1,5 +1,6 @@
 package com.waitless.functions;
 
+import Requests.CreateTaskRequest;
 import Requests.CreateUserRequest;
 import Requests.GetEmployeeRequest;
 import Requests.UserAuthenticationRequest;
@@ -197,6 +198,48 @@ public class FunctionTest {
         final ExecutionContext context = mock(ExecutionContext.class);
 
         final HttpResponseMessage ret = function.getEmployee(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void createTask_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<CreateTaskRequest>> req = mock(HttpRequestMessage.class);
+
+        final CreateTaskRequest createTaskRequest =
+                new CreateTaskRequest("2121", "Please work", "PLEAH", "A1");
+        doReturn(Optional.of(createTaskRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(taskService).createTask(req, createTaskRequest.employeeId, createTaskRequest.title, createTaskRequest.description, createTaskRequest.table);
+
+        final HttpResponseMessage ret = function.createTask(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
+
+    @Test
+    public void createTask_improper() throws Exception {
+
+        final HttpRequestMessage<Optional<CreateTaskRequest>> req = mock(HttpRequestMessage.class);
+
+        doReturn(Optional.empty()).when(req).getBody();
+
+        doAnswer(new Answer<HttpResponseMessage.Builder>() {
+            @Override
+            public HttpResponseMessage.Builder answer(InvocationOnMock invocation) {
+                HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+                return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+            }
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        final HttpResponseMessage ret = function.createTask(req, context);
 
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }

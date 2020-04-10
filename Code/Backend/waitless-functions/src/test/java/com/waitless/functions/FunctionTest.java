@@ -1,6 +1,7 @@
 package com.waitless.functions;
 
 import Requests.CreateUserRequest;
+import Requests.GetEmployeeRequest;
 import Requests.UserAuthenticationRequest;
 import Response.CreateUserResponse;
 import Service.DiningTablesService;
@@ -154,6 +155,48 @@ public class FunctionTest {
         final ExecutionContext context = mock(ExecutionContext.class);
 
         final HttpResponseMessage ret = function.authenticateUser(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void getEmployee_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<GetEmployeeRequest>> req = mock(HttpRequestMessage.class);
+
+        final GetEmployeeRequest getEmployeeRequest =
+                new GetEmployeeRequest("2124");
+        doReturn(Optional.of(getEmployeeRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(userService).getUser(req, getEmployeeRequest.employeeId);
+
+        final HttpResponseMessage ret = function.getEmployee(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
+
+    @Test
+    public void getEmployee_improper() throws Exception {
+
+        final HttpRequestMessage<Optional<GetEmployeeRequest>> req = mock(HttpRequestMessage.class);
+
+        doReturn(Optional.empty()).when(req).getBody();
+
+        doAnswer(new Answer<HttpResponseMessage.Builder>() {
+            @Override
+            public HttpResponseMessage.Builder answer(InvocationOnMock invocation) {
+                HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+                return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+            }
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        final HttpResponseMessage ret = function.getEmployee(req, context);
 
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }

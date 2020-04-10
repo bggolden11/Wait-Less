@@ -4,6 +4,7 @@ import Requests.CreateTaskRequest;
 import Requests.CreateUserRequest;
 import Requests.FinishTaskRequest;
 import Requests.GetEmployeeRequest;
+import Requests.LogEmployeeOutRequest;
 import Requests.UserAuthenticationRequest;
 import Requests.UpdateUserToTaskRequest;
 import Response.CreateUserResponse;
@@ -347,5 +348,47 @@ public class FunctionTest {
         final HttpResponseMessage ret = function.getAllEmployees(req, context);
 
         assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
+
+    @Test
+    public void logUserOut_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<LogEmployeeOutRequest>> req = mock(HttpRequestMessage.class);
+
+        final LogEmployeeOutRequest logEmployeeOutRequest =
+                new LogEmployeeOutRequest("2121");
+        doReturn(Optional.of(logEmployeeOutRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(userService).logUserOut(req, logEmployeeOutRequest.employeeId);
+
+        final HttpResponseMessage ret = function.logUserOut(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
+
+    @Test
+    public void logUserOut_improper() throws Exception {
+
+        final HttpRequestMessage<Optional<LogEmployeeOutRequest>> req = mock(HttpRequestMessage.class);
+
+        doReturn(Optional.empty()).when(req).getBody();
+
+        doAnswer(new Answer<HttpResponseMessage.Builder>() {
+            @Override
+            public HttpResponseMessage.Builder answer(InvocationOnMock invocation) {
+                HttpStatus status = (HttpStatus) invocation.getArguments()[0];
+                return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
+            }
+        }).when(req).createResponseBuilder(any(HttpStatus.class));
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        final HttpResponseMessage ret = function.logUserOut(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }
 }

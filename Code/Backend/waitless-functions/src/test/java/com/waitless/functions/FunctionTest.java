@@ -435,4 +435,22 @@ public class FunctionTest {
         assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    public void getAllDiningTables_proper() throws Exception {
+
+        final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+
+        final String getAllDiningTablesRequest = "1001";
+        doReturn(Optional.of(getAllDiningTablesRequest)).when(req).getBody();
+
+        HttpResponseMessage message = new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(HttpStatus.OK).body(new CreateUserResponse("1234")).build();
+
+        final ExecutionContext context = mock(ExecutionContext.class);
+
+        doReturn(message).when(diningTablesService).getAllDiningTables(req);
+
+        final HttpResponseMessage ret = function.getAllDiningTables(req, context);
+
+        assertEquals(ret.getStatus(), HttpStatus.OK);
+    }
 }

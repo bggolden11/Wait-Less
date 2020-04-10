@@ -73,7 +73,7 @@ public class FunctionTest {
     }
 
     @Test
-    public void testAddUserProperInput() throws Exception {
+    public void addUser_proper() throws Exception {
 
         final HttpRequestMessage<Optional<CreateUserRequest>> req = mock(HttpRequestMessage.class);
 
@@ -94,7 +94,7 @@ public class FunctionTest {
     }
 
     @Test
-    public void testAddUserImproperInput() throws Exception {
+    public void addUser_improper() throws Exception {
 
         final HttpRequestMessage<Optional<CreateUserRequest>> req = mock(HttpRequestMessage.class);
 

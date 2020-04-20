@@ -35,7 +35,7 @@ class _WaiterPage extends State<WaiterPage>{
   @override
   void initState() {
     super.initState();
-    reloadTimer = Timer.periodic(Duration(seconds: 5), (Timer t) => this.reloadScreen());
+    reloadTimer = Timer.periodic(Duration(seconds: 1), (Timer t) => this.reloadScreen());
     getTables();
   }
 

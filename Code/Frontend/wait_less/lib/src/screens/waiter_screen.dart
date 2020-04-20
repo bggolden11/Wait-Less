@@ -150,36 +150,53 @@ class _WaiterPage extends State<WaiterPage>{
       ),
       body: PageView.builder(itemCount: pagesTasks.length, // page view builder will run for each item in the list, edit the function for changes
       itemBuilder: (context, index) => pagesTasks[index],),
-      floatingActionButton: SpeedDial( // this is the floating point button for creating tasks
-        backgroundColor: Colors.red, // sets the background color
-        closeManually: false, // toggle to switch between manual closing or on tap
-        overlayColor: Colors.redAccent, // change the color to make the background have an overlay
-        curve: Curves.bounceIn, // for animations of the labels
-        overlayOpacity: 0.4, // overlay opacity edit it to make it more transparent
-        animatedIcon: AnimatedIcons.menu_close, // icon for the button
-        children: [
-          SpeedDialChild( // options each will be a child
-
-            child: Icon(Icons.assignment), // icon for create task
-            label: "Create Task",
-            onTap: (){
-              showDialog(context: context,
-              builder: (BuildContext context){
-                return Dialog(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        child: Icon(Icons.add),
+        onPressed: (){ showDialog(context: context,
+            builder: (BuildContext context){
+              return Dialog(
                   child: CreateTask(
                     diningTableList: diningTableList,
                     onAddPressed: (Task t) {
                       createTask(t);
                     }),
-                  shape: RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12))
-                  ),
-                );
-              });
-            }
-          )
-        ],
+                ),
+              );
+            });},
       ),
+//      SpeedDial( // this is the floating point button for creating tasks
+//        backgroundColor: Colors.red, // sets the background color
+//        closeManually: false, // toggle to switch between manual closing or on tap
+//        overlayColor: Colors.redAccent, // change the color to make the background have an overlay
+//        curve: Curves.bounceIn, // for animations of the labels
+//        overlayOpacity: 0.4, // overlay opacity edit it to make it more transparent
+//        animatedIcon: AnimatedIcons.menu_close, // icon for the button
+//        children: [
+//          SpeedDialChild( // options each will be a child
+//
+//            child: Icon(Icons.assignment), // icon for create task
+//            label: "Create Task",
+//            onTap: (){
+//              showDialog(context: context,
+//              builder: (BuildContext context){
+//                return Dialog(
+//                  child: CreateTask(
+//                    diningTableList: diningTableList,
+//                    onAddPressed: (Task t) {
+//                      createTask(t);
+//                    }),
+//                  shape: RoundedRectangleBorder(
+//                    borderRadius: BorderRadius.all(Radius.circular(12))
+//                  ),
+//                );
+//              });
+//            }
+//          )
+//        ],
+//      ),
 
     );
   }

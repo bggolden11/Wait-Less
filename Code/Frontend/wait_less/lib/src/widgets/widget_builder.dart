@@ -45,7 +45,7 @@ class BuildButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        width: ScreenUtil().setWidth(330),
+        width: ScreenUtil().setWidth(230),
         height: ScreenUtil().setHeight(100),
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [

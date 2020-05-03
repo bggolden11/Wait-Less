@@ -12,3 +12,5 @@ Finished the project and added all required documents
 All the mobile application files are inside the frontend folder
 
 All of the server files are in the backend folder
+
+There is a single SQL script that builds the SQL tables and populates them with all the sample data

@@ -6,3 +6,5 @@ Repository for CS 440 Group 22
 ![SQL build](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/SQL%20build/badge.svg)
 
 ![mvn test CI](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/mvn%20test%20CI/badge.svg)
+
+![Docker CI](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/Docker%20CI/badge.svg)

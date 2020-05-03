@@ -10,3 +10,9 @@ Repository for CS 440 Group 22
 ![mvn test CI](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/mvn%20test%20CI/badge.svg)
 
 ![Docker CI](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/Docker%20CI/badge.svg)
+
+Finished the full project:
+
+Coding project is currently running as expected
+
+Dev project has all the files needed in its folder

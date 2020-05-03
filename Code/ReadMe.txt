@@ -5,3 +5,6 @@ It has a clear meaningful title describing THIS scenario for THIS project.
 The group number and members are clearly listed.
 It clearly describes what one expects to see when the release is demonstrated.
 Please follow a similar format when writing your scenarios. ( 2 pages, margins, fonts, etc. )
+
+
+Finished the project and added all required documents

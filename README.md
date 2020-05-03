@@ -11,8 +11,10 @@ Repository for CS 440 Group 22
 
 ![Docker CI](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/Docker%20CI/badge.svg)
 
-Finished the full project:
+* Finished the full project:
 
-Coding project is currently running as expected
+  * Coding project is currently running as expected
 
-Dev project has all the files needed in its folder
+  * Dev project has all the files needed in its folder
+
+![](https://media.giphy.com/media/jKaFXbKyZFja0/giphy.gif)

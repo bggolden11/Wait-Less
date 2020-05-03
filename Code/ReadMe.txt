@@ -10,6 +10,7 @@ Please follow a similar format when writing your scenarios. ( 2 pages, margins, 
 Finished the project and added all required documents
 
 All the mobile application files are inside the frontend folder
+  The application requires Flutter to be installed on your system
 
 All of the server files are in the backend folder
 

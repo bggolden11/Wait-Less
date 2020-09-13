@@ -34,7 +34,7 @@ Running locally allows you to access all api through local host
 
 ### Manual Run:
   1. Move into the backend directory
-      * ``````Group-22-Spring-2020/Code/Backend/waitless-functions```
+      * ```Group-22-Spring-2020/Code/Backend/waitless-functions```
   2. Package the application 
       * ```mvn clean package```
   3. Run the application 

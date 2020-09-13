@@ -17,7 +17,7 @@
 
 
 ## Introduction
-Wait-Less is an Android/IOS application that allows users to easily manage their resturatants. The frontend of the application is built using[flutter](https://flutter.dev/) and the backend is built using Java and is running on Azure's serverless platform [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) along with MSSQL as the database. The CI/CD was built using [Github Actions](https://github.com/features/actions).
+Wait-Less is an Android/IOS application that allows users to easily manage their resturatants. The frontend of the application is built using [flutter](https://flutter.dev/) and the backend is built using Java and is running on Azure's serverless platform [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) along with MSSQL as the database. The CI/CD was built using [Github Actions](https://github.com/features/actions).
 
 ## How To Run Backend Locally
 Running locally allows you to access all api through local host

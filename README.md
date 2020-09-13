@@ -7,9 +7,9 @@
         
 <p align="center"><img src="demo.gif" width="250" height="250"/></p>
 
+## Introduction
+Wait-Less is an Android/IOS application that allows users to easily manage their resturatants. The frontend of the application is built using [flutter](https://flutter.dev/) and the backend is built using Java and is running on Azure's serverless platform [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) along with MSSQL as the database. The CI/CD was built using [Github Actions](https://github.com/features/actions).
 
-
-  - [Introduction](#introduction)
   - [How To Run Backend Locally](#how-to-run-backend-locally)
     - [Requirements](#requirements)
       - [Option 1 Manual Run](#option-1-manual-run)
@@ -18,9 +18,6 @@
     - [Docker Run](#docker-run)
   - [Demo](#demo)
 
-
-## Introduction
-Wait-Less is an Android/IOS application that allows users to easily manage their resturatants. The frontend of the application is built using [flutter](https://flutter.dev/) and the backend is built using Java and is running on Azure's serverless platform [Azure Functions](https://azure.microsoft.com/en-us/services/functions/) along with MSSQL as the database. The CI/CD was built using [Github Actions](https://github.com/features/actions).
 
 ## How To Run Backend Locally
 Running locally allows you to access all api through local host
@@ -55,4 +52,8 @@ Running locally allows you to access all api through local host
 
 ## Demo: 
 <p align="center"><img src="demo.gif" width="500" height="500"/></p>
+
+
+
+<p align="center"><img src="demo2.gif" width="500" height="500"/></p>
 

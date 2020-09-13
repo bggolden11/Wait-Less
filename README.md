@@ -33,7 +33,8 @@ Running locally allows you to access all api through local host
 * [Docker](https://www.docker.com/products/docker-desktop)
 
 ### Manual Run:
-  1. Move into the ```Group-22-Spring-2020/Code/Backend/waitless-functions``` directory
+  1. Move into the backend directory
+      * ``````Group-22-Spring-2020/Code/Backend/waitless-functions```
   2. Package the application 
       * ```mvn clean package```
   3. Run the application 
@@ -41,8 +42,8 @@ Running locally allows you to access all api through local host
 
 ### Docker Run:
   1. Ensure Docker Desktop is Running
-  2. Move into the 
-      * ```Group-22-Spring-2020/Code/Backend/waitless-functions``` directory
+  2. Move into the backend directory
+      * ```cd Group-22-Spring-2020/Code/Backend/waitless-functions```
   3. Build and tag the docker container 
       * ```docker build -t waitless-app .```
   4. Start the container 

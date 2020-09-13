@@ -5,6 +5,9 @@
   <img src="https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/SQL%20build/badge.svg" />
 </p>                   
         
+<p align="center"><img src="demo.gif" width="250" height="250"/></p>
+
+
 
   - [Introduction](#introduction)
   - [How To Run Backend Locally](#how-to-run-backend-locally)
@@ -51,5 +54,5 @@ Running locally allows you to access all api through local host
       * ```docker run -p 7071:7071 waitless-app:latest ```
 
 ## Demo: 
-<img src="demo.gif" width="350" height="350"/>
+<p align="center"><img src="demo.gif" width="500" height="500"/></p>
 

@@ -1,5 +1,8 @@
-# Wait-less
-
+# <div align="center"><b>Wait-Less</b></div>
+<p align="center">
+  <img src="https://github.com/bggolden11/Group-22-Spring-2020/workflows/Docker%20CI/badge.svg alt="Docker CI"/>
+</p>                         
+                         
 ![Docker CI](https://github.com/bggolden11/Group-22-Spring-2020/workflows/Docker%20CI/badge.svg)
 ![azure deploy CI](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/azure%20deploy%20CI/badge.svg)
 ![SQL build](https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/SQL%20build/badge.svg)

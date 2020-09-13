@@ -5,6 +5,9 @@
   <img src="https://github.com/cs-440-at-uic/Group-22-Spring-2020/workflows/SQL%20build/badge.svg" />
 </p>                   
         
+<p align="center"><img src="demo.gif" width="250" height="250"/></p>
+
+
 
   - [Introduction](#introduction)
   - [How To Run Backend Locally](#how-to-run-backend-locally)
@@ -33,7 +36,8 @@ Running locally allows you to access all api through local host
 * [Docker](https://www.docker.com/products/docker-desktop)
 
 ### Manual Run:
-  1. Move into the ```Group-22-Spring-2020/Code/Backend/waitless-functions``` directory
+  1. Move into the backend directory
+      * ```Group-22-Spring-2020/Code/Backend/waitless-functions```
   2. Package the application 
       * ```mvn clean package```
   3. Run the application 
@@ -41,8 +45,8 @@ Running locally allows you to access all api through local host
 
 ### Docker Run:
   1. Ensure Docker Desktop is Running
-  2. Move into the 
-      * ```Group-22-Spring-2020/Code/Backend/waitless-functions``` directory
+  2. Move into the backend directory
+      * ```cd Group-22-Spring-2020/Code/Backend/waitless-functions```
   3. Build and tag the docker container 
       * ```docker build -t waitless-app .```
   4. Start the container 
@@ -50,5 +54,5 @@ Running locally allows you to access all api through local host
       * ```docker run -p 7071:7071 waitless-app:latest ```
 
 ## Demo: 
-<img src="demo.gif" width="350" height="350"/>
+<p align="center"><img src="demo.gif" width="500" height="500"/></p>
 
